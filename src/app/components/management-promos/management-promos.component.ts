@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./management-promos.component.css']
 })
 export class ManagementPromosComponent {
-
+  video:string = "../../../assets/videos/video_prueba - copia.mp4"
 }

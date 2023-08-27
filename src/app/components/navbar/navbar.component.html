@@ -3,9 +3,14 @@
     <img src="../../../assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
-    <ul class="flex-center">
+    <ul class="flex-center" *ngIf="!isLogged">
       <li><a href="#">Iniciar sesion</a></li>
-      <li><a href="#">Cerrar sesion</a></li>
+    </ul>
+    <ul class="flex-center" *ngIf="isLogged">
+      <li>Nombre</li>
+      <li>Area</li>
+      <li>Rut</li>
+      <li>Cerrar sesion</li>
     </ul>
   </div>
   <div class="navbar__search flex-center">
