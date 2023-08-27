@@ -1,0 +1,63 @@
+section {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  flex-flow: row nowrap;
+}
+
+#screens {
+  width: 25%;
+  height: 100%;
+  flex-flow: column nowrap;
+}
+
+li {
+  height: 500px;
+  border: 1px solid black;
+  color: aliceblue;
+  font-size: 1rem;
+}
+
+#screens #addScreen {
+  width: 100%;
+  height: 50%;
+  flex-flow: column nowrap;
+  justify-content: start;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#addScreen::-webkit-scrollbar {
+  display: none;
+}
+
+#screens #screenAdded {
+  width: 100%;
+  height: 50%;
+  flex-flow: column nowrap;
+  justify-content: start;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#screenAdded::-webkit-scrollbar {
+  display: none;
+}
+
+#config {
+  width: 75%;
+  height: 100%;
+  flex-flow: column nowrap;
+}
+
+#config #preview {
+  width: 100%;
+  height: 70%;
+}
+
+#config #details {
+  width: 100%;
+  height: 30%;
+}

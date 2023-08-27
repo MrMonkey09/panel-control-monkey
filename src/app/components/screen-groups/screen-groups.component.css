@@ -1,0 +1,17 @@
+aside {
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  border-radius: 15px;
+}
+
+aside::-webkit-scrollbar {
+  display: none;
+}
+
+aside ul li {
+  height: 10%;
+  border: 1px solid black;
+  color: aliceblue;
+  font-size: 1.4rem;
+}

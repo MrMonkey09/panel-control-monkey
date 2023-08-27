@@ -1,0 +1,59 @@
+main {
+  width: 100vw;
+  height: 100vh;
+}
+
+form {
+  width: 30vw;
+  height: 35vh;
+  border-radius: 20% 20% 20% 20%;
+  flex-flow: column nowrap;
+  background-color: #ff7a00;
+  rotate: -15deg;
+}
+
+form #user,
+form #pass {
+  width: 80%;
+  height: auto;
+  text-align: center;
+  border: none;
+  font-size: 1.7rem;
+  background-color: transparent;
+  color: aliceblue;
+  text-decoration: underline;
+}
+
+form #user:focus-visible,
+form #pass:focus-visible {
+  outline: none;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: aliceblue;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: aliceblue;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: alicebluered;
+}
+
+form #submit {
+  width: 28%;
+  height: 25%;
+  background-color: black;
+  border-radius: 10%;
+  /* position: fixed;
+  bottom: 4.2%; */
+}
+
+form button img {
+  width: 100%;
+  height: auto;
+}

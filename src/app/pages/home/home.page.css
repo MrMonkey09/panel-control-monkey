@@ -1,0 +1,17 @@
+main {
+    margin-top: 7vh;
+    width: 100vw;
+    height: 93vh;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+app-screen-groups {
+    width: 20%;
+    height: 95%;
+}
+
+app-management-promos {
+    width: 75%;
+    height: 95%;
+}
