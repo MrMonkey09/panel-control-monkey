@@ -1,93 +1,15 @@
 <section class="flex-center border-box bg-primary">
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
-      <li class="full-area flex-center">Barra Jockers</li>
-      <li class="full-area flex-center">Escenario Jockers</li>
-      <li class="full-area flex-center">Barra Railway</li>
-      <li class="full-area flex-center">Escenario Railway</li>
-      <li class="full-area flex-center">Grupo de Pantallas 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
-      <li class="full-area flex-center">Pantalla 1</li>
-      <li class="full-area flex-center">Pantalla 2</li>
-      <li class="full-area flex-center">Pantalla 3</li>
-      <li class="full-area flex-center">Pantalla 4</li>
-      <li class="full-area flex-center">Pantalla 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
-      <li class="full-area flex-center">Pantalla 1</li>
-      <li class="full-area flex-center">Pantalla 2</li>
-      <li class="full-area flex-center">Pantalla 3</li>
-      <li class="full-area flex-center">Pantalla 4</li>
-      <li class="full-area flex-center">Pantalla 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
-      <li class="full-area flex-center">Pantalla 1</li>
-      <li class="full-area flex-center">Pantalla 2</li>
-      <li class="full-area flex-center">Pantalla 3</li>
-      <li class="full-area flex-center">Pantalla 4</li>
-      <li class="full-area flex-center">Pantalla 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
+      <li *ngFor="let groupScreen of groupsScreen" class="full-area flex-center">{{ groupScreen.name }}</li>
     </ul>
     <ul class="flex-center" id="screenAdded">
-      <li class="full-area flex-center">Barra Jockers</li>
-      <li class="full-area flex-center">Escenario Jockers</li>
-      <li class="full-area flex-center">Barra Railway</li>
-      <li class="full-area flex-center">Escenario Railway</li>
-      <li class="full-area flex-center">Grupo de Pantallas 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
-      <li class="full-area flex-center">Pantalla 1</li>
-      <li class="full-area flex-center">Pantalla 2</li>
-      <li class="full-area flex-center">Pantalla 3</li>
-      <li class="full-area flex-center">Pantalla 4</li>
-      <li class="full-area flex-center">Pantalla 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
-      <li class="full-area flex-center">Pantalla 1</li>
-      <li class="full-area flex-center">Pantalla 2</li>
-      <li class="full-area flex-center">Pantalla 3</li>
-      <li class="full-area flex-center">Pantalla 4</li>
-      <li class="full-area flex-center">Pantalla 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
-      <li class="full-area flex-center">Pantalla 1</li>
-      <li class="full-area flex-center">Pantalla 2</li>
-      <li class="full-area flex-center">Pantalla 3</li>
-      <li class="full-area flex-center">Pantalla 4</li>
-      <li class="full-area flex-center">Pantalla 5</li>
-      <li class="full-area flex-center">Pantalla 6</li>
-      <li class="full-area flex-center">Pantalla 7</li>
-      <li class="full-area flex-center">Pantalla 8</li>
-      <li class="full-area flex-center">Pantalla 9</li>
-      <li class="full-area flex-center">Pantalla 10</li>
+      <li *ngFor="let groupScreen of groupsScreen" class="full-area flex-center">{{ groupScreen.name }}</li>
     </ul>
   </div>
   <div class="flex-center" id="config">
     <div class="flex-center" id="preview">
-      <video class="full-area" autoplay loop>
+      <video class="full-area" controls autoplay loop>
         <source
           src="{{video}}"
           type="video/mp4"

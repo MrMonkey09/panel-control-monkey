@@ -1,20 +1,27 @@
 <main class="flex-center">
-  <form class="flex-center" action="" method="get">
+  <form class="flex-center" (ngSubmit)="loggIn()">
     <br>
     <input
       type="text"
       name="user"
       id="user"
+      #user="ngModel"
+      [(ngModel)]="form.email"
       placeholder="Ingrese su usuario..."
     /><br />
     <input
       type="password"
       name="pass"
       id="pass"
+      #pass="ngModel"
+      [(ngModel)]="form.pass"
       placeholder="Ingrese su Contraseña..."
     /> <br>
     <button type="submit" class="flex-center" id="submit">
       <img src="../../../assets/images/logo_2.png" alt="" />
+    </button>
+    <button type="button" (click)="apiAccess()">
+      prueba
     </button>
   </form>
 </main>

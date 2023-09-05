@@ -3,17 +3,16 @@
     <img src="../../../assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
-    <ul class="flex-center" *ngIf="!isLogged">
-      <li><a href="#">Iniciar sesion</a></li>
+    <ul class="flex-center" *ngIf="!user.authenticated">
+      <li>Iniciar sesion</li>
     </ul>
-    <ul class="flex-center" *ngIf="isLogged">
-      <li>Nombre</li>
-      <li>Area</li>
-      <li>Rut</li>
-      <li>Cerrar sesion</li>
+    <ul class="flex-center" *ngIf="user.authenticated">
+      <li>{{user.name}}</li>
+      <li>{{user.department.name}}</li>
+      <li>{{user.rut}}</li>
     </ul>
   </div>
   <div class="navbar__search flex-center">
-    <i class="bi bi-binoculars"></i>
+    <i>Cerrar sesion</i>
   </div>
 </nav>

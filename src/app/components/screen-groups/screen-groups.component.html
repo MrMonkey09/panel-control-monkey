@@ -1,44 +1,7 @@
 <aside class="full-area border-box bg-primary">
-    <ul class="full-area">
-        <li class="full-area flex-center">Barra Jockers</li>
-        <li class="full-area flex-center">Escenario Jockers</li>
-        <li class="full-area flex-center">Barra Railway</li>
-        <li class="full-area flex-center">Escenario Railway</li>
-        <li class="full-area flex-center">Grupo de Pantallas 5</li>
-        <li class="full-area flex-center">Pantalla 6</li>
-        <li class="full-area flex-center">Pantalla 7</li>
-        <li class="full-area flex-center">Pantalla 8</li>
-        <li class="full-area flex-center">Pantalla 9</li>
-        <li class="full-area flex-center">Pantalla 10</li>
-        <li class="full-area flex-center">Pantalla 1</li>
-        <li class="full-area flex-center">Pantalla 2</li>
-        <li class="full-area flex-center">Pantalla 3</li>
-        <li class="full-area flex-center">Pantalla 4</li>
-        <li class="full-area flex-center">Pantalla 5</li>
-        <li class="full-area flex-center">Pantalla 6</li>
-        <li class="full-area flex-center">Pantalla 7</li>
-        <li class="full-area flex-center">Pantalla 8</li>
-        <li class="full-area flex-center">Pantalla 9</li>
-        <li class="full-area flex-center">Pantalla 10</li>
-        <li class="full-area flex-center">Pantalla 1</li>
-        <li class="full-area flex-center">Pantalla 2</li>
-        <li class="full-area flex-center">Pantalla 3</li>
-        <li class="full-area flex-center">Pantalla 4</li>
-        <li class="full-area flex-center">Pantalla 5</li>
-        <li class="full-area flex-center">Pantalla 6</li>
-        <li class="full-area flex-center">Pantalla 7</li>
-        <li class="full-area flex-center">Pantalla 8</li>
-        <li class="full-area flex-center">Pantalla 9</li>
-        <li class="full-area flex-center">Pantalla 10</li>
-        <li class="full-area flex-center">Pantalla 1</li>
-        <li class="full-area flex-center">Pantalla 2</li>
-        <li class="full-area flex-center">Pantalla 3</li>
-        <li class="full-area flex-center">Pantalla 4</li>
-        <li class="full-area flex-center">Pantalla 5</li>
-        <li class="full-area flex-center">Pantalla 6</li>
-        <li class="full-area flex-center">Pantalla 7</li>
-        <li class="full-area flex-center">Pantalla 8</li>
-        <li class="full-area flex-center">Pantalla 9</li>
-        <li class="full-area flex-center">Pantalla 10</li>
-    </ul>
+  <ul class="full-area">
+    <li *ngFor="let groupScreen of groupsScreen" class="full-area flex-center">
+      {{ groupScreen.name }}
+    </li>
+  </ul>
 </aside>
