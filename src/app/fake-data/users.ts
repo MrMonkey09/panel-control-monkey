@@ -19,7 +19,7 @@ let user1: User = {
   email: 'alfredo@enjoy.cl',
   department: departments[0],
   rut: '20.399.817-1',
-  authenticated: false,
+  authenticated: true,
 };
 let user2: User = {
   id: 0,

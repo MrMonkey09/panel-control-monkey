@@ -1,24 +1,49 @@
 <section class="flex-center border-box bg-primary">
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
-      <li *ngFor="let groupScreen of groupsScreen" class="full-area flex-center">{{ groupScreen.name }}</li>
+      <li
+        *ngFor="let groupScreen of groupsScreen"
+        class="full-area flex-center"
+      >
+        {{ groupScreen.name }}
+      </li>
     </ul>
     <ul class="flex-center" id="screenAdded">
-      <li *ngFor="let groupScreen of groupsScreen" class="full-area flex-center">{{ groupScreen.name }}</li>
+      <li
+        *ngFor="let groupScreen of groupsScreen"
+        class="full-area flex-center"
+      >
+        {{ groupScreen.name }}
+      </li>
     </ul>
   </div>
   <div class="flex-center" id="config">
     <div class="flex-center" id="preview">
-      <video class="full-area" controls autoplay loop>
-        <source
-          src="{{video}}"
-          type="video/mp4"
+      <app-video-player *ngIf="api.video.isRendering"></app-video-player>
+      <!-- <video class="full-area" controls mute autoplay loop *ngIf="api.video.isRendering">
+        <source src="{{api.video.videoUrl}}" type="video/mp4" />
+      </video> -->
+    </div>
+    <form
+      (ngSubmit)="api.uploadFile()"
+      class="flex-center"
+      id="details"
+      enctype="multipart/form-data"
+    >
+      <div>
+        <input
+          type="file"
+          name="upload-video"
+          id="upload-video"
+          #file
+          (change)="api.getFile($event)"
         />
-      </video>
-    </div>
-    <div class="flex-center" id="details">
-      <input type="file" name="upload-video" id="upload-video">
+        <br />
+        <progress id="file" max="100" [value]="api.progress">
+          {{ api.progress }}
+        </progress>
+      </div>
       <button type="submit">Guardar</button>
-    </div>
+    </form>
   </div>
 </section>

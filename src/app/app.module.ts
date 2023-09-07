@@ -16,7 +16,7 @@ import { ManagementPromosComponent } from './components/management-promos/manage
 
 /* Paginas */
 import { HomePage } from './pages/home/home.page';
-import { VideoPlayerPage } from './pages/video-player/video-player.page';
+import { VideoPlayerPage } from './components/video-player/video-player.page';
 
 
 @NgModule({

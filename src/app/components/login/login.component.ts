@@ -16,15 +16,9 @@ export class LoginComponent implements OnInit {
 
   datos: any[] = [];
 
-  constructor(private api: ApiFecthService) {}
+  constructor(public api: ApiFecthService) {}
 
-  ngOnInit(): void {}
-
-  apiAccess() {
-    this.api.okis().subscribe((data) => {
-      this.datos = data;
-      console.log(this.datos);
-    });
+  ngOnInit(): void {
   }
 
   loggIn() {

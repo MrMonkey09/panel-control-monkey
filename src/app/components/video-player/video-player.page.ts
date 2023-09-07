@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiFecthService } from 'src/app/services/api-fecth.service';
 
 @Component({
   selector: 'app-video-player',
@@ -6,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./video-player.page.css'],
 })
 export class VideoPlayerPage implements OnInit {
-  constructor() {}
+  constructor(public api: ApiFecthService) {}
 
   ngOnInit(): void {}
-  video: string = '../../../assets/videos/video_prueba - copia.mp4';
 }
