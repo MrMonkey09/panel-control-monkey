@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import routesConfig from './routes';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http:localhost:3001', options: {} };
 
 /* Componentes */
 import { AppComponent } from './app.component';
@@ -16,8 +19,7 @@ import { ManagementPromosComponent } from './components/management-promos/manage
 
 /* Paginas */
 import { HomePage } from './pages/home/home.page';
-import { VideoPlayerPage } from './components/video-player/video-player.page';
-
+import { VideoPlayerPage } from './pages/video-player/video-player.page';
 
 @NgModule({
   declarations: [
@@ -35,8 +37,9 @@ import { VideoPlayerPage } from './components/video-player/video-player.page';
     RouterModule.forRoot(routesConfig),
     FormsModule,
     HttpClientModule,
+    SocketIoModule.forRoot(config),
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -3,10 +3,10 @@
     <img src="../../../assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
-    <ul class="flex-center" *ngIf="!user.authenticated">
+    <ul class="flex-center" *ngIf="!user">
       <li>Iniciar sesion</li>
     </ul>
-    <ul class="flex-center" *ngIf="user.authenticated">
+    <ul class="flex-center" *ngIf="user">
       <li>{{user.name}}</li>
       <li>{{user.department.name}}</li>
       <li>{{user.rut}}</li>

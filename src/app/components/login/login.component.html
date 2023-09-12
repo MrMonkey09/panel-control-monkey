@@ -1,6 +1,6 @@
 <main class="flex-center">
-  <form class="flex-center" (ngSubmit)="loggIn()">
-    <br>
+  <form class="flex-center" (ngSubmit)="userService.loggIn(form)">
+    <br />
     <input
       type="text"
       name="user"
@@ -16,7 +16,8 @@
       #pass="ngModel"
       [(ngModel)]="form.pass"
       placeholder="Ingrese su Contraseña..."
-    /> <br>
+    />
+    <br />
     <button type="submit" class="flex-center" id="submit">
       <img src="../../../assets/images/logo_2.png" alt="" />
     </button>

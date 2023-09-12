@@ -19,8 +19,8 @@ let user1: User = {
   email: 'alfredo@enjoy.cl',
   department: departments[0],
   rut: '20.399.817-1',
-  authenticated: true,
 };
+
 let user2: User = {
   id: 0,
   name: 'Alfredo',
@@ -28,7 +28,6 @@ let user2: User = {
   email: 'gabriel@enjoy.cl',
   department: departments[0],
   rut: '20.399.817-1',
-  authenticated: false,
 };
 
 export let users: Array<User> = [user1,user2];

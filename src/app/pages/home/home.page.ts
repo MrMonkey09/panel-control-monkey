@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { users } from 'src/app/fake-data/users';
 
 @Component({
@@ -7,8 +8,12 @@ import { users } from 'src/app/fake-data/users';
   styleUrls: ['./home.page.css'],
 })
 export class HomePage implements OnInit {
-  constructor() {}
+  user: any;
+  constructor(private cookieService: CookieService) {}
 
-  ngOnInit(): void {}
-  user = users[0];
+  ngOnInit(): void {
+    const userId: any = this.cookieService.get('user-id');
+    this.user = users[userId];
+    console.log(this.user);
+  }
 }

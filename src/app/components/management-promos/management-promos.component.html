@@ -19,30 +19,23 @@
   </div>
   <div class="flex-center" id="config">
     <div class="flex-center" id="preview">
-      <app-video-player *ngIf="api.video.isRendering"></app-video-player>
-      <!-- <video class="full-area" controls mute autoplay loop *ngIf="api.video.isRendering">
-        <source src="{{api.video.videoUrl}}" type="video/mp4" />
-      </video> -->
+      <video class="full-area" mute autoplay loop *ngIf="api.recharge">
+        <source [src]="api.video" type="video/mp4" />
+      </video>
     </div>
     <form
-      (ngSubmit)="api.uploadFile()"
+      (ngSubmit)="uploadFile()"
       class="flex-center"
       id="details"
       enctype="multipart/form-data"
     >
-      <div>
-        <input
-          type="file"
-          name="upload-video"
-          id="upload-video"
-          #file
-          (change)="api.getFile($event)"
-        />
-        <br />
-        <progress id="file" max="100" [value]="api.progress">
-          {{ api.progress }}
-        </progress>
-      </div>
+      <input
+        type="file"
+        name="upload-video"
+        id="upload-video"
+        #file
+        (change)="getFile($event)"
+      />
       <button type="submit">Guardar</button>
     </form>
   </div>

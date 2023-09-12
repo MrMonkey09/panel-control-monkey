@@ -7,5 +7,4 @@ export interface User {
   email: string;
   department: Department;
   rut: string;
-  authenticated: boolean;
 }
