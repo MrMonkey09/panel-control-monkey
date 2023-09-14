@@ -18,6 +18,6 @@ export class VideoPlayerPage implements OnInit {
   }
 
   getVideo() {
-    this.api.getVideo2().subscribe((res) => this.api.observador(res));
+    this.api.getVideo().subscribe((res) => this.api.observador(res));
   }
 }

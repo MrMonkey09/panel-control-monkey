@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -21,15 +21,16 @@ export class ApiFecthService {
     }, 1000);
   }
 
-  public observador2(res: any) {
-    this.video = 'http://192.168.0.15:3001/' + res.filename;
-  }
-
-  getVideo2(): Observable<any> {
+  getVideo(): Observable<any> {
     return this.http.get(this.urlApi);
   }
 
   apiUpload(body: FormData): Observable<any> {
-    return this.http.post(this.urlApi + 'subir-archivo', body);
+    const req = new HttpRequest('POST', this.urlApi + 'subir-archivo', body, {
+      reportProgress: true,
+      responseType: 'json',
+    });
+
+    return this.http.request(req);
   }
 }

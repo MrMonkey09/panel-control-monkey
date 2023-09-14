@@ -29,13 +29,18 @@
       id="details"
       enctype="multipart/form-data"
     >
-      <input
-        type="file"
-        name="upload-video"
-        id="upload-video"
-        #file
-        (change)="getFile($event)"
-      />
+      <div class="flex-center" style="flex-flow: column nowrap">
+        <input
+          type="file"
+          name="upload-video"
+          id="upload-video"
+          #file
+          (change)="getFile($event)"
+        />
+        <progress style="width: 100%" id="file" max="100" [value]="progress" *ngIf="progress">
+          {{ progress }}%
+        </progress>
+      </div>
       <button type="submit">Guardar</button>
     </form>
   </div>
