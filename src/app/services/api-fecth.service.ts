@@ -9,7 +9,7 @@ export class ApiFecthService {
   constructor(private http: HttpClient) {}
   private urlApi = 'http://192.168.0.15:3001/';
   public result = 0;
-  public video: any;
+  public video!: string;
   public recharge: boolean = false;
 
   public observador(res: any) {
@@ -18,7 +18,7 @@ export class ApiFecthService {
     this.video = 'http://192.168.0.15:3001/' + res.filename;
     setTimeout(() => {
       this.recharge = true;
-    }, 1000);
+    }, 100);
   }
 
   getVideo(): Observable<any> {

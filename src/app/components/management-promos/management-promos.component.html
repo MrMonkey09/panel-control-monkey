@@ -1,26 +1,56 @@
-<section class="flex-center border-box bg-primary">
+<section class="flex-center border-box bg-primary" *ngIf="scrn.currentGroup">
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
       <li
-        *ngFor="let groupScreen of groupsScreen"
+        *ngFor="let screen of scrn.avaibles"
+        (click)="addScreen(screen)"
         class="full-area flex-center"
       >
-        {{ groupScreen.name }}
+        {{
+          screen.id +
+            " | " +
+            screen.brand +
+            " | Ubicación: " +
+            screen.location.name
+        }}
       </li>
     </ul>
-    <ul class="flex-center" id="screenAdded">
+    <ul
+      class="flex-center"
+      id="screenAdded"
+      *ngIf="scrn.currentGroup; else notCurrentGroup"
+    >
       <li
-        *ngFor="let groupScreen of groupsScreen"
+        *ngFor="let screen of scrn.currentGroup.screenList"
         class="full-area flex-center"
       >
-        {{ groupScreen.name }}
+        {{
+          screen.id +
+            " | " +
+            screen.brand +
+            " | Ubicación: " +
+            screen.location.name
+        }}
       </li>
     </ul>
+    <ng-template #notCurrentGroup
+      ><ul class="flex-center" id="screenAdded"></ul
+    ></ng-template>
   </div>
   <div class="flex-center" id="config">
     <div class="flex-center" id="preview">
-      <video class="full-area" mute autoplay loop *ngIf="api.recharge">
-        <source [src]="api.video" type="video/mp4" />
+      <video
+        class="full-area"
+        mute
+        autoplay
+        loop
+        *ngIf="api.recharge && scrn.currentGroup"
+      >
+        <source
+          *ngIf="scrn.currentGroup.currentVideo"
+          [src]="scrn.currentGroup.currentVideo"
+          type="video/mp4"
+        />
       </video>
     </div>
     <form
@@ -34,12 +64,19 @@
           type="file"
           name="upload-video"
           id="upload-video"
-          #file
+          [value]="fileTemp ? fileTemp.fileRaw : ''"
           (change)="getFile($event)"
         />
-        <progress style="width: 100%" id="file" max="100" [value]="progress" *ngIf="progress">
-          {{ progress }}%
+        <progress
+          style="width: 100%"
+          id="file"
+          max="100"
+          [value]="progress.value"
+          *ngIf="progress.inProgress"
+        >
+          {{ progress.value }}%
         </progress>
+        <span *ngIf="progress.message !== ''">{{ progress.message }}</span>
       </div>
       <button type="submit">Guardar</button>
     </form>

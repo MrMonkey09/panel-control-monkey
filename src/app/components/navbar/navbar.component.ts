@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { users } from '../../fake-data/users';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,11 +8,9 @@ import { users } from '../../fake-data/users';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor() {}
+  constructor(public userService: UserServiceService) {}
 
   ngOnInit(): void {
   }
-
-  user = users[0]
-
+  
 }

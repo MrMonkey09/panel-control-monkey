@@ -5,5 +5,6 @@ export interface GroupScreen {
   id: number;
   name: string;
   location: Location;
-  screenList: Array<Screen>;
+  screenList?: Array<Screen>;
+  currentVideo: string;
 }

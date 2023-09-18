@@ -11,64 +11,64 @@ import { locations } from './locations';
 import { screens } from './screens';
 
 const groupScreen1: GroupScreen = {
-  id: 0,
+  id: 1,
   name: 'Railway',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen2: GroupScreen = {
-  id: 0,
+  id: 2,
   name: 'Jokers',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen3: GroupScreen = {
-  id: 0,
+  id: 3,
   name: 'Mesas de juego',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen4: GroupScreen = {
-  id: 0,
+  id: 4,
   name: 'Terraza',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen5: GroupScreen = {
-  id: 0,
+  id: 5,
   name: 'Menorca',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen6: GroupScreen = {
-  id: 0,
+  id: 6,
   name: 'BallRoom',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen7: GroupScreen = {
-  id: 0,
+  id: 7,
   name: 'Brac',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen8: GroupScreen = {
-  id: 0,
+  id: 8,
   name: 'Santorini',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen9: GroupScreen = {
-  id: 0,
+  id: 9,
   name: 'Capri',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 const groupScreen10: GroupScreen = {
-  id: 0,
+  id: 10,
   name: 'Eventos',
   location: locations[0],
-  screenList: [screens[0]],
+  currentVideo: '',
 };
 
 export const groupScreenList: Array<GroupScreen> = [

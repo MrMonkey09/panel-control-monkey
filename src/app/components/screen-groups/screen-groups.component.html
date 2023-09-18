@@ -1,6 +1,10 @@
 <aside class="full-area border-box bg-primary">
   <ul class="full-area">
-    <li *ngFor="let groupScreen of groupsScreen" class="full-area flex-center">
+    <li
+      *ngFor="let groupScreen of groupsScreen"
+      (click)="takeScreens(groupScreen)"
+      class="full-area flex-center"
+    >
       {{ groupScreen.name }}
     </li>
   </ul>

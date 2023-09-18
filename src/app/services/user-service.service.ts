@@ -9,13 +9,16 @@ import { users } from '../fake-data/users';
   providedIn: 'root',
 })
 export class UserServiceService {
-  private user?: User;
+  public user?: User | undefined;
   public recharge: boolean = false;
   constructor(private http: HttpClient, public cookieService: CookieService) {}
 
   setUser(newUser: User) {
     console.log(newUser);
     this.cookieService.set('user-id', newUser.id.toString());
+    setTimeout(() => {
+      this.user = users[newUser.id];
+    }, 100);
   }
 
   loggIn(form: { email: string; pass: string }) {
@@ -33,5 +36,9 @@ export class UserServiceService {
       console.log('Usuario no encontrado');
     }
     return;
+  }
+
+  loggOut() {
+    this.user = undefined;
   }
 }

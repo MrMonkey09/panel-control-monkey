@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { users } from 'src/app/fake-data/users';
+import { ScreensService } from 'src/app/services/screens.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +10,20 @@ import { users } from 'src/app/fake-data/users';
   styleUrls: ['./home.page.css'],
 })
 export class HomePage implements OnInit {
-  user: any;
-  constructor(private cookieService: CookieService) {}
+  constructor(
+    private cookieService: CookieService,
+    public scrn: ScreensService,
+    public userService: UserServiceService
+  ) {}
 
   ngOnInit(): void {
-    const userId: any = this.cookieService.get('user-id');
-    this.user = users[userId];
-    console.log(this.user);
+    if (this.cookieService.get('user-id')) {
+      const findUser: any = users.filter(
+        (user) => user.id.toString() === this.cookieService.get('user-id')
+      );
+      if (findUser[0]) {
+        this.userService.setUser(findUser[0]);
+      }
+    }
   }
 }

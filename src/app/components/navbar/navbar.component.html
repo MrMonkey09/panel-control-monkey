@@ -3,16 +3,16 @@
     <img src="../../../assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
-    <ul class="flex-center" *ngIf="!user">
+    <ul class="flex-center" *ngIf="!userService.user">
       <li>Iniciar sesion</li>
     </ul>
-    <ul class="flex-center" *ngIf="user">
-      <li>{{user.name}}</li>
-      <li>{{user.department.name}}</li>
-      <li>{{user.rut}}</li>
+    <ul class="flex-center" *ngIf="userService.user">
+      <li>{{userService.user.name}}</li>
+      <li>{{userService.user.department.name}}</li>
+      <li>{{userService.user.rut}}</li>
     </ul>
   </div>
   <div class="navbar__search flex-center">
-    <i>Cerrar sesion</i>
+    <i *ngIf="userService.user" (click)="userService.loggOut()">Cerrar sesion</i>
   </div>
 </nav>
