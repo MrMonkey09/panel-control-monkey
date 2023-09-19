@@ -14,6 +14,7 @@ import { users } from './users';
 
 const screen1: Screen = {
   id: 0,
+  ip: '192.168.0.15',
   brand: 'LG',
   location: locations[5],
   department: departments[0],

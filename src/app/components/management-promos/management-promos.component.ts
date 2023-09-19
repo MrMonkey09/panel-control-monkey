@@ -41,25 +41,6 @@ export class ManagementPromosComponent implements OnInit {
       console.log('Cambio detectado: ', res), this.api.observador(res.data);
     });
   }
-  // Logica de la seleccion y despliegue de pantallas
-  addScreen(screenSelected: Screen) {
-    console.log(
-      'Pantalla añadida: ' +
-        screenSelected.id +
-        ' | Grupo seleccionado: ' +
-        this.scrn.currentGroup.name
-    );
-    const newListAvaibles = this.scrn.avaibles.filter(
-      (screen) => screen != screenSelected
-    );
-    if (!this.scrn.currentGroup.screenList) {
-      this.scrn.currentGroup.screenList = [screenSelected];
-    } else {
-      this.scrn.currentGroup.screenList.push(screenSelected);
-    }
-    this.scrn.avaibles = newListAvaibles;
-    console.log(this.scrn.currentGroup.screenList);
-  }
 
   // Logica de la subida y despliegue de videos
   public fileTemp: any;
@@ -119,9 +100,6 @@ export class ManagementPromosComponent implements OnInit {
                 inProgress: false,
                 message: '',
               };
-              console.log(
-                'archivo: ' + document.getElementById('upload-video')
-              );
             }, 2000);
           },
         });
