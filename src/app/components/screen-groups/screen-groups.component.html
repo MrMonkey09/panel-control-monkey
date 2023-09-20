@@ -4,6 +4,14 @@
       *ngFor="let groupScreen of groupsScreen"
       (click)="takeScreens(groupScreen)"
       class="full-area flex-center"
+      [ngStyle]="{
+        'background-color':
+          scrn.currentGroup &&
+          scrn.currentGroup.isActive &&
+          scrn.currentGroup.name === groupScreen.name
+            ? 'black'
+            : 'transparent',
+      }"
     >
       {{ groupScreen.name }}
     </li>

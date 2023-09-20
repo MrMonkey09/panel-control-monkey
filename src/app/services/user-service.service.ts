@@ -40,5 +40,6 @@ export class UserServiceService {
 
   loggOut() {
     this.user = undefined;
+    this.cookieService.delete('user-id');
   }
 }

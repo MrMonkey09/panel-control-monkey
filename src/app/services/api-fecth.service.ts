@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiFecthService {
   constructor(private http: HttpClient) {}
-  private urlApi = 'http://192.168.0.15:3001/';
+  private urlApi = 'http://192.168.0.19:3001/';
   public result = 0;
   public video!: string;
   public recharge: boolean = false;
@@ -15,7 +15,7 @@ export class ApiFecthService {
   public observador(res: any) {
     console.log('Observador 1 Gatillado: ', res.filename);
     this.recharge = false;
-    this.video = 'http://192.168.0.15:3001/' + res.filename;
+    this.video = 'http://192.168.0.19:3001/' + res.filename;
     setTimeout(() => {
       this.recharge = true;
     }, 100);

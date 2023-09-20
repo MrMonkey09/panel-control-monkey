@@ -7,4 +7,5 @@ export interface GroupScreen {
   location: Location;
   screenList?: Array<Screen>;
   currentVideo: string;
+  isActive: boolean;
 }

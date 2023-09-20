@@ -31,13 +31,14 @@ export class ScreenGroupsComponent implements OnInit {
   takeScreens(group: GroupScreen) {
     console.log('Cargando pantallas de: ' + group.name);
     this.scrn.currentGroup = group;
+    this.scrn.currentGroup.isActive = true;
     console.log('Grupo actual: ' + this.scrn.currentGroup.name);
     console.log(
       'Video del grupo actual: ' + this.scrn.currentGroup.currentVideo
     );
-    this.api.recharge=false;
+    this.api.recharge = false;
     setTimeout(() => {
-      this.api.recharge = true
+      this.api.recharge = true;
     }, 100);
   }
 }
