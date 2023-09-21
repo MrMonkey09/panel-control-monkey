@@ -14,6 +14,7 @@ export class ScreensService {
   currentGroup!: GroupScreen;
   selected!: Array<Screen>;
   currentScreen!: Screen;
+  groupsScreen = groupScreenList;
 
   constructor(private api: ApiFecthService, private socket: SocketioService) {}
 
@@ -27,7 +28,6 @@ export class ScreensService {
       this.currentGroup.screenList = [screenSelected];
       this.socket.emitEvento('screen', {
         screen: screenSelected,
-        group: this.currentGroup,
       });
     } else {
       screenSelected.currentGroup = this.currentGroup.id;
@@ -66,18 +66,18 @@ export class ScreensService {
     this.api.getScreen().subscribe({
       next: (res) => {
         console.log(res.ipScreen);
-        const screenMatch = this.avaibles.filter(
+        const [screenMatch] = this.avaibles.filter(
           (screen) => screen.ip === res.ip
         );
-        console.log(screenMatch[0]);
-        this.currentScreen = screenMatch[0];
+        console.log(screenMatch);
+        this.currentScreen = screenMatch;
       },
       complete: () => {
         if (this.currentScreen.currentGroup) {
-          const screenGroup = groupScreenList.filter(
+          const [screenGroup] = groupScreenList.filter(
             (group) => group.id === this.currentScreen.currentGroup
           );
-          this.currentGroup = screenGroup[0];
+          this.currentGroup = screenGroup;
         }
       },
     });

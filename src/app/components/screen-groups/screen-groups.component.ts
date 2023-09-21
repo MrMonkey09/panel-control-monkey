@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { groupScreenList } from 'src/app/fake-data/groups-screen';
 import { GroupScreen } from 'src/app/interfaces/group-screen';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
@@ -14,7 +13,6 @@ import { SocketioService } from 'src/app/services/socketio.service';
 })
 export class ScreenGroupsComponent implements OnInit {
   id?: any;
-  groupsScreen = groupScreenList;
   constructor(
     public api: ApiFecthService,
     private cookieService: CookieService,

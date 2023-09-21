@@ -1,3 +1,6 @@
 <video class="video-player" mute autoplay loop *ngIf="api.recharge">
-  <source [src]="srcn.currentGroup.currentVideo" type="video/mp4" />
+  <source
+    [src]="scrn.groupsScreen[scrn.currentScreen.id].currentVideo"
+    type="video/mp4"
+  />
 </video>

@@ -1,14 +1,11 @@
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
-import { groupScreenList } from 'src/app/fake-data/groups-screen';
-import { GroupScreen } from 'src/app/interfaces/group-screen';
-import { Screen } from 'src/app/interfaces/screen';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
 import { SocketioService } from 'src/app/services/socketio.service';
+import { VideoManagementService } from 'src/app/services/video-management.service';
 
 @Component({
   selector: 'app-management-promos',
@@ -32,13 +29,19 @@ export class ManagementPromosComponent implements OnInit {
     private cookieService: CookieService,
     private sw: SocketioService,
     private http: HttpClient,
-    public scrn: ScreensService
+    public scrn: ScreensService,
+    public vm: VideoManagementService
   ) {}
   ngOnInit(): void {
     this.id = this.cookieService.get('user-id');
     console.log('ID User Logged: ', this.id);
     this.sw.callback.subscribe((res) => {
-      console.log('Cambio detectado: ', res), this.api.observador(res.data);
+      console.log('Cambio detectado: ', res);
+      if (res.screen) {
+        this.vm.observador2(res);
+      } else if (res.video) {
+        this.vm.observador(res);
+      }
     });
   }
 
@@ -84,20 +87,28 @@ export class ManagementPromosComponent implements OnInit {
         this.api.getScreen().subscribe({
           next: (res) => {
             console.log(this.resTemp.data);
-            this.api.observador(this.resTemp.data);
+            this.vm.observador(this.resTemp.data);
           },
           complete: () => {
-            console.log(this.api.video);
-            this.sw.emitEvento('video', { video: this.api.video });
-            this.scrn.currentGroup.currentVideo = this.api.video;
+            this.api.recharge = false;
+            this.scrn.currentGroup.currentVideo = this.vm.video;
+            this.scrn.groupsScreen[this.scrn.currentGroup.id - 1].currentVideo =
+              this.vm.video;
+            console.log(this.scrn.groupsScreen[this.scrn.currentGroup.id - 1]);
             this.progress = {
               value: 0,
               inProgress: false,
               message: 'Carga completada.',
             };
+            this.sw.emitEvento('video', {
+              video: this.vm.video,
+              group: this.scrn.currentGroup,
+            });
+            console.log(this.vm.video);
             console.log(this.scrn.currentGroup.currentVideo);
             console.log('completado');
             setTimeout(() => {
+              this.api.recharge = true;
               this.progress = {
                 value: 0,
                 inProgress: false,
@@ -111,6 +122,6 @@ export class ManagementPromosComponent implements OnInit {
   }
 
   getVideo() {
-    this.api.getScreen().subscribe((res) => this.api.observador(res));
+    this.api.getScreen().subscribe((res) => this.vm.observador(res));
   }
 }

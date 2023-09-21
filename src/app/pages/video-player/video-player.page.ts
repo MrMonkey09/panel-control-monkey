@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
 import { SocketioService } from 'src/app/services/socketio.service';
+import { VideoManagementService } from 'src/app/services/video-management.service';
 
 @Component({
   selector: 'app-video-player',
@@ -10,20 +11,21 @@ import { SocketioService } from 'src/app/services/socketio.service';
 })
 export class VideoPlayerPage implements OnInit {
   constructor(
-    public srcn: ScreensService,
+    public scrn: ScreensService,
     public api: ApiFecthService,
-    public sw: SocketioService
+    public sw: SocketioService,
+    public vm: VideoManagementService
   ) {}
 
   ngOnInit(): void {
     /* this.getVideo(); */
-    this.srcn.getScreen();
+    this.scrn.getScreen();
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
-      if (!res.data) {
-        this.api.observador2(res);
-      } else {
-        this.api.observador(res);
+      if (res.screen) {
+        this.vm.observador2(res);
+      } else if (res.video) {
+        this.vm.observador(res);
       }
     });
   }
