@@ -45,6 +45,7 @@ export class ManagementPromosComponent implements OnInit {
   // Logica de la subida y despliegue de videos
   public fileTemp: any;
   private body = new FormData();
+  private resTemp!: any;
 
   getFile($event: any) {
     console.log($event);
@@ -62,7 +63,8 @@ export class ManagementPromosComponent implements OnInit {
     console.log(this.body.get('myFile'));
     this.api.apiUpload(this.body).subscribe({
       next: (res) => {
-        console.log(res.type);
+        console.log(res);
+        this.resTemp = res.body;
         if (res.type === HttpEventType.UploadProgress) {
           this.progressManagement
             .subscribe({
@@ -79,13 +81,14 @@ export class ManagementPromosComponent implements OnInit {
         }
       },
       complete: () => {
-        this.api.getVideo().subscribe({
+        this.api.getScreen().subscribe({
           next: (res) => {
-            this.api.observador(res);
+            console.log(this.resTemp.data);
+            this.api.observador(this.resTemp.data);
           },
           complete: () => {
             console.log(this.api.video);
-            this.sw.emitEvento({ video: this.api.video });
+            this.sw.emitEvento('video', { video: this.api.video });
             this.scrn.currentGroup.currentVideo = this.api.video;
             this.progress = {
               value: 0,
@@ -108,6 +111,6 @@ export class ManagementPromosComponent implements OnInit {
   }
 
   getVideo() {
-    this.api.getVideo().subscribe((res) => this.api.observador(res));
+    this.api.getScreen().subscribe((res) => this.api.observador(res));
   }
 }

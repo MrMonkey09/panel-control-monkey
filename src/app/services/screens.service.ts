@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Screen } from '../interfaces/screen';
 import { GroupScreen } from '../interfaces/group-screen';
 import { screens } from '../fake-data/screens';
+import { ApiFecthService } from './api-fecth.service';
+import { SocketioService } from './socketio.service';
+import { groupScreenList } from '../fake-data/groups-screen';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +13,9 @@ export class ScreensService {
   avaibles = screens;
   currentGroup!: GroupScreen;
   selected!: Array<Screen>;
-  constructor() {
-    console.log(this.avaibles);
-  }
+  currentScreen!: Screen;
+
+  constructor(private api: ApiFecthService, private socket: SocketioService) {}
 
   // Logica de la seleccion y despliegue de pantallas
   addScreen(screenSelected: Screen) {
@@ -22,9 +25,17 @@ export class ScreensService {
     if (!this.currentGroup.screenList) {
       screenSelected.currentGroup = this.currentGroup.id;
       this.currentGroup.screenList = [screenSelected];
+      this.socket.emitEvento('screen', {
+        screen: screenSelected,
+        group: this.currentGroup,
+      });
     } else {
       screenSelected.currentGroup = this.currentGroup.id;
       this.currentGroup.screenList.push(screenSelected);
+      this.socket.emitEvento('screen', {
+        screen: screenSelected,
+        group: this.currentGroup,
+      });
     }
     this.avaibles = newListAvaibles;
     console.log({
@@ -48,6 +59,27 @@ export class ScreensService {
     console.log({
       PantallaRemovida: screenSelected,
       GrupoSeleccionado: this.currentGroup,
+    });
+  }
+
+  getScreen() {
+    this.api.getScreen().subscribe({
+      next: (res) => {
+        console.log(res.ipScreen);
+        const screenMatch = this.avaibles.filter(
+          (screen) => screen.ip === res.ip
+        );
+        console.log(screenMatch[0]);
+        this.currentScreen = screenMatch[0];
+      },
+      complete: () => {
+        if (this.currentScreen.currentGroup) {
+          const screenGroup = groupScreenList.filter(
+            (group) => group.id === this.currentScreen.currentGroup
+          );
+          this.currentGroup = screenGroup[0];
+        }
+      },
     });
   }
 }
