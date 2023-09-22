@@ -45,6 +45,7 @@ const screen4: Screen = {
 const screen5: Screen = {
   id: 4,
   brand: 'AOC',
+  ip: '192.168.0.19',
   location: locations[3],
   department: departments[0],
   manager: users[0],

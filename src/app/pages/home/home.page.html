@@ -1,7 +1,7 @@
 <app-navbar />
 <app-login *ngIf="!userService.user" />
 
-<main class="flex-center" >
+<main class="flex-center" *ngIf="userService.user">
   <app-screen-groups />
   <app-management-promos />
 </main>

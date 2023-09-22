@@ -8,7 +8,7 @@ import routesConfig from './routes';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: 'http:localhost:3001', options: {} };
+const config: SocketIoConfig = { url: 'http:192.168.0.15:3001', options: {} };
 
 /* Componentes */
 import { AppComponent } from './app.component';

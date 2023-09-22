@@ -9,7 +9,7 @@ export class SocketioService extends Socket {
   callback: EventEmitter<any> = new EventEmitter();
   constructor(public cookieService: CookieService) {
     super({
-      url: 'http://localhost:3001',
+      url: 'http://192.168.0.15:3001',
       options: {
         query: {
           user: cookieService.get('user-id'),
