@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiFecthService {
   constructor(private http: HttpClient) {}
-  private urlApi = 'http://192.168.0.19:3001/';
+  private urlApi = 'http://192.168.0.15:3001/';
   public result = 0;
   public video!: string;
   public recharge: boolean = false;

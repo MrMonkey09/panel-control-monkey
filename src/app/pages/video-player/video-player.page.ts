@@ -23,9 +23,20 @@ export class VideoPlayerPage implements OnInit {
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
       if (res.screen) {
-        this.vm.observador2(res);
+        if (res.screen.ip === this.scrn.currentScreen.ip) {
+          console.log(
+            'actualizacion corresponde a pantalla actual ' +
+              this.scrn.currentScreen.ip
+          );
+          this.vm.observador2(res);
+        }
       } else if (res.video) {
-        this.vm.observador(res);
+        if (res.group.id === this.scrn.currentScreen.currentGroup) {
+          console.log(
+            'grupo corresponde a pantalla actual ' + this.scrn.currentScreen.ip
+          );
+          this.vm.observador(res);
+        }
       }
     });
   }

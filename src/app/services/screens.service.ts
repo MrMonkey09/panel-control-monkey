@@ -28,6 +28,7 @@ export class ScreensService {
       this.currentGroup.screenList = [screenSelected];
       this.socket.emitEvento('screen', {
         screen: screenSelected,
+        group: this.currentGroup,
       });
     } else {
       screenSelected.currentGroup = this.currentGroup.id;
@@ -67,7 +68,7 @@ export class ScreensService {
       next: (res) => {
         console.log(res.ipScreen);
         const [screenMatch] = this.avaibles.filter(
-          (screen) => screen.ip === res.ip
+          (screen) => screen.ip === res.ipScreen
         );
         console.log(screenMatch);
         this.currentScreen = screenMatch;

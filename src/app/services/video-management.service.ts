@@ -13,7 +13,7 @@ export class VideoManagementService {
     console.log('Observador 1 Gatillado: ', res);
     if (res.filename) {
       this.recharge = false;
-      this.video = 'http://192.168.0.19:3001/' + res.filename;
+      this.video = 'http://192.168.0.15:3001/' + res.filename;
       setTimeout(() => {
         this.recharge = true;
       }, 100);
@@ -28,17 +28,28 @@ export class VideoManagementService {
   }
 
   public observador2(res: any) {
+    this.recharge = false;
     console.log('Observador 2 Gatillado: ', res);
     const screenTemp = res.screen;
-    const [groupTemp] = this.scrn.groupsScreen.filter(
-      (group) => group.id === screenTemp.currentGroup
-    );
-    console.log({ screenTemp, groupTemp });
-
-    /* this.recharge = false;
-    this.video = 'http://192.168.0.19:3001/' + res.filename;
-    setTimeout(() => {
-      this.recharge = true;
-    }, 100); */
+    const groupTemp = res.group;
+    if (screenTemp.id === this.scrn.currentScreen.id) {
+      console.log('Pantalla actualizada');
+      console.log({ screenTemp, groupTemp });
+      this.scrn.groupsScreen[groupTemp.id - 1] = groupTemp;
+      this.scrn.currentGroup =
+        this.scrn.groupsScreen[screenTemp.currentGroup - 1];
+      this.scrn.currentScreen = screenTemp;
+      setTimeout(() => {
+        console.log({
+          'pantalla actualizada': 'Ok',
+          'current screen': this.scrn.currentScreen,
+          'current group': this.scrn.currentGroup,
+        });
+        console.log(
+          this.scrn.groupsScreen[this.scrn.currentGroup.id - 1].currentVideo
+        );
+        this.recharge = true;
+      }, 100);
+    }
   }
 }

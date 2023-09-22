@@ -14,7 +14,7 @@ import { users } from './users';
 
 const screen1: Screen = {
   id: 0,
-  ip: '192.168.0.19',
+  ip: '192.168.0.15',
   brand: 'LG',
   location: locations[5],
   department: departments[0],
@@ -37,6 +37,7 @@ const screen3: Screen = {
 const screen4: Screen = {
   id: 3,
   brand: 'Sony',
+  ip: '192.168.0.16',
   location: locations[3],
   department: departments[0],
   manager: users[0],
