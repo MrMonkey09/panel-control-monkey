@@ -20,6 +20,8 @@ import { ManagementPromosComponent } from './components/management-promos/manage
 /* Paginas */
 import { HomePage } from './pages/home/home.page';
 import { VideoPlayerPage } from './pages/video-player/video-player.page';
+import { UserPanelComponent } from './components/user-panel/user-panel.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { VideoPlayerPage } from './pages/video-player/video-player.page';
     LoginComponent,
     ScreenGroupsComponent,
     ManagementPromosComponent,
+    UserPanelComponent,
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,

@@ -52,9 +52,17 @@ export class ScreensService {
     if (this.avaibles.length < 1) {
       screenSelected.currentGroup = undefined;
       this.avaibles = [screenSelected];
+      this.socket.emitEvento('screen', {
+        screen: screenSelected,
+        group: this.currentGroup,
+      });
     } else {
       screenSelected.currentGroup = undefined;
       this.avaibles.push(screenSelected);
+      this.socket.emitEvento('screen', {
+        screen: screenSelected,
+        group: this.currentGroup,
+      });
     }
     this.currentGroup.screenList = newListAvaibles;
     console.log({

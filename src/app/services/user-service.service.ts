@@ -11,6 +11,8 @@ import { users } from '../fake-data/users';
 export class UserServiceService {
   public user?: User | undefined;
   public recharge: boolean = false;
+  public isUserPanelOpened: boolean = false;
+  public isBackButtonEnabled: boolean = false;
   constructor(private http: HttpClient, public cookieService: CookieService) {}
 
   setUser(newUser: User) {
@@ -41,5 +43,20 @@ export class UserServiceService {
   loggOut() {
     this.user = undefined;
     this.cookieService.delete('user-id');
+  }
+
+  openUserPanel() {
+    console.log('panel abierto');
+    setTimeout(() => {
+      this.isUserPanelOpened = true;
+      this.isBackButtonEnabled = true;
+    }, 100);
+  }
+  closeUserPanel() {
+    console.log('panel cerrado');
+    setTimeout(() => {
+      this.isUserPanelOpened = false;
+      this.isBackButtonEnabled = false;
+    }, 100);
   }
 }

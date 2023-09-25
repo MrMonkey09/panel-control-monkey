@@ -34,13 +34,12 @@ export class ManagementPromosComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.id = this.cookieService.get('user-id');
-    console.log('ID User Logged: ', this.id);
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
       if (res.screen) {
-        this.vm.observador2(res);
+        this.vm.$updateScreen(res);
       } else if (res.video) {
-        this.vm.observador(res);
+        this.vm.$updateVideo(res);
       }
     });
   }
@@ -87,7 +86,7 @@ export class ManagementPromosComponent implements OnInit {
         this.api.getScreen().subscribe({
           next: (res) => {
             console.log(this.resTemp.data);
-            this.vm.observador(this.resTemp.data);
+            this.vm.$updateVideo(this.resTemp.data);
           },
           complete: () => {
             this.api.recharge = false;
@@ -122,6 +121,6 @@ export class ManagementPromosComponent implements OnInit {
   }
 
   getVideo() {
-    this.api.getScreen().subscribe((res) => this.vm.observador(res));
+    this.api.getScreen().subscribe((res) => this.vm.$updateVideo(res));
   }
 }

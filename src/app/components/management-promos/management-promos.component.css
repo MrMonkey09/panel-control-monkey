@@ -16,6 +16,7 @@ li {
   border: 1px solid black;
   color: aliceblue;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 #screens #addScreen {

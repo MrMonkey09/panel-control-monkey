@@ -2,6 +2,8 @@
 <app-login *ngIf="!userService.user" />
 
 <main class="flex-center" *ngIf="userService.user">
-  <app-screen-groups />
-  <app-management-promos />
+  <app-screen-groups *ngIf="!userService.isUserPanelOpened" />
+  <app-management-promos *ngIf="!userService.isUserPanelOpened" />
+  <app-user-panel *ngIf="userService.isUserPanelOpened" />
+  <app-user-management *ngIf="userService.isUserPanelOpened" />
 </main>

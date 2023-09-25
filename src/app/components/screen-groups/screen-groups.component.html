@@ -11,6 +11,13 @@
           scrn.currentGroup.name === groupScreen.name
             ? 'black'
             : 'transparent',
+        'cursor':
+          scrn.currentGroup &&
+          scrn.currentGroup.isActive &&
+          scrn.currentGroup.name === groupScreen.name
+            ? 'default'
+            : 'pointer',
+        
       }"
     >
       {{ groupScreen.name }}

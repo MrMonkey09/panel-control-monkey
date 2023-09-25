@@ -4,17 +4,18 @@ main {
 }
 
 form {
-  width: 30vw;
+  width: 27vw;
   height: 35vh;
   border-radius: 20% 20% 20% 20%;
   flex-flow: column nowrap;
   background-color: #ff7a00;
-  rotate: -15deg;
+  filter: drop-shadow(5px 0 5px black)
+    drop-shadow(0 5px 10px black);
 }
 
 form #user,
 form #pass {
-  width: 80%;
+  width: 85%;
   height: auto;
   text-align: center;
   border: none;
@@ -46,14 +47,16 @@ form #pass:focus-visible {
 
 form #submit {
   width: 28%;
-  height: 25%;
-  background-color: black;
+  height: 30%;
   border-radius: 10%;
-  /* position: fixed;
-  bottom: 4.2%; */
+  border: none;
+  background-color: transparent;
 }
 
-form button img {
-  width: 100%;
-  height: auto;
+img {
+  width: auto;
+  height: 100%;
+  filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 5px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 10px rgba(0, 0, 0, 0.7));
 }

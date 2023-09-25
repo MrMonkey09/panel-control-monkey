@@ -9,8 +9,8 @@ export class VideoManagementService {
   video: any = '';
   constructor(private scrn: ScreensService) {}
 
-  public observador(res: any) {
-    console.log('Observador 1 Gatillado: ', res);
+  public $updateVideo(res: any) {
+    console.log('$updateVideo 1 Gatillado: ', res);
     if (res.filename) {
       this.recharge = false;
       this.video = 'http://192.168.0.15:3001/' + res.filename;
@@ -27,9 +27,9 @@ export class VideoManagementService {
     }
   }
 
-  public observador2(res: any) {
+  public $updateScreen(res: any) {
     this.recharge = false;
-    console.log('Observador 2 Gatillado: ', res);
+    console.log('$updateVideo 2 Gatillado: ', res);
     const screenTemp = res.screen;
     const groupTemp = res.group;
     if (screenTemp.id === this.scrn.currentScreen.id) {

@@ -12,65 +12,60 @@ import { departments } from './departments';
 import { locations } from './locations';
 import { users } from './users';
 
-const screen1: Screen = {
-  id: 0,
-  ip: '192.168.0.15',
-  brand: 'LG',
-  location: locations[5],
-  department: departments[0],
-  manager: users[0],
-};
-const screen2: Screen = {
-  id: 1,
-  brand: 'Polaroid',
-  location: locations[1],
-  department: departments[0],
-  manager: users[0],
-};
-const screen3: Screen = {
-  id: 2,
-  brand: 'Sony',
-  location: locations[3],
-  department: departments[0],
-  manager: users[0],
-};
-const screen4: Screen = {
-  id: 3,
-  brand: 'Sony',
-  ip: '192.168.0.16',
-  location: locations[3],
-  department: departments[0],
-  manager: users[0],
-};
-const screen5: Screen = {
-  id: 4,
-  brand: 'AOC',
-  ip: '192.168.0.19',
-  location: locations[3],
-  department: departments[0],
-  manager: users[0],
-};
-const screen6: Screen = {
-  id: 5,
-  brand: 'LG',
-  location: locations[4],
-  department: departments[0],
-  manager: users[0],
-};
-const screen7: Screen = {
-  id: 6,
-  brand: 'Samsung',
-  location: locations[2],
-  department: departments[0],
-  manager: users[0],
-};
-
-export const screens: Array<Screen> = [
-  screen1,
-  screen2,
-  screen3,
-  screen4,
-  screen5,
-  screen6,
-  screen7,
+export let screens: Array<Screen> = [
+  {
+    id: 0,
+    ip: '192.168.0.15',
+    brand: 'LG',
+    location: locations[5],
+    department: departments[0],
+    manager: users[0],
+  },
+  {
+    id: 1,
+    ip: '172.28.23.24',
+    brand: 'Polaroid',
+    location: locations[1],
+    department: departments[0],
+    manager: users[0],
+  },
+  {
+    id: 2,
+    brand: 'Sony',
+    ip: '172.28.23.53',
+    location: locations[3],
+    department: departments[0],
+    manager: users[0],
+  },
+  {
+    id: 3,
+    brand: 'Sony',
+    ip: '172.28.21.20',
+    location: locations[3],
+    department: departments[0],
+    manager: users[0],
+  },
+  {
+    id: 4,
+    brand: 'AOC',
+    ip: '172.28.63.187',
+    location: locations[3],
+    department: departments[0],
+    manager: users[0],
+  },
+  {
+    id: 5,
+    brand: 'LG',
+    ip: '172.28.63.144',
+    location: locations[4],
+    department: departments[0],
+    manager: users[0],
+  },
+  {
+    id: 6,
+    brand: 'Samsung',
+    location: locations[2],
+    department: departments[0],
+    manager: users[0],
+  },
 ];

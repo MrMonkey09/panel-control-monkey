@@ -18,7 +18,6 @@ export class VideoPlayerPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /* this.getVideo(); */
     this.scrn.getScreen();
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
@@ -28,20 +27,16 @@ export class VideoPlayerPage implements OnInit {
             'actualizacion corresponde a pantalla actual ' +
               this.scrn.currentScreen.ip
           );
-          this.vm.observador2(res);
+          this.vm.$updateScreen(res);
         }
       } else if (res.video) {
         if (res.group.id === this.scrn.currentScreen.currentGroup) {
           console.log(
             'grupo corresponde a pantalla actual ' + this.scrn.currentScreen.ip
           );
-          this.vm.observador(res);
+          this.vm.$updateVideo(res);
         }
       }
     });
   }
-
-  /*  getVideo() {
-    this.api.getVideo().subscribe((res) => this.api.observador(res));
-  } */
 }

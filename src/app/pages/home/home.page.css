@@ -1,17 +1,19 @@
 main {
-    margin-top: 7vh;
-    width: 100vw;
-    height: 93vh;
-    flex-flow: row nowrap;
-    justify-content: space-around;
+  margin-top: 7vh;
+  width: 100vw;
+  height: 93vh;
+  flex-flow: row nowrap;
+  justify-content: space-around;
 }
 
-app-screen-groups {
-    width: 20%;
-    height: 95%;
+app-screen-groups,
+app-user-panel {
+  width: 20%;
+  height: 95%;
 }
 
-app-management-promos {
-    width: 75%;
-    height: 95%;
+app-management-promos,
+app-user-management {
+  width: 75%;
+  height: 95%;
 }

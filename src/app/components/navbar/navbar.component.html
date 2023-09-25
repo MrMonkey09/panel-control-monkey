@@ -7,12 +7,34 @@
       <li>Iniciar sesion</li>
     </ul>
     <ul class="flex-center" *ngIf="userService.user">
-      <li>{{userService.user.name}}</li>
-      <li>{{userService.user.department.name}}</li>
-      <li>{{userService.user.rut}}</li>
+      <li
+        *ngIf="userService.isBackButtonEnabled"
+        (click)="userService.closeUserPanel()"
+        style="cursor: pointer"
+      >
+        <---
+      </li>
+      <li
+        *ngIf="
+          userService.user.department.id === 0 &&
+          !userService.isBackButtonEnabled
+        "
+        (click)="userService.openUserPanel()"
+        style="cursor: pointer"
+      >
+        Panel de Usuarios
+      </li>
+      <li>{{ userService.user.name }}</li>
+      <li>{{ userService.user.department.name }}</li>
+      <li>{{ userService.user.rut }}</li>
     </ul>
   </div>
   <div class="navbar__search flex-center">
-    <i *ngIf="userService.user" (click)="userService.loggOut()">Cerrar sesion</i>
+    <i
+      *ngIf="userService.user"
+      (click)="userService.loggOut()"
+      style="cursor: pointer"
+      >Cerrar sesion</i
+    >
   </div>
 </nav>
