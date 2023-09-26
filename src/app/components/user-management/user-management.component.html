@@ -1,12 +1,20 @@
-<section class="flex-center border-box bg-primary">
-  <ul id="usersList">
+<section
+  class="flex-center border-box bg-primary"
+  *ngIf="userService.isPanelUsed"
+>
+  <ul id="usersList" *ngIf="userService.isUpdateUserOpened">
     <li>Usuario 1</li>
     <li>Usuario 1</li>
     <li>Usuario 1</li>
     <li>Usuario 1</li>
     <li>Usuario 1</li>
   </ul>
-  <form class="flex-center" id="userInfo">
+  <form
+    class="flex-center"
+    id="userInfo"
+    *ngIf="userService.isCreateUserOpened || userService.isUpdateUserOpened"
+    [ngStyle]="userService.isCreateUserOpened ? { width: '100%' } : {}"
+  >
     <div class="flex-center inputBlock">
       <label for="name">Nombre: </label>
       <input type="text" name="name" id="name" />
@@ -15,12 +23,12 @@
       <label for="rut">Rut: </label>
       <input type="text" name="rut" id="rut" />
     </div>
-    <div class="flex-center inputBlock">
+    <div class="flex-center inputBlock" *ngIf="!userService.isCreateUserOpened">
       <label for="oldPass">Contraseña Actual: </label>
       <input type="password" name="oldPass" id="oldPass" />
     </div>
     <div class="flex-center inputBlock">
-      <label for="newPass">Contraseña Nueva: </label>
+      <label for="newPass">Nueva contraseña: </label>
       <input type="password" name="newPass" id="newPass" />
     </div>
     <div class="flex-center inputBlock">
@@ -42,4 +50,16 @@
       <button type="submit">Guardar</button>
     </div>
   </form>
+  <ul class="flex-center" id="userList" *ngIf="userService.isDeleteUserOpened">
+    <li
+      class="flex-center"
+      id="userData"
+      *ngFor="let user of userService.usersList"
+    >
+      <span>Nombre:</span>
+      <span>Rut:</span>
+      <span>Email:</span>
+      <span>Area:</span>
+    </li>
+  </ul>
 </section>

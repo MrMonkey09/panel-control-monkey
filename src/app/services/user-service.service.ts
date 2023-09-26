@@ -13,6 +13,11 @@ export class UserServiceService {
   public recharge: boolean = false;
   public isUserPanelOpened: boolean = false;
   public isBackButtonEnabled: boolean = false;
+  public usersList: Array<User> = users;
+  public isCreateUserOpened: boolean = false;
+  public isDeleteUserOpened: boolean = false;
+  public isUpdateUserOpened: boolean = false;
+  public isPanelUsed: boolean = false;
   constructor(private http: HttpClient, public cookieService: CookieService) {}
 
   setUser(newUser: User) {
@@ -57,6 +62,37 @@ export class UserServiceService {
     setTimeout(() => {
       this.isUserPanelOpened = false;
       this.isBackButtonEnabled = false;
+      this.isPanelUsed = false;
+      this.isCreateUserOpened = false;
+      this.isDeleteUserOpened = false;
+      this.isUpdateUserOpened = false;
+    }, 100);
+  }
+  openCreateUser() {
+    console.log('Creador de usuarios abierto');
+    setTimeout(() => {
+      this.isPanelUsed = true;
+      this.isCreateUserOpened = true;
+      this.isDeleteUserOpened = false;
+      this.isUpdateUserOpened = false;
+    }, 100);
+  }
+  openUpdateUser() {
+    console.log('Actualizador de usuarios abierto');
+    setTimeout(() => {
+      this.isPanelUsed = true;
+      this.isCreateUserOpened = false;
+      this.isDeleteUserOpened = false;
+      this.isUpdateUserOpened = true;
+    }, 100);
+  }
+  openDeleteUser() {
+    console.log('Eliminador de usuarios abierto');
+    setTimeout(() => {
+      this.isPanelUsed = true;
+      this.isCreateUserOpened = false;
+      this.isDeleteUserOpened = true;
+      this.isUpdateUserOpened = false;
     }, 100);
   }
 }

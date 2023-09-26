@@ -1,7 +1,13 @@
 <aside class="full-area border-box bg-primary">
   <ul class="full-area">
-    <li class="full-area flex-center">Crear usuarios</li>
-    <li class="full-area flex-center">Modificar usuarios</li>
-    <li class="full-area flex-center">Eliminar usuarios</li>
+    <li class="full-area flex-center" (click)="userService.openCreateUser()">
+      Crear usuarios
+    </li>
+    <li class="full-area flex-center" (click)="userService.openUpdateUser()">
+      Modificar usuarios
+    </li>
+    <li class="full-area flex-center" (click)="userService.openDeleteUser()">
+      Eliminar usuarios
+    </li>
   </ul>
 </aside>
