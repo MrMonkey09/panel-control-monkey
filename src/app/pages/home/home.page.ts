@@ -18,11 +18,12 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     if (this.cookieService.get('user-id')) {
-      const findUser: any = users.filter(
+      const findUser: any = users.find(
         (user) => user.id.toString() === this.cookieService.get('user-id')
       );
-      if (findUser[0]) {
-        this.userService.setUser(findUser[0]);
+      if (findUser) {
+        this.userService.setUserCookie(findUser);
+        this.scrn.getAvaibleScreens(findUser);
       }
     }
   }

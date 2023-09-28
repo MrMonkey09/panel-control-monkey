@@ -6,7 +6,7 @@ import { GroupScreen } from './group-screen';
 export interface Screen {
   id: number;
   ip?: string;
-  currentGroup?: number|string;
+  currentGroup?: number;
   brand: string;
   location: Location;
   department: Department;

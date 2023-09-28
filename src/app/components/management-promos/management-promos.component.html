@@ -1,4 +1,7 @@
-<section class="flex-center border-box bg-primary" *ngIf="scrn.currentGroup">
+<section
+  class="flex-center border-box bg-primary"
+  *ngIf="scrn.isCurrentGroup && scrn.isActiveGroup"
+>
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
       <li

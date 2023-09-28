@@ -15,15 +15,15 @@ import { users } from './users';
 export let screens: Array<Screen> = [
   {
     id: 0,
-    ip: '192.168.0.15',
+    ip: '172.28.20.20',
     brand: 'LG',
     location: locations[5],
-    department: departments[0],
+    department: departments[1],
     manager: users[0],
   },
   {
     id: 1,
-    ip: '172.28.23.24',
+    ip: '172.28.23.17',
     brand: 'Polaroid',
     location: locations[1],
     department: departments[0],
@@ -34,13 +34,13 @@ export let screens: Array<Screen> = [
     brand: 'Sony',
     ip: '172.28.23.53',
     location: locations[3],
-    department: departments[0],
+    department: departments[1],
     manager: users[0],
   },
   {
     id: 3,
     brand: 'Sony',
-    ip: '172.28.21.20',
+    ip: '192.168.0.15',
     location: locations[3],
     department: departments[0],
     manager: users[0],
@@ -50,7 +50,7 @@ export let screens: Array<Screen> = [
     brand: 'AOC',
     ip: '172.28.63.187',
     location: locations[3],
-    department: departments[0],
+    department: departments[1],
     manager: users[0],
   },
   {
@@ -58,7 +58,7 @@ export let screens: Array<Screen> = [
     brand: 'LG',
     ip: '172.28.63.144',
     location: locations[4],
-    department: departments[0],
+    department: departments[1],
     manager: users[0],
   },
   {

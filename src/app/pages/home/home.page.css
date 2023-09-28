@@ -13,7 +13,7 @@ app-user-panel {
 }
 
 app-management-promos,
-app-user-management {
+app-user-management, app-create-group {
   width: 75%;
   height: 95%;
 }

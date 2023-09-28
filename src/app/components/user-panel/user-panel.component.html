@@ -1,12 +1,36 @@
 <aside class="full-area border-box bg-primary">
   <ul class="full-area">
-    <li class="full-area flex-center" (click)="userService.openCreateUser()">
+    <li
+      class="full-area flex-center"
+      (click)="userService.openCreateUser()"
+      [ngStyle]="
+        !userService.isCreateUserOpened
+          ? { cursor: 'pointer' }
+          : { 'background-color': 'black' }
+      "
+    >
       Crear usuarios
     </li>
-    <li class="full-area flex-center" (click)="userService.openUpdateUser()">
+    <li
+      class="full-area flex-center"
+      (click)="userService.openUpdateUser()"
+      [ngStyle]="
+        !userService.isUpdateUserOpened
+          ? { cursor: 'pointer' }
+          : { 'background-color': 'black' }
+      "
+    >
       Modificar usuarios
     </li>
-    <li class="full-area flex-center" (click)="userService.openDeleteUser()">
+    <li
+      class="full-area flex-center"
+      (click)="userService.openDeleteUser()"
+      [ngStyle]="
+        !userService.isDeleteUserOpened
+          ? { cursor: 'pointer' }
+          : { 'background-color': 'black' }
+      "
+    >
       Eliminar usuarios
     </li>
   </ul>

@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { GroupScreen } from 'src/app/interfaces/group-screen';
+import { User } from 'src/app/interfaces/user';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
 import { SocketioService } from 'src/app/services/socketio.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-screen-groups',
@@ -18,18 +20,29 @@ export class ScreenGroupsComponent implements OnInit {
     private cookieService: CookieService,
     private sw: SocketioService,
     private http: HttpClient,
-    public scrn: ScreensService
+    public scrn: ScreensService,
+    public userService: UserServiceService
   ) {}
 
   ngOnInit(): void {
     this.id = this.cookieService.get('user-id');
+    const userTemp = this.userService.usersList.find(
+      (user) => user.id === parseInt(this.id)
+    );
     console.log('ID User Logged: ', this.id);
+    console.log(userTemp);
+    this.scrn.isActiveGroup = false;
+    if (userTemp) {
+      this.takeScreenGroups(userTemp);
+    }
   }
 
   takeScreens(group: GroupScreen) {
     console.log('Cargando pantallas de: ' + group.name);
     this.scrn.currentGroup = group;
-    this.scrn.currentGroup.isActive = true;
+    this.scrn.isCurrentGroup = true;
+    this.scrn.isActiveGroup = true;
+    this.scrn.isCreateGroupOpened = false;
     console.log('Grupo actual: ' + this.scrn.currentGroup.name);
     console.log(
       'Video del grupo actual: ' + this.scrn.currentGroup.currentVideo
@@ -38,5 +51,18 @@ export class ScreenGroupsComponent implements OnInit {
     setTimeout(() => {
       this.api.recharge = true;
     }, 100);
+  }
+
+  takeScreenGroups(user: User) {
+    this.scrn.getScreenGroups(user);
+  }
+
+  addGroup() {
+    this.scrn.isCreateGroupOpened = true;
+    this.scrn.isActiveGroup = false;
+  }
+
+  delGroup(group: GroupScreen) {
+    this.scrn.delGroup(group, this.userService.usersList[this.id]);
   }
 }

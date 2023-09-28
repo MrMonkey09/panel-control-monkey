@@ -1,0 +1,15 @@
+<section
+  class="flex-center border-box bg-primary"
+  *ngIf="scrn.isCreateGroupOpened && !scrn.isActiveGroup"
+>
+  <form class="full-area flex-center inputBlock" (ngSubmit)="addGroup()">
+    <label for="groupName">Ingrese el nombre del grupo:</label>
+    <input
+      id="groupName"
+      name="groupName"
+      type="text"
+      [(ngModel)]="scrn.groupFormTemp.name"
+    />
+    <button type="submit">Agregar</button>
+  </form>
+</section>

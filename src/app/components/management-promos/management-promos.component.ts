@@ -1,10 +1,11 @@
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, timeout } from 'rxjs';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
 import { SocketioService } from 'src/app/services/socketio.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 import { VideoManagementService } from 'src/app/services/video-management.service';
 
 @Component({
@@ -30,16 +31,27 @@ export class ManagementPromosComponent implements OnInit {
     private sw: SocketioService,
     private http: HttpClient,
     public scrn: ScreensService,
-    public vm: VideoManagementService
+    public vm: VideoManagementService,
+    public userService: UserServiceService
   ) {}
   ngOnInit(): void {
     this.id = this.cookieService.get('user-id');
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
-      if (res.screen) {
+      if (res.screen || res.screenDel) {
         this.vm.$updateScreen(res);
       } else if (res.video) {
         this.vm.$updateVideo(res);
+      } else if (res.groups) {
+        console.log('update groups');
+        setTimeout(() => {
+          if (this.userService.user) {
+            this.scrn.groupsScreen = res.groups;
+            this.scrn.getScreenGroups(this.userService.user);
+          }
+        }, 100);
+      } else if (res.cont) {
+        console.log('nuevo grupo, cantidad actual: ' + res.cont);
       }
     });
   }

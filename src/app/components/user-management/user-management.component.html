@@ -3,13 +3,32 @@
   *ngIf="userService.isPanelUsed"
 >
   <ul id="usersList" *ngIf="userService.isUpdateUserOpened">
-    <li>Usuario 1</li>
-    <li>Usuario 1</li>
-    <li>Usuario 1</li>
-    <li>Usuario 1</li>
-    <li>Usuario 1</li>
+    <li
+      class="flex-center"
+      *ngFor="let user of userService.usersList"
+      (click)="userService.getUser(user)"
+      [ngStyle]="
+        !userService.currentUser
+          ? { cursor: 'pointer' }
+          : userService.currentUser.id === user.id
+          ? { 'background-color': 'black' }
+          : { cursor: 'pointer' }
+      "
+    >
+      <span>{{ user.name }}</span
+      ><span>{{ user.rut }}</span
+      ><span>{{ user.department.name }}</span>
+    </li>
   </ul>
   <form
+    (ngSubmit)="
+      userService.getForm(
+        userService.userFormTemp,
+        userService.isCreateUserOpened && !userService.isUpdateUserOpened
+          ? 'isCreate'
+          : 'isUpdate'
+      )
+    "
     class="flex-center"
     id="userInfo"
     *ngIf="userService.isCreateUserOpened || userService.isUpdateUserOpened"
@@ -17,33 +36,77 @@
   >
     <div class="flex-center inputBlock">
       <label for="name">Nombre: </label>
-      <input type="text" name="name" id="name" />
+      <input
+        [(ngModel)]="userService.userFormTemp.name"
+        type="text"
+        name="name"
+        id="name"
+      />
     </div>
     <div class="flex-center inputBlock">
       <label for="rut">Rut: </label>
-      <input type="text" name="rut" id="rut" />
+      <input
+        [(ngModel)]="userService.userFormTemp.rut"
+        type="text"
+        name="rut"
+        id="rut"
+      />
     </div>
     <div class="flex-center inputBlock" *ngIf="!userService.isCreateUserOpened">
       <label for="oldPass">Contraseña Actual: </label>
-      <input type="password" name="oldPass" id="oldPass" />
+      <input
+        type="password"
+        name="oldPass"
+        id="oldPass"
+        [(ngModel)]="userService.userFormTemp.password"
+      />
     </div>
     <div class="flex-center inputBlock">
       <label for="newPass">Nueva contraseña: </label>
-      <input type="password" name="newPass" id="newPass" />
+      <input
+        type="password"
+        name="newPass"
+        id="newPass"
+        [(ngModel)]="userService.userFormTemp.newPass"
+      />
     </div>
     <div class="flex-center inputBlock">
       <label for="newPassConfirm">Confirmar nueva contraseña: </label>
-      <input type="password" name="newPassConfirm" id="newPassConfirm" />
+      <input
+        type="password"
+        name="newPassConfirm"
+        id="newPassConfirm"
+        [(ngModel)]="userService.userFormTemp.confirmPass"
+      />
     </div>
     <div class="flex-center inputBlock">
       <label for="email">Email: </label>
-      <input type="email" name="email" id="email" />
+      <input
+        type="email"
+        name="email"
+        id="email"
+        [(ngModel)]="userService.userFormTemp.email"
+      />
     </div>
     <div class="flex-center inputBlock">
       <label for="department">Departamento: </label>
-      <select name="deparment" id="department">
-        <option value="">Marketing</option>
-        <option value="">TIC</option>
+      <select
+        [selectedIndex]="
+          userService.currentUser && userService.isUpdateUserOpened
+            ? userService.currentUser.department.id + 1
+            : null
+        "
+        name="deparment"
+        id="department"
+        [(ngModel)]="userService.userFormTemp.department"
+      >
+        <option value="0"></option>
+        <option
+          *ngFor="let department of userService.departmentList"
+          [value]="department.id + 1"
+        >
+          {{ department.name }}
+        </option>
       </select>
     </div>
     <div class="flex-center inputBlock">
@@ -56,10 +119,16 @@
       id="userData"
       *ngFor="let user of userService.usersList"
     >
-      <span>Nombre:</span>
-      <span>Rut:</span>
-      <span>Email:</span>
-      <span>Area:</span>
+      <div class="flex-center full-area">
+        <span>Nombre:{{ " " + user.name }}</span>
+        <span>{{ " | " }}Rut:{{ " " + user.rut }}</span>
+        <br />
+        <span>Email:{{ " " + user.email }}</span>
+        <span>{{ " | " }}Area:{{ " " + user.department.name }}</span>
+      </div>
+      <button type="button" (click)="userService.deleteUser(user)">
+        Eliminar
+      </button>
     </li>
   </ul>
 </section>

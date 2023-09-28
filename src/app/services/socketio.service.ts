@@ -22,6 +22,7 @@ export class SocketioService extends Socket {
   listen = () => {
     this.ioSocket.on('video', (res: any) => this.callback.emit(res));
     this.ioSocket.on('screen', (res: any) => this.callback.emit(res));
+    this.ioSocket.on('group', (res: any) => this.callback.emit(res));
   };
 
   emitEvento = (topic: string, payload: any) => {

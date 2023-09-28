@@ -21,11 +21,13 @@ section {
 }
 
 #usersList li {
-  height: 15%;
+  height: auto;
   border: 1px solid black;
   color: aliceblue;
   font-size: 1.4rem;
-  padding: 0.3rem;
+  padding: 0.2rem;
+  flex-flow: column nowrap;
+  align-items: start;
 }
 
 #usersList::-webkit-scrollbar {
@@ -96,13 +98,19 @@ select option {
 
 #userList li {
   flex-flow: column nowrap;
-  align-items: start;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 50%;
   height: 25%;
   border: 1px solid black;
   color: aliceblue;
   font-size: 1.4rem;
+}
+
+li div {
+  flex-flow: row wrap;
+  height: 40%;
+  text-shadow: 2px 1px 2px black;
+  letter-spacing: 0.8px;
 }
 
 #userList::-webkit-scrollbar {

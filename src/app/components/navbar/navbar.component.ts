@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { users } from '../../fake-data/users';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { ScreensService } from 'src/app/services/screens.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +8,10 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(public userService: UserServiceService) {}
+  constructor(
+    public userService: UserServiceService,
+    public scrn: ScreensService
+  ) {}
 
-  ngOnInit(): void {
-  }
-  
+  ngOnInit(): void {}
 }
