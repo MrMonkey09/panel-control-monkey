@@ -14,17 +14,30 @@ export class VideoManagementService {
   ) {}
 
   public $updateVideo(res: any) {
+    let indexGroup: number;
+    if (this.scrn.groupsScreen) {
+      indexGroup = this.scrn.groupsScreen.findIndex(
+        (group) => group.id === res.group?.id
+      );
+    } else {
+      this.scrn.groupsScreen = [res.group];
+      indexGroup = this.scrn.groupsScreen.findIndex(
+        (group) => group.id === res.group?.id
+      );
+    }
     console.log('$updateVideo 1 Gatillado: ', res);
     if (res.filename) {
+      console.log(res.filename);
       this.recharge = false;
       this.video = 'http://192.168.0.15:3001/' + res.filename;
       setTimeout(() => {
         this.recharge = true;
       }, 100);
     } else if (res.video) {
-      console.log(this.scrn.groupsScreen[res.group.id - 1]);
+      console.log(res.video);
+      this.scrn.groupsScreen[indexGroup].currentVideo = res.video;
+      console.log(this.scrn.groupsScreen[indexGroup]);
       this.recharge = false;
-      this.scrn.groupsScreen[res.group.id - 1].currentVideo = res.video;
       setTimeout(() => {
         this.recharge = true;
       }, 100);
@@ -33,100 +46,48 @@ export class VideoManagementService {
 
   public $updateScreen(res: any) {
     this.recharge = false;
-    console.log('$updateVideo 2 Gatillado: ', res);
-    const screenTemp = res.screenDel ? res.screenDel : res.screen;
-    const groupTemp = res.group;
-    if (this.scrn.avaibles.find((screen) => screenTemp.id === screen.id)) {
-      if (
-        this.scrn.currentGroup &&
-        this.scrn.currentScreen &&
-        this.scrn.currentGroup.id === groupTemp.id &&
-        this.scrn.currentScreen.id === screenTemp.id
-      ) {
-        console.log('Pantalla actualizada');
-        console.log({ screenTemp, groupTemp });
-        this.scrn.groupsScreen[groupTemp.id - 1] = groupTemp;
-        this.scrn.currentGroup =
-          this.scrn.groupsScreen[screenTemp.currentGroup - 1];
-        this.scrn.currentScreen = screenTemp;
-        setTimeout(() => {
-          console.log({
-            'pantalla actualizada': 'Ok',
-            'current screen': this.scrn.currentScreen,
-            'current group': this.scrn.currentGroup,
-          });
-          console.log(
-            this.scrn.currentGroup
-              ? this.scrn.groupsScreen[this.scrn.currentGroup.id - 1]
-                  .currentVideo
-              : 'Sin grupo actual'
-          );
-          this.recharge = true;
-        }, 100);
-      } else if (res.screenDel) {
-        console.log('Pantalla actualizada');
-        console.log({ screenTemp, groupTemp });
-        this.scrn.groupsScreen[
-          this.scrn.groupsScreen.findIndex((group) => group.id === groupTemp.id)
-        ] = groupTemp;
-        this.scrn.activeGroupScreens[
-          this.scrn.activeGroupScreens.findIndex(
-            (group) => group.id === groupTemp.id
-          )
-        ] = groupTemp;
-        this.scrn.avaibles[
-          this.scrn.avaibles.findIndex((screen) => screenTemp.id === screen.id)
-        ] = screenTemp;
-        this.scrn.avaibles = this.scrn.avaibles.filter(
-          (screen) => screen.id !== screenTemp.id
+    console.log('$updateScreen Gatillado: ', res);
+    if (res.groups) {
+      this.scrn.groupsScreen = res.groups;
+    } else {
+      const screenTemp = res.screenDel ? res.screenDel : res.screen;
+      const groupTemp = res.group;
+      const indexGroup = this.scrn.groupsScreen?.findIndex(
+        (group) => group.id === groupTemp.id
+      );
+      const indexScreen = this.scrn.avalaibles?.findIndex(
+        (screen) => screen.id === screenTemp.id
+      );
+      /* Eliminar pantalla */
+      if (res.screenDel) {
+        /* Grupo abierto vista panel */
+        if (this.scrn.currentGroup?.id === res.group.id) {
+          this.scrn.currentGroup.screenList = res.group.screenList;
+        } /* Vista de pantalla */ else if (this.scrn.currentScreen) {
+          this.scrn.currentScreen = screenTemp;
+        } /* Grupo cerrado vista panel */ else {
+          this.scrn.groupsScreen[indexGroup].screenList = res.group.screenList;
+        }
+        this.scrn.avalaibles = res.newAvalaibles;
+        this.scrn.selected = this.scrn.avalaibles.filter(
+          (screen) => screen.department.id === res.group.departament
         );
-        console.log({
-          groupUpdate:
-            this.scrn.groupsScreen[
-              this.scrn.groupsScreen.findIndex(
-                (group) => group.id === groupTemp.id
-              )
-            ],
-          screenUpdate:
-            this.scrn.avaibles[
-              this.scrn.avaibles.findIndex(
-                (screen) => screenTemp.id === screen.id
-              )
-            ],
-          newAvaibles: res.newAvaibles,
-        });
-      } else {
-        console.log('Pantalla actualizada');
-        console.log({ screenTemp, groupTemp });
-        this.scrn.groupsScreen[
-          this.scrn.groupsScreen.findIndex((group) => group.id === groupTemp.id)
-        ] = groupTemp;
-        this.scrn.activeGroupScreens[
-          this.scrn.activeGroupScreens.findIndex(
-            (group) => group.id === groupTemp.id
-          )
-        ] = groupTemp;
-        this.scrn.avaibles[
-          this.scrn.avaibles.findIndex((screen) => screenTemp.id === screen.id)
-        ] = screenTemp;
-        this.scrn.avaibles = this.scrn.avaibles.filter(
-          (screen) => screen.id !== screenTemp.id
+      } /* agregar pantalla */ else {
+        console.log('agregando pantalla');
+        /* Grupo abierto vista panel */
+        if (this.scrn.currentGroup === res.group.id) {
+          console.log('agregando pantalla en current group');
+          this.scrn.currentGroup.screenList = res.group.screenList;
+        } /* Vista de pantalla */ else if (this.scrn.currentScreen) {
+          this.scrn.currentScreen = screenTemp;
+        } /* Grupo cerrado vista panel */ else {
+          console.log('agregando pantalla en grupo existente');
+          this.scrn.groupsScreen[indexGroup].screenList = res.group.screenList;
+        }
+        this.scrn.avalaibles = res.newAvalaibles;
+        this.scrn.selected = this.scrn.avalaibles.filter(
+          (screen) => screen.department.id === res.group.departament
         );
-        console.log({
-          groupUpdate:
-            this.scrn.groupsScreen[
-              this.scrn.groupsScreen.findIndex(
-                (group) => group.id === groupTemp.id
-              )
-            ],
-          screenUpdate:
-            this.scrn.avaibles[
-              this.scrn.avaibles.findIndex(
-                (screen) => screenTemp.id === screen.id
-              )
-            ],
-          newAvaibles: res.newAvaibles,
-        });
       }
     }
   }

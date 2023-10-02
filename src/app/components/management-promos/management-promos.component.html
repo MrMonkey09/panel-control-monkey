@@ -5,7 +5,7 @@
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
       <li
-        *ngFor="let screen of scrn.avaibles"
+        *ngFor="let screen of scrn.selected"
         (click)="scrn.addScreen(screen)"
         class="full-area flex-center"
       >
@@ -45,7 +45,7 @@
     <div class="flex-center" id="preview">
       <video
         class="full-area"
-        mute
+        muted="true"
         autoplay
         loop
         *ngIf="api.recharge && scrn.currentGroup"

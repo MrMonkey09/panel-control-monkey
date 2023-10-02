@@ -2,6 +2,7 @@ import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject, timeout } from 'rxjs';
+import { Screen } from 'src/app/interfaces/screen';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
 import { SocketioService } from 'src/app/services/socketio.service';

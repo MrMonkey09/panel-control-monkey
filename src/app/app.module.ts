@@ -23,6 +23,7 @@ import { VideoPlayerPage } from './pages/video-player/video-player.page';
 import { UserPanelComponent } from './components/user-panel/user-panel.component';
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { CreateGroupComponent } from './components/create-group/create-group.component';
+import { ScreenPanelComponent } from './components/screen-panel/screen-panel.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CreateGroupComponent } from './components/create-group/create-group.com
     UserPanelComponent,
     UserManagementComponent,
     CreateGroupComponent,
+    ScreenPanelComponent,
   ],
   imports: [
     BrowserModule,

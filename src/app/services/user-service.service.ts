@@ -44,7 +44,7 @@ export class UserServiceService {
     this.cookieService.set('user-id', user.id.toString());
     setTimeout(() => {
       this.user = users.find((userTemp) => userTemp.id === user.id);
-      this.scrn.getAvaibleScreens(user);
+      this.scrn.getAvalaiblescreens(user);
     }, 100);
   }
 

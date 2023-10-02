@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
       );
       if (findUser) {
         this.userService.setUserCookie(findUser);
-        this.scrn.getAvaibleScreens(findUser);
+        this.scrn.getAvalaiblescreens(findUser);
       }
     }
   }

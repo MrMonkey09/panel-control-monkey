@@ -23,7 +23,7 @@ export let screens: Array<Screen> = [
   },
   {
     id: 1,
-    ip: '172.28.23.17',
+    ip: '192.168.0.12',
     brand: 'Polaroid',
     location: locations[1],
     department: departments[0],
