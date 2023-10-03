@@ -24,6 +24,7 @@ import { UserPanelComponent } from './components/user-panel/user-panel.component
 import { UserManagementComponent } from './components/user-management/user-management.component';
 import { CreateGroupComponent } from './components/create-group/create-group.component';
 import { ScreenPanelComponent } from './components/screen-panel/screen-panel.component';
+import { ScreenManagementComponent } from './components/screen-management/screen-management.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ScreenPanelComponent } from './components/screen-panel/screen-panel.com
     UserManagementComponent,
     CreateGroupComponent,
     ScreenPanelComponent,
+    ScreenManagementComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,20 +13,21 @@ import { User } from '../interfaces/user';
 export class ScreensService {
   avalaibles: Array<Screen> = screens;
   currentGroup!: GroupScreen;
-  isCurrentGroup: boolean = false;
   contGroups: number = 0;
   selected: Array<Screen> = [];
   currentScreen!: Screen;
-  isActiveGroup!: boolean;
   groupsScreen!: Array<GroupScreen>;
   activeGroupScreens!: Array<GroupScreen>;
   screenList?: Array<Screen>;
   currentVideo!: string;
-  isActive!: boolean;
-  isCreateGroupOpened: boolean = false;
   groupFormTemp = {
     name: '',
   };
+  isCurrentGroup: boolean = false;
+  isActiveGroup!: boolean;
+  isActive!: boolean;
+  isCreateGroupOpened: boolean = false;
+  isPanelScreenOpened: boolean = false;
 
   constructor(
     private api: ApiFecthService,
@@ -116,6 +117,10 @@ export class ScreensService {
         }
       },
     });
+  }
+
+  closeScreenPanel() {
+    this.isPanelScreenOpened = false;
   }
 
   getAvalaiblescreens(user: User) {

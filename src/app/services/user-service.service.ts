@@ -16,8 +16,14 @@ export class UserServiceService {
   public isUserPanelOpened: boolean = false;
   public isBackButtonEnabled: boolean = false;
   public isUserSelected: boolean = false;
+  public isCreateUserOpened: boolean = false;
+  public isDeleteUserOpened: boolean = false;
+  public isUpdateUserOpened: boolean = false;
+  public isPanelUsed: boolean = false;
   public usersList: Array<User> = users;
   public contUsers: number = 1;
+  public currentUser!: User | null;
+  public departmentList: Array<Department> = departments;
   public userFormTemp = {
     name: '',
     rut: '',
@@ -27,12 +33,7 @@ export class UserServiceService {
     confirmPass: '',
     department: 0,
   };
-  public currentUser!: User | null;
-  public isCreateUserOpened: boolean = false;
-  public isDeleteUserOpened: boolean = false;
-  public isUpdateUserOpened: boolean = false;
-  public isPanelUsed: boolean = false;
-  public departmentList: Array<Department> = departments;
+
   constructor(
     private http: HttpClient,
     public cookieService: CookieService,

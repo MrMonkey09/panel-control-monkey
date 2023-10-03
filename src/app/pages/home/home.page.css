@@ -7,13 +7,16 @@ main {
 }
 
 app-screen-groups,
-app-user-panel {
+app-user-panel,
+app-screen-panel {
   width: 20%;
   height: 95%;
 }
 
 app-management-promos,
-app-user-management, app-create-group {
+app-user-management,
+app-create-group,
+app-screen-management {
   width: 75%;
   height: 95%;
 }

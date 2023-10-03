@@ -11,41 +11,42 @@
 }
 
 .navbar__logo {
-    height: 100%;
-    width: auto;
-    margin-left: 2vw;
+  height: 100%;
+  width: auto;
+  margin-left: 2vw;
 }
 
 .navbar__logo img {
-    width: auto;
-    height: 100%;
+  width: auto;
+  height: 100%;
 }
 
-.navbar__links{
-    width: 50%;
-    height: 100%;
-    text-decoration: none;
-    font-size: large;
+.navbar__links {
+  width: 60%;
+  height: 100%;
+  text-decoration: none;
+  font-size: large;
 }
 
-.navbar__links ul{
-    height: 100%;
-    justify-content: space-around;
-    align-items: center;
-    list-style: none;
+.navbar__links ul {
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  cursor: default;
 }
 
 .navbar__links ul a {
-    text-decoration: none;
-    color:white;
+  text-decoration: none;
+  color: white;
 }
 
 .navbar__search {
-    height: 100%;
-    width: auto;
-    margin-right: 2vw;
+  height: 100%;
+  width: auto;
+  margin-right: 2vw;
 }
 
 .navbar__search i {
-    font-size: 2em;
+  font-size: 2em;
 }

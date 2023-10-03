@@ -15,12 +15,31 @@
         <---
       </li>
       <li
+        *ngIf="scrn.isPanelScreenOpened"
+        (click)="scrn.closeScreenPanel()"
+        style="cursor: pointer"
+      >
+        <---
+      </li>
+      <li
+        *ngIf="
+          (!scrn.isPanelScreenOpened || scrn.isPanelScreenOpened) &&
+          userService.user.department.id === 0 &&
+          !userService.isUserPanelOpened
+        "
+        [ngStyle]="!scrn.isPanelScreenOpened ? { cursor: 'pointer' } : {}"
+        (click)="openScreenPanel()"
+      >
+        Panel de Pantallas
+      </li>
+      <li
         *ngIf="
           userService.user.department.id === 0 &&
-          !userService.isBackButtonEnabled
+          !scrn.isPanelScreenOpened &&
+          (!userService.isBackButtonEnabled || userService.isBackButtonEnabled)
         "
         (click)="userService.openUserPanel()"
-        style="cursor: pointer"
+        [ngStyle]="!userService.isUserPanelOpened ? { cursor: 'pointer' } : {}"
       >
         Panel de Usuarios
       </li>
