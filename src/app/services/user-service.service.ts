@@ -11,20 +11,20 @@ import { ScreensService } from './screens.service';
   providedIn: 'root',
 })
 export class UserServiceService {
-  public user?: User | undefined;
-  public recharge: boolean = false;
-  public isUserPanelOpened: boolean = false;
-  public isBackButtonEnabled: boolean = false;
-  public isUserSelected: boolean = false;
-  public isCreateUserOpened: boolean = false;
-  public isDeleteUserOpened: boolean = false;
-  public isUpdateUserOpened: boolean = false;
-  public isPanelUsed: boolean = false;
-  public usersList: Array<User> = users;
-  public contUsers: number = 1;
-  public currentUser!: User | null;
-  public departmentList: Array<Department> = departments;
-  public userFormTemp = {
+  user?: User | undefined;
+  recharge: boolean = false;
+  isUserPanelOpened: boolean = false;
+  isBackButtonEnabled: boolean = false;
+  isUserSelected: boolean = false;
+  isCreateUserOpened: boolean = false;
+  isDeleteUserOpened: boolean = false;
+  isUpdateUserOpened: boolean = false;
+  isPanelUsed: boolean = false;
+  usersList: Array<User> = users;
+  contUsers: number = 1;
+  currentUser!: User | null;
+  departmentList: Array<Department> = departments;
+  userFormTemp = {
     name: '',
     rut: '',
     email: '',

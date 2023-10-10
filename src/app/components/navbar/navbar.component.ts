@@ -23,5 +23,6 @@ export class NavbarComponent implements OnInit {
     this.userService.isUserPanelOpened = false;
     this.scrn.isCurrentGroup = false;
     this.scrn.isCreateGroupOpened = false;
+    
   }
 }

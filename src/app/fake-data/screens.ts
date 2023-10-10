@@ -64,6 +64,7 @@ export let screens: Array<Screen> = [
   {
     id: 6,
     brand: 'Samsung',
+    ip: '195.64.25.0',
     location: locations[2],
     department: departments[0],
     manager: users[0],

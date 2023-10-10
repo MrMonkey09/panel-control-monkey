@@ -21,7 +21,6 @@ export class ApiFecthService {
       reportProgress: true,
       responseType: 'json',
     });
-
     return this.http.request(req);
   }
 }

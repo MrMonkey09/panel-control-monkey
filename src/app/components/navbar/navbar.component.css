@@ -3,7 +3,7 @@
   color: aliceblue;
   flex-flow: row nowrap;
   width: 100%;
-  height: 7vh;
+  height: 9vh;
   border-radius: 0 0 30px 30px;
   justify-content: space-between;
   position: fixed;
@@ -18,7 +18,7 @@
 
 .navbar__logo img {
   width: auto;
-  height: 100%;
+  height: 90%;
 }
 
 .navbar__links {
@@ -33,7 +33,6 @@
   justify-content: space-between;
   align-items: center;
   list-style: none;
-  cursor: default;
 }
 
 .navbar__links ul a {

@@ -35,6 +35,14 @@ export class ScreenGroupsComponent implements OnInit {
     if (userTemp) {
       this.takeScreenGroups(userTemp);
     }
+    if (this.id) {
+      const findUser: any = this.userService.usersList.find(
+        (user) => user.id.toString() === this.cookieService.get('user-id')
+      );
+      if (findUser) {
+        this.scrn.getAvalaiblescreens(findUser);
+      }
+    }
   }
 
   takeScreens(group: GroupScreen) {

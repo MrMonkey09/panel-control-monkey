@@ -41,6 +41,7 @@
         type="text"
         name="name"
         id="name"
+        style="cursor: text"
       />
     </div>
     <div class="flex-center inputBlock">
@@ -50,6 +51,7 @@
         type="text"
         name="rut"
         id="rut"
+        style="cursor: text"
       />
     </div>
     <div class="flex-center inputBlock" *ngIf="!userService.isCreateUserOpened">
@@ -58,6 +60,7 @@
         type="password"
         name="oldPass"
         id="oldPass"
+        style="cursor: text"
         [(ngModel)]="userService.userFormTemp.password"
       />
     </div>
@@ -67,6 +70,7 @@
         type="password"
         name="newPass"
         id="newPass"
+        style="cursor: text"
         [(ngModel)]="userService.userFormTemp.newPass"
       />
     </div>
@@ -76,6 +80,7 @@
         type="password"
         name="newPassConfirm"
         id="newPassConfirm"
+        style="cursor: text"
         [(ngModel)]="userService.userFormTemp.confirmPass"
       />
     </div>
@@ -85,6 +90,7 @@
         type="email"
         name="email"
         id="email"
+        style="cursor: text"
         [(ngModel)]="userService.userFormTemp.email"
       />
     </div>
@@ -98,6 +104,7 @@
         "
         name="deparment"
         id="department"
+        style="cursor: pointer"
         [(ngModel)]="userService.userFormTemp.department"
       >
         <option value="0"></option>
@@ -110,23 +117,34 @@
       </select>
     </div>
     <div class="flex-center inputBlock">
-      <button type="submit">Guardar</button>
+      <button type="submit" style="cursor: pointer">Guardar</button>
     </div>
   </form>
-  <ul class="flex-center" id="userList" *ngIf="userService.isDeleteUserOpened">
+  <ul
+    class="flex-center"
+    id="userListDel"
+    *ngIf="userService.isDeleteUserOpened"
+  >
     <li
       class="flex-center"
       id="userData"
       *ngFor="let user of userService.usersList"
     >
       <div class="flex-center full-area">
-        <span>Nombre:{{ " " + user.name }}</span>
-        <span>{{ " | " }}Rut:{{ " " + user.rut }}</span>
-        <br />
-        <span>Email:{{ " " + user.email }}</span>
-        <span>{{ " | " }}Area:{{ " " + user.department.name }}</span>
+        <span
+          >Nombre:{{ " " + user.name + " | " }}Rut:{{ " " + user.rut }}</span
+        >
+        <span
+          >Email:{{ " " + user.email + " | " }}Area:{{
+            " " + user.department.name
+          }}</span
+        >
       </div>
-      <button type="button" (click)="userService.deleteUser(user)">
+      <button
+        type="button"
+        (click)="userService.deleteUser(user)"
+        style="cursor: pointer"
+      >
         Eliminar
       </button>
     </li>

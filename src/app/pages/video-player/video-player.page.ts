@@ -41,7 +41,8 @@ export class VideoPlayerPage implements OnInit {
         }
       } else if (res.screen || res.screenDel) {
         const screenTemp: Screen = res.screen ? res.screen : res.screenDel;
-        if (screenTemp.ip === this.scrn.currentScreen.ip) {
+        console.log(screenTemp);
+        if (screenTemp.ip === this.scrn.currentScreen?.ip) {
           console.log(
             'actualizacion corresponde a pantalla actual ' +
               this.scrn.currentScreen.ip

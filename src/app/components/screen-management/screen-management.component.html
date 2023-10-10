@@ -1,4 +1,156 @@
 <section
   class="flex-center border-box bg-primary"
+  *ngIf="scrn.isPanelScreenUsed"
 >
+  <ul
+    id="screensDetectedQueue"
+    *ngIf="
+      (scrn.isScreenModifiedOpened &&
+        scrn.avalaibles &&
+        scrn.avalaibles.length !== 0) ||
+      (scrn.isScreenActivatedOpened &&
+        scrn.screensDetectedQueue &&
+        scrn.screensDetectedQueue.length !== 0)
+    "
+  >
+    <li
+      class="flex-center"
+      *ngFor="
+        let screen of scrn.isScreenActivatedOpened
+          ? scrn.screensDetectedQueue
+          : scrn.avalaibles
+      "
+      (click)="scrn.getScreenInQueue(screen)"
+      [ngStyle]="
+        !scrn.currentScreenInQueue
+          ? { cursor: 'pointer' }
+          : scrn.currentScreenInQueue.id === screen.id
+          ? { 'background-color': 'black' }
+          : { cursor: 'pointer' }
+      "
+    >
+      <span
+        [ngStyle]="
+          !scrn.currentScreenInQueue
+            ? { cursor: 'pointer' }
+            : scrn.currentScreenInQueue.id === screen.id
+            ? {}
+            : { cursor: 'pointer' }
+        "
+        >ID:{{ " " + screen.id + " | " }}IP:{{ " " + screen.ip }}</span
+      >
+    </li>
+  </ul>
+  <form
+    (ngSubmit)="
+      scrn.getForm(
+        scrn.screenDetectedForm,
+        scrn.isScreenActivatedOpened && !scrn.isScreenModifiedOpened
+          ? 'isActivate'
+          : 'isModify',
+        userService.user
+      )
+    "
+    class="flex-center"
+    id="screenQueueInfo"
+    *ngIf="
+      (scrn.isScreenModifiedOpened &&
+        scrn.avalaibles &&
+        scrn.avalaibles.length !== 0) ||
+      (scrn.isScreenActivatedOpened &&
+        scrn.screensDetectedQueue &&
+        scrn.screensDetectedQueue.length !== 0)
+    "
+    [ngStyle]="
+      scrn.isScreenActivatedOpened || scrn.isScreenModifiedOpened
+        ? { width: '100%' }
+        : {}
+    "
+  >
+    <div class="flex-center inputBlock">
+      <label for="brand">Marca: </label>
+      <input
+        [(ngModel)]="scrn.screenDetectedForm.brand"
+        type="text"
+        name="brand"
+        id="brand"
+        style="cursor: text"
+      />
+    </div>
+    <div class="flex-center inputBlock">
+      <label for="location">Lugar:</label>
+      <select
+        [(ngModel)]="scrn.screenDetectedForm.location"
+        name="location"
+        id="location"
+        style="cursor: pointer"
+      >
+        <option value="0"></option>
+        <option
+          *ngFor="let location of scrn.locations"
+          [value]="location.id + 1"
+        >
+          {{ location.id + " | " + location.name }}
+        </option>
+      </select>
+    </div>
+    <div class="flex-center inputBlock">
+      <button type="submit" style="cursor: pointer">
+        {{
+          scrn.isScreenActivatedOpened && !scrn.isScreenModifiedOpened
+            ? "Activar"
+            : "Guardar"
+        }}
+      </button>
+    </div>
+  </form>
+  <ul
+    class="flex-center"
+    id="screensDetectedQueueDel"
+    *ngIf="
+      scrn.isScreenDesactivatedOpened &&
+      scrn.avalaibles &&
+      scrn.avalaibles.length !== 0
+    "
+  >
+    <li
+      class="flex-center"
+      id="screenDetectedInfoDel"
+      *ngFor="let screen of scrn.avalaibles"
+    >
+      <div class="flex-center full-area">
+        <span>ID:{{ " " + screen.id + " | " }}IP:{{ " " + screen.ip }}</span>
+        <span
+          >Marca:{{ " " + screen.brand + " | " }}Lugar:{{
+            " " + screen.location.name
+          }}</span
+        >
+      </div>
+      <button
+        type="button"
+        (click)="scrn.desactivateScreen(screen)"
+        style="cursor: pointer"
+      >
+        Desactivar
+      </button>
+    </li>
+  </ul>
+  <h1
+    *ngIf="
+      (scrn.isScreenModifiedOpened || scrn.isScreenDesactivatedOpened) &&
+      (!scrn.avalaibles || scrn.avalaibles.length === 0)
+    "
+    style="color: aliceblue; text-shadow: 1px 1px 2px black"
+  >
+    No se encontraron pantallas disponibles :(
+  </h1>
+  <h1
+    *ngIf="
+      scrn.isScreenActivatedOpened &&
+      (!scrn.screensDetectedQueue || scrn.screensDetectedQueue.length === 0)
+    "
+    style="color: aliceblue; text-shadow: 1px 1px 2px black"
+  >
+    No se encontraron pantallas detectadas en cola :(
+  </h1>
 </section>

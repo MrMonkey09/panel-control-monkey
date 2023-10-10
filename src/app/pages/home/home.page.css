@@ -1,7 +1,7 @@
 main {
-  margin-top: 7vh;
+  margin-top: 9vh;
   width: 100vw;
-  height: 93vh;
+  height: 92vh;
   flex-flow: row nowrap;
   justify-content: space-around;
 }

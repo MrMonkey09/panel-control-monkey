@@ -1,7 +1,37 @@
 <aside class="full-area border-box bg-primary">
   <ul class="full-area">
-    <li class="full-area flex-center" [ngStyle]="">Crear usuarios</li>
-    <li class="full-area flex-center" [ngStyle]="">Modificar usuarios</li>
-    <li class="full-area flex-center" [ngStyle]="">Eliminar usuarios</li>
+    <li
+      class="full-area flex-center"
+      (click)="scrn.openScreenActivated()"
+      [ngStyle]="
+        !scrn.isScreenActivatedOpened
+          ? { cursor: 'pointer' }
+          : { 'background-color': 'black' }
+      "
+    >
+      Activar Pantalla
+    </li>
+    <li
+      class="full-area flex-center"
+      (click)="scrn.openScreenModified()"
+      [ngStyle]="
+        !scrn.isScreenModifiedOpened
+          ? { cursor: 'pointer' }
+          : { 'background-color': 'black' }
+      "
+    >
+      Modificar Pantalla
+    </li>
+    <li
+      class="full-area flex-center"
+      (click)="scrn.openScreenDesactivated()"
+      [ngStyle]="
+        !scrn.isScreenDesactivatedOpened
+          ? { cursor: 'pointer' }
+          : { 'background-color': 'black' }
+      "
+    >
+      Desactivar Pantalla
+    </li>
   </ul>
 </aside>
