@@ -1,11 +1,11 @@
-/* export interface Location {
+/* export interface Location_ {
     id: number,
     name: string,
 } */
 
-import { Location } from '../interfaces/location';
+import { Location_ } from '../interfaces/location';
 
-export let locations: Array<Location> = [
+export let locations: Array<Location_> = [
   {
     id: 0,
     name: 'Railway',

@@ -1,4 +1,4 @@
-/* export interface Screen {
+/* export interface Screen_ {
   id: number;
   name: string;
   location: Location;
@@ -7,12 +7,12 @@
 }
  */
 
-import { Screen } from '../interfaces/screen';
+import { Screen_ } from '../interfaces/screen';
 import { departments } from './departments';
 import { locations } from './locations';
 import { users } from './users';
 
-export let screens: Array<Screen> = [
+export let screens: Array<Screen_> = [
   {
     id: 0,
     ip: '172.28.20.20',

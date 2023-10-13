@@ -2,7 +2,7 @@ import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject, timeout } from 'rxjs';
-import { Screen } from 'src/app/interfaces/screen';
+import { Screen_ } from 'src/app/interfaces/screen';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
 import { SocketioService } from 'src/app/services/socketio.service';
@@ -46,9 +46,9 @@ export class ManagementPromosComponent implements OnInit {
       } else if (res.groups) {
         console.log('update groups');
         setTimeout(() => {
-          if (this.userService.user) {
-            this.scrn.groupsScreen = res.groups;
-            this.scrn.getScreenGroups(this.userService.user);
+          if (this.userService._userConstants.user) {
+            this.scrn._screensConstants.groupsScreen = res.groups;
+            this.scrn.getScreenGroups(this.userService._userConstants.user);
           }
         }, 100);
       } else if (res.cont) {
@@ -102,25 +102,25 @@ export class ManagementPromosComponent implements OnInit {
             this.vm.$updateVideo(this.resTemp.data);
           },
           complete: () => {
-            this.api.recharge = false;
-            this.scrn.currentGroup.currentVideo = this.vm.video;
-            this.scrn.groupsScreen[this.scrn.currentGroup.id - 1].currentVideo =
-              this.vm.video;
-            console.log(this.scrn.groupsScreen[this.scrn.currentGroup.id - 1]);
+            this.api._apiConstants.recharge = false;
+            this.scrn._screensConstants.currentGroup.currentVideo = this.vm._videoConstants.video;
+            this.scrn._screensConstants.groupsScreen[this.scrn._screensConstants.currentGroup.id - 1].currentVideo =
+              this.vm._videoConstants.video;
+            console.log(this.scrn._screensConstants.groupsScreen[this.scrn._screensConstants.currentGroup.id - 1]);
             this.progress = {
               value: 0,
               inProgress: false,
               message: 'Carga completada.',
             };
             this.sw.emitEvento('video', {
-              video: this.vm.video,
-              group: this.scrn.currentGroup,
+              video: this.vm._videoConstants.video,
+              group: this.scrn._screensConstants.currentGroup,
             });
-            console.log(this.vm.video);
-            console.log(this.scrn.currentGroup.currentVideo);
+            console.log(this.vm._videoConstants.video);
+            console.log(this.scrn._screensConstants.currentGroup.currentVideo);
             console.log('completado');
             setTimeout(() => {
-              this.api.recharge = true;
+              this.api._apiConstants.recharge = true;
               this.progress = {
                 value: 0,
                 inProgress: false,

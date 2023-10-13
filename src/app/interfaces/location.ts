@@ -1,4 +1,4 @@
-export interface Location {
+export interface Location_ {
     id: number,
     name: string,
 }

@@ -3,19 +3,19 @@
     <img src="../../../assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
-    <ul class="flex-center" *ngIf="!userService.user">
+    <ul class="flex-center" *ngIf="!userService._userConstants.user">
       <li>Iniciar sesion</li>
     </ul>
-    <ul class="flex-center" *ngIf="userService.user">
+    <ul class="flex-center" *ngIf="userService._userConstants.user">
       <li
-        *ngIf="userService.isBackButtonEnabled"
+        *ngIf="userService._userConstants.isBackButtonEnabled"
         (click)="userService.closeUserPanel()"
         style="cursor: pointer"
       >
         <---
       </li>
       <li
-        *ngIf="scrn.isPanelScreenOpened"
+        *ngIf="scrn._screensConstants.isPanelScreenOpened"
         (click)="scrn.closeScreenPanel()"
         style="cursor: pointer"
       >
@@ -23,34 +23,34 @@
       </li>
       <li
         *ngIf="
-          (!scrn.isPanelScreenOpened || scrn.isPanelScreenOpened) &&
-          userService.user.department.id === 0 &&
-          !userService.isUserPanelOpened
+          (!scrn._screensConstants.isPanelScreenOpened || scrn._screensConstants.isPanelScreenOpened) &&
+          userService._userConstants.user.department.id === 0 &&
+          !userService._userConstants.isUserPanelOpened
         "
-        [ngStyle]="!scrn.isPanelScreenOpened ? { cursor: 'pointer' } : {}"
+        [ngStyle]="!scrn._screensConstants.isPanelScreenOpened ? { cursor: 'pointer' } : {}"
         (click)="openScreenPanel()"
       >
         Panel de Pantallas
       </li>
       <li
         *ngIf="
-          userService.user.department.id === 0 &&
-          !scrn.isPanelScreenOpened &&
-          (!userService.isBackButtonEnabled || userService.isBackButtonEnabled)
+          userService._userConstants.user.department.id === 0 &&
+          !scrn._screensConstants.isPanelScreenOpened &&
+          (!userService._userConstants.isBackButtonEnabled || userService._userConstants.isBackButtonEnabled)
         "
         (click)="userService.openUserPanel()"
-        [ngStyle]="!userService.isUserPanelOpened ? { cursor: 'pointer' } : {}"
+        [ngStyle]="!userService._userConstants.isUserPanelOpened ? { cursor: 'pointer' } : {}"
       >
         Panel de Usuarios
       </li>
-      <li>{{ userService.user.name }}</li>
-      <li>{{ userService.user.department.name }}</li>
-      <li>{{ userService.user.rut }}</li>
+      <li>{{ userService._userConstants.user.name }}</li>
+      <li>{{ userService._userConstants.user.department.name }}</li>
+      <li>{{ userService._userConstants.user.rut }}</li>
     </ul>
   </div>
   <div class="navbar__search flex-center">
     <i
-      *ngIf="userService.user"
+      *ngIf="userService._userConstants.user"
       (click)="userService.loggOut()"
       style="cursor: pointer"
       >Cerrar sesion</i

@@ -1,14 +1,14 @@
-import { Location } from './location';
-import { User } from './user';
-import { Department } from './department';
-import { GroupScreen } from './group-screen';
+import { Location_ } from './location';
+import { User_ } from './user';
+import { Department_ } from './department';
+import { GroupScreen_ } from './group-screen';
 
-export interface Screen {
+export interface Screen_ {
   id: number;
   ip?: string;
   currentGroup?: number;
   brand: string;
-  location: Location;
-  department: Department;
-  manager: User;
+  location: Location_;
+  department: Department_;
+  manager: User_;
 }

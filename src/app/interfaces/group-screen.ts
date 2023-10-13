@@ -1,9 +1,9 @@
-import { Screen } from './screen';
+import { Screen_ } from './screen';
 
-export interface GroupScreen {
+export interface GroupScreen_ {
   id: number;
   name: string;
-  screenList?: Array<Screen>;
+  screenList?: Array<Screen_>;
   currentVideo: string;
   departament: number;
 }

@@ -1,4 +1,4 @@
-/* export interface User {
+/* export interface User_ {
   id: number;
   name: string;
   password: string;
@@ -8,10 +8,10 @@
 }
  */
 
-import { User } from '../interfaces/user';
+import { User_ } from '../interfaces/user';
 import { departments } from './departments';
 
-export let users: Array<User> = [
+export let users: Array<User_> = [
   {
     id: 0,
     name: 'System',

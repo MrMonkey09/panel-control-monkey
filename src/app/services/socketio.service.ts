@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { CookieService } from 'ngx-cookie-service';
+import { _ApiFetchConstants } from '../constants/api-fetch.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +9,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class SocketioService extends Socket {
   callback: EventEmitter<any> = new EventEmitter();
   constructor(public cookieService: CookieService) {
+    const _apiConstants = new _ApiFetchConstants();
     super({
-      url: 'http://192.168.0.15:3001',
+      url: _apiConstants.urlApi,
       options: {
         query: {
           user: cookieService.get('user-id'),
