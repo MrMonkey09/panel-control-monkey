@@ -20,7 +20,7 @@ export class VideoPlayerPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.scrn.getScreen();
+/*     this.scrn.getScreen();
     this.indexGroup = this.scrn._screensConstants.groupsScreen?.findIndex(
       (group) => group.id === this.scrn._screensConstants.currentScreen.currentGroup
     );
@@ -58,6 +58,6 @@ export class VideoPlayerPage implements OnInit {
         console.log({ groups: res.groups });
         this.vm.$updateScreen(res);
       }
-    });
+    }); */
   }
 }

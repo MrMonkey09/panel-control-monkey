@@ -7,7 +7,7 @@ import { _ApiFetchConstants } from '../constants/api-fetch.constants';
   providedIn: 'root',
 })
 export class SocketioService extends Socket {
-  callback: EventEmitter<any> = new EventEmitter();
+/*   callback: EventEmitter<any> = new EventEmitter(); */
   constructor(public cookieService: CookieService) {
     const _apiConstants = new _ApiFetchConstants();
     super({
@@ -18,18 +18,18 @@ export class SocketioService extends Socket {
         },
       },
     });
-    this.listen();
+/*     this.listen(); */
   }
 
   listen = () => {
-    this.ioSocket.on('video', (res: any) => this.callback.emit(res));
+/*     this.ioSocket.on('video', (res: any) => this.callback.emit(res));
     this.ioSocket.on('screen', (res: any) => this.callback.emit(res));
     this.ioSocket.on('group', (res: any) => this.callback.emit(res));
-    this.ioSocket.on('cont', (res: any) => this.callback.emit(res));
+    this.ioSocket.on('cont', (res: any) => this.callback.emit(res)); */
   };
 
   emitEvento = (topic: string, payload: any) => {
-    console.log(payload);
-    this.ioSocket.emit(topic, payload);
+/*     console.log(payload);
+    this.ioSocket.emit(topic, payload); */
   };
 }

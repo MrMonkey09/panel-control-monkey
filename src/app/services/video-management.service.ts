@@ -17,7 +17,7 @@ export class VideoManagementService {
   ) {}
 
   public $updateVideo(res: any) {
-    let indexGroup: number;
+/*     let indexGroup: number;
     if (this.scrn._screensConstants.groupsScreen) {
       indexGroup = this.scrn._screensConstants.groupsScreen.findIndex(
         (group) => group.id === res.group?.id
@@ -45,37 +45,37 @@ export class VideoManagementService {
       setTimeout(() => {
         this._videoConstants.recharge = true;
       }, 100);
-    }
+    } */
   }
 
   public $updateScreen(res: any) {
-    this._videoConstants.recharge = false;
+/*     this._videoConstants.recharge = false;
     console.log('$updateScreen Gatillado: ', res);
     if (res.groups) {
       this.scrn._screensConstants.groupsScreen = res.groups;
     } else if (
       (res.screenDel && res.screenDel.department) ||
       (res.screen && res.screen.department)
-    ) {
-      const screenTemp = res.screenDel ? res.screenDel : res.screen;
+    ) { 
+       const screenTemp = res.screenDel ? res.screenDel : res.screen;
       const groupTemp = res.group;
       const indexGroup = this.scrn._screensConstants.groupsScreen?.findIndex(
         (group) => group.id === groupTemp.id
       );
       const indexScreen = this.scrn._screensConstants.avalaibles?.findIndex(
         (screen) => screen.id === screenTemp.id
-      );
-      /* Eliminar pantalla */
-      if (res.screenDel) {
-        /* Grupo abierto vista panel */
-        if (this.scrn._screensConstants.currentGroup?.id === res.group.id) {
+      ); 
+       Eliminar pantalla 
+       if (res.screenDel) {
+         Grupo abierto vista panel 
+         if (this.scrn._screensConstants.currentGroup?.id === res.group.id) {
           this.scrn._screensConstants.currentGroup.screenList =
-            res.group.screenList;
-        } /* Vista de pantalla */ else if (
+            res.group.screenList; 
+        } Vista de pantalla else if (
           this.scrn._screensConstants.currentScreen
-        ) {
+        ) { 
           this.scrn._screensConstants.currentScreen = screenTemp;
-        } /* Grupo cerrado vista panel */ else {
+        }  Grupo cerrado vista panel  else {
           this.scrn._screensConstants.groupsScreen[indexGroup].screenList =
             res.group.screenList;
         }
@@ -83,18 +83,18 @@ export class VideoManagementService {
           this.scrn._screensConstants.avalaibles.filter(
             (screen) => screen.department.id === res.group.departament
           );
-      } /* agregar pantalla */ else if (res.newAvalaibles && !res.newQueue) {
+      } /* agregar pantalla  else if (res.newAvalaibles && !res.newQueue) {
         console.log('agregando pantalla');
-        /* Grupo abierto vista panel */
+        /* Grupo abierto vista panel 
         if (this.scrn._screensConstants.currentGroup === res.group.id) {
           console.log('agregando pantalla en current group');
           this.scrn._screensConstants.currentGroup.screenList =
             res.group.screenList;
-        } /* Vista de pantalla */ else if (
+        } /* Vista de pantalla  else if (
           this.scrn._screensConstants.currentScreen
         ) {
           this.scrn._screensConstants.currentScreen = screenTemp;
-        } /* Grupo cerrado vista panel */ else {
+        } /* Grupo cerrado vista panel  else {
           console.log('agregando pantalla en grupo existente');
           this.scrn._screensConstants.groupsScreen[indexGroup].screenList =
             res.group.screenList;
@@ -177,6 +177,6 @@ export class VideoManagementService {
         'Contador de pantallas detectadas':
           this.scrn._screensConstants.screenDetectedCount,
       });
-    }
+    }*/
   }
 }

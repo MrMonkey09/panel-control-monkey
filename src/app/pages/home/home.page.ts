@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.cookieService.get('user-id')) {
+/*     if (this.cookieService.get('user-id')) {
       const findUser: any = users.find(
         (user) => user.id.toString() === this.cookieService.get('user-id')
       );
@@ -25,6 +25,6 @@ export class HomePage implements OnInit {
         this.userService.setUserCookie(findUser);
         this.scrn.getAvalaiblescreens(findUser);
       }
-    }
+    } */
   }
 }

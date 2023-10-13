@@ -36,7 +36,7 @@ export class ManagementPromosComponent implements OnInit {
     public userService: UserServiceService
   ) {}
   ngOnInit(): void {
-    this.id = this.cookieService.get('user-id');
+/*     this.id = this.cookieService.get('user-id');
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
       if (res.screen || res.screenDel) {
@@ -54,7 +54,7 @@ export class ManagementPromosComponent implements OnInit {
       } else if (res.cont) {
         console.log('nuevo grupo, cantidad actual: ' + res.cont);
       }
-    });
+    }); */
   }
 
   // Logica de la subida y despliegue de videos
@@ -63,17 +63,17 @@ export class ManagementPromosComponent implements OnInit {
   private resTemp!: any;
 
   getFile($event: any) {
-    console.log($event);
+/*     console.log($event);
     const [file] = $event.target.files;
     console.log(file);
     this.fileTemp = {
       fileRaw: file,
       fileName: file.name,
-    };
+    }; */
   }
 
   uploadFile() {
-    this.body.delete('myFile');
+/*     this.body.delete('myFile');
     this.body.append('myFile', this.fileTemp.fileRaw, this.fileTemp.fileName);
     console.log(this.body.get('myFile'));
     this.api.apiUpload(this.body).subscribe({
@@ -130,10 +130,10 @@ export class ManagementPromosComponent implements OnInit {
           },
         });
       },
-    });
+    }); */
   }
 
   getVideo() {
-    this.api.getScreen().subscribe((res) => this.vm.$updateVideo(res));
+/*     this.api.getScreen().subscribe((res) => this.vm.$updateVideo(res)); */
   }
 }

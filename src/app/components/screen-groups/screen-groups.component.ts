@@ -25,7 +25,7 @@ export class ScreenGroupsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.cookieService.get('user-id');
+/*     this.id = this.cookieService.get('user-id');
     const userTemp = this.userService._userConstants.usersList.find(
       (user) => user.id === parseInt(this.id)
     );
@@ -42,11 +42,11 @@ export class ScreenGroupsComponent implements OnInit {
       if (findUser) {
         this.scrn.getAvalaiblescreens(findUser);
       }
-    }
+    } */
   }
 
   takeScreens(group: GroupScreen_) {
-    console.log('Cargando pantallas de: ' + group.name);
+/*     console.log('Cargando pantallas de: ' + group.name);
     this.scrn._screensConstants.currentGroup = group;
     this.scrn._screensConstants.isCurrentGroup = true;
     this.scrn._screensConstants.isActiveGroup = true;
@@ -58,19 +58,19 @@ export class ScreenGroupsComponent implements OnInit {
     this.api._apiConstants.recharge = false;
     setTimeout(() => {
       this.api._apiConstants.recharge = true;
-    }, 100);
+    }, 100); */
   }
 
   takeScreenGroups(user: User_) {
-    this.scrn.getScreenGroups(user);
+/*     this.scrn.getScreenGroups(user); */
   }
 
   addGroup() {
-    this.scrn._screensConstants.isCreateGroupOpened = true;
-    this.scrn._screensConstants.isActiveGroup = false;
+/*     this.scrn._screensConstants.isCreateGroupOpened = true;
+    this.scrn._screensConstants.isActiveGroup = false; */
   }
 
   delGroup(group: GroupScreen_) {
-    this.scrn.delGroup(group, this.userService._userConstants.usersList[this.id]);
+/*     this.scrn.delGroup(group, this.userService._userConstants.usersList[this.id]); */
   }
 }

@@ -15,8 +15,8 @@ export class CreateGroupComponent implements OnInit {
   ngOnInit(): void {}
 
   addGroup() {
-    if (this.userService._userConstants.user) {
+    /* if (this.userService._userConstants.user) {
       this.scrn.createGroup(this.userService._userConstants.user);
-    }
+    } */
   }
 }

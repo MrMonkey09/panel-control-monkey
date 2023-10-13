@@ -7,18 +7,16 @@ import { _ApiFetchConstants } from '../constants/api-fetch.constants';
   providedIn: 'root',
 })
 export class ApiFecthService {
-  _apiConstants = new _ApiFetchConstants()
-  constructor(
-    private http: HttpClient,
-  ) {}
+    _apiConstants = new _ApiFetchConstants()
+  constructor(private http: HttpClient) {}
 
-  getScreen(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi;
-    return this.http.get(urlTemp);
+  getScreen() /* :Observable<any> */ {
+    /*     const urlTemp = this._apiConstants.urlApi;
+    return this.http.get(urlTemp); */
   }
 
-  apiUpload(body: FormData): Observable<any> {
-    const req = new HttpRequest(
+  apiUpload(body: FormData) /* :Observable<any> */ {
+    /*     const req = new HttpRequest(
       'POST',
       this._apiConstants.urlApi + 'subir-archivo',
       body,
@@ -27,6 +25,6 @@ export class ApiFecthService {
         responseType: 'json',
       }
     );
-    return this.http.request(req);
+    return this.http.request(req); */
   }
 }
