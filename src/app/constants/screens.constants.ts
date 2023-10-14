@@ -1,5 +1,5 @@
 import { GroupScreen_ } from '../interfaces/group-screen';
-import { locations } from '../fake-data/locations';
+import { locations } from '../data/locations';
 import { Location_ } from '../interfaces/location';
 import { Screen_ } from '../interfaces/screen';
 

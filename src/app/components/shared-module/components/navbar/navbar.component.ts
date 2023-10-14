@@ -13,10 +13,12 @@ export class NavbarComponent implements OnInit {
     public scrn: ScreensService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('NavBar Component Cargado');
+  }
 
   openScreenPanel() {
-/*     this.scrn._screensConstants.isPanelScreenOpened = true;
+    /*     this.scrn._screensConstants.isPanelScreenOpened = true;
     this.userService._userConstants.isCreateUserOpened = false;
     this.userService._userConstants.isDeleteUserOpened = false;
     this.userService._userConstants.isUpdateUserOpened = false;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User_ } from '../interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
-import { users } from '../fake-data/users';
+import { users } from '../data/users';
 import { ScreensService } from './screens.service';
 import { _UserConstants } from '../constants/user-service.constants';
 
@@ -14,11 +14,13 @@ export class UserServiceService {
   constructor(
     private http: HttpClient,
     public cookieService: CookieService,
-    public scrn: ScreensService,
-  ) {}
+    public scrn: ScreensService
+  ) {
+    console.log('UserService Servicio Cargado');
+  }
 
   setUserCookie(user: User_) {
-/*     console.log(user);
+    /*     console.log(user);
     this.cookieService.set('user-id', user.id.toString());
     setTimeout(() => {
       this._userConstants.user = users.find((userTemp) => userTemp.id === user.id);
@@ -27,7 +29,7 @@ export class UserServiceService {
   }
 
   createUser(newUser: User_) {
-/*     console.log(newUser);
+    /*     console.log(newUser);
     setTimeout(() => {
       this._userConstants.usersList.push(newUser);
       console.log(this._userConstants.usersList);
@@ -35,7 +37,7 @@ export class UserServiceService {
   }
 
   getUser(user: User_) {
-/*     console.log({ user });
+    /*     console.log({ user });
     this._userConstants.currentUser = user;
     this._userConstants.userFormTemp = {
       name: user.name,
@@ -50,7 +52,7 @@ export class UserServiceService {
   }
 
   updateUser(user: any) {
-/*     console.log({ userUpdate: { user } });
+    /*     console.log({ userUpdate: { user } });
     const userSelected = this._userConstants.currentUser;
     if (userSelected) {
       userSelected.name = user.name;
@@ -68,7 +70,7 @@ export class UserServiceService {
   }
 
   getForm(form: any, howAction: any) {
-/*     let idTemp: any;
+    /*     let idTemp: any;
     if (this._userConstants.currentUser) {
       idTemp = this._userConstants.usersList.find(
         (user) => user.id === this._userConstants.currentUser?.id
@@ -182,14 +184,14 @@ export class UserServiceService {
   }
 
   deleteUser(user: User_) {
-/*     console.log(this._userConstants.usersList.filter((userTemp) => userTemp.id !== user.id));
+    /*     console.log(this._userConstants.usersList.filter((userTemp) => userTemp.id !== user.id));
     this._userConstants.usersList = this._userConstants.usersList.filter(
       (userTemp) => userTemp.id !== user.id
     ); */
   }
 
   loggIn(form: { email: string; pass: string }) {
-/*     const findUser: any = users.filter(
+    /*     const findUser: any = users.filter(
       (user) => user.email.toLowerCase() === form.email.toLowerCase()
     );
     if (findUser.length > 0 && findUser.length < 2) {
@@ -206,13 +208,13 @@ export class UserServiceService {
   }
 
   loggOut() {
-/*     this._userConstants.user = undefined;
+    /*     this._userConstants.user = undefined;
     this.cookieService.delete('user-id');
     this.scrn._screensConstants.isActiveGroup = false; */
   }
 
   openUserPanel() {
-/*     console.log('panel abierto');
+    /*     console.log('panel abierto');
     setTimeout(() => {
       this._userConstants.isUserPanelOpened = true;
       this._userConstants.isBackButtonEnabled = true;
@@ -220,7 +222,7 @@ export class UserServiceService {
   }
 
   closeUserPanel() {
-/*     console.log('panel cerrado');
+    /*     console.log('panel cerrado');
     setTimeout(() => {
       this._userConstants.isUserPanelOpened = false;
       this._userConstants.isBackButtonEnabled = false;
@@ -233,7 +235,7 @@ export class UserServiceService {
   }
 
   openCreateUser() {
-/*     console.log('Creador de usuarios abierto');
+    /*     console.log('Creador de usuarios abierto');
     setTimeout(() => {
       this._userConstants.isPanelUsed = true;
       this._userConstants.isCreateUserOpened = true;
@@ -253,7 +255,7 @@ export class UserServiceService {
   }
 
   openUpdateUser() {
-/*     console.log('Actualizador de usuarios abierto');
+    /*     console.log('Actualizador de usuarios abierto');
     setTimeout(() => {
       this._userConstants.isPanelUsed = true;
       this._userConstants.isCreateUserOpened = false;
@@ -264,7 +266,7 @@ export class UserServiceService {
   }
 
   openDeleteUser() {
-/*     console.log('Eliminador de usuarios abierto');
+    /*     console.log('Eliminador de usuarios abierto');
     setTimeout(() => {
       this._userConstants.isPanelUsed = true;
       this._userConstants.isCreateUserOpened = false;

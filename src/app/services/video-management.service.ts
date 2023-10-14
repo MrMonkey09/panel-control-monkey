@@ -10,14 +10,16 @@ import { _VideoConstants } from '../constants/video-management.constants';
 export class VideoManagementService {
   private _apiConstants = new _ApiFetchConstants();
   public _videoConstants = new _VideoConstants();
-  
+
   constructor(
     private scrn: ScreensService,
     private userService: UserServiceService
-  ) {}
+  ) {
+    console.log('VideoManagement Servicio Cargado');
+  }
 
   public $updateVideo(res: any) {
-/*     let indexGroup: number;
+    /*     let indexGroup: number;
     if (this.scrn._screensConstants.groupsScreen) {
       indexGroup = this.scrn._screensConstants.groupsScreen.findIndex(
         (group) => group.id === res.group?.id
@@ -49,7 +51,7 @@ export class VideoManagementService {
   }
 
   public $updateScreen(res: any) {
-/*     this._videoConstants.recharge = false;
+    /*     this._videoConstants.recharge = false;
     console.log('$updateScreen Gatillado: ', res);
     if (res.groups) {
       this.scrn._screensConstants.groupsScreen = res.groups;

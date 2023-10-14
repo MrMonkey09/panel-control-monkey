@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { _ApiFetchConstants } from '../constants/api-fetch.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiFecthService {
-    _apiConstants = new _ApiFetchConstants()
-  constructor(private http: HttpClient) {}
+  _apiConstants = new _ApiFetchConstants();
+  constructor(private http: HttpClient) {
+    console.log('ApiFetch Servicio Cargado');
+  }
 
   getScreen() /* :Observable<any> */ {
     /*     const urlTemp = this._apiConstants.urlApi;

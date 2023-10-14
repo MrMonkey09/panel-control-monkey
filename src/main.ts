@@ -2,6 +2,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+console.log('Main Punto de entrada Cargado');
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.error(err));

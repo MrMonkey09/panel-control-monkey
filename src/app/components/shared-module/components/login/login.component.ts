@@ -20,5 +20,7 @@ export class LoginComponent implements OnInit {
     public userService: UserServiceService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('Login Component Cargado');
+  }
 }

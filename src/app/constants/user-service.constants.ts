@@ -1,5 +1,5 @@
-import { departments } from "../fake-data/departments";
-import { users } from "../fake-data/users";
+import { departments } from "../data/departments";
+import { users } from "../data/users";
 import { Department_ } from "../interfaces/department";
 import { User_ } from "../interfaces/user";
 
