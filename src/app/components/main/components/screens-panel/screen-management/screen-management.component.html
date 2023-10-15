@@ -45,7 +45,8 @@
     (ngSubmit)="
       scrn.getForm(
         scrn._screensConstants.screenDetectedForm,
-        scrn._screensConstants.isScreenActivatedOpened && !scrn._screensConstants.isScreenModifiedOpened
+        scrn._screensConstants.isScreenActivatedOpened &&
+          !scrn._screensConstants.isScreenModifiedOpened
           ? 'isActivate'
           : 'isModify',
         userService._userConstants.user
@@ -62,7 +63,8 @@
         scrn._screensConstants.screensDetectedQueue.length !== 0)
     "
     [ngStyle]="
-      scrn._screensConstants.isScreenActivatedOpened || scrn._screensConstants.isScreenModifiedOpened
+      scrn._screensConstants.isScreenActivatedOpened ||
+      scrn._screensConstants.isScreenModifiedOpened
         ? { width: '100%' }
         : {}
     "
@@ -95,9 +97,32 @@
       </select>
     </div>
     <div class="flex-center inputBlock">
+      <label for="department">Departamento: </label>
+      <select
+        [selectedIndex]="
+          scrn._screensConstants.screenDetectedForm
+            ? scrn._screensConstants.screenDetectedForm.department
+            : null
+        "
+        name="deparment"
+        id="department"
+        style="cursor: pointer"
+        [(ngModel)]="scrn._screensConstants.screenDetectedForm.department"
+      >
+        <option value="0"></option>
+        <option
+          *ngFor="let department of userService._userConstants.departmentList"
+          [value]="department.id + 1"
+        >
+          {{ department.name }}
+        </option>
+      </select>
+    </div>
+    <div class="flex-center inputBlock">
       <button type="submit" style="cursor: pointer">
         {{
-          scrn._screensConstants.isScreenActivatedOpened && !scrn._screensConstants.isScreenModifiedOpened
+          scrn._screensConstants.isScreenActivatedOpened &&
+          !scrn._screensConstants.isScreenModifiedOpened
             ? "Activar"
             : "Guardar"
         }}
@@ -137,8 +162,10 @@
   </ul>
   <h1
     *ngIf="
-      (scrn._screensConstants.isScreenModifiedOpened || scrn._screensConstants.isScreenDesactivatedOpened) &&
-      (!scrn._screensConstants.avalaibles || scrn._screensConstants.avalaibles.length === 0)
+      (scrn._screensConstants.isScreenModifiedOpened ||
+        scrn._screensConstants.isScreenDesactivatedOpened) &&
+      (!scrn._screensConstants.avalaibles ||
+        scrn._screensConstants.avalaibles.length === 0)
     "
     style="color: aliceblue; text-shadow: 1px 1px 2px black"
   >
@@ -147,7 +174,8 @@
   <h1
     *ngIf="
       scrn._screensConstants.isScreenActivatedOpened &&
-      (!scrn._screensConstants.screensDetectedQueue || scrn._screensConstants.screensDetectedQueue.length === 0)
+      (!scrn._screensConstants.screensDetectedQueue ||
+        scrn._screensConstants.screensDetectedQueue.length === 0)
     "
     style="color: aliceblue; text-shadow: 1px 1px 2px black"
   >

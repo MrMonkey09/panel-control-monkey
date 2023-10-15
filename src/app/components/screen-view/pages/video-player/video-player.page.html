@@ -1,4 +1,16 @@
-<video class="video-player" muted defaultMuted autoplay loop *ngIf="vm._videoConstants.recharge">
+<h1
+  *ngIf="this.scrn._screensConstants.currentScreen&&this.scrn._screensConstants.currentScreen.ip ===  '192.168.0.14'"
+>
+  {{this.scrn._screensConstants.currentScreen | json}}
+</h1>
+<video
+  class="video-player"
+  muted
+  defaultMuted
+  autoplay
+  loop
+  *ngIf="vm._videoConstants.recharge"
+>
   <source
     *ngIf="this.scrn._screensConstants.groupsScreen[indexGroup]"
     [src]="this.scrn._screensConstants.groupsScreen[indexGroup].currentVideo"

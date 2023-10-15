@@ -3,51 +3,63 @@ import { Screen_ } from '../interfaces/screen';
 import { GroupScreen_ } from '../interfaces/group-screen';
 import { User_ } from '../interfaces/user';
 import { _ScreensConstants } from '../constants/screens.constants';
+import { SocketioService } from './socketio.service';
+import { ApiFecthService } from './api-fecth.service';
+import { groupScreenList } from '../data/groups-screen';
+import { _UserConstants } from '../constants/user-service.constants';
+const _userConstants = new _UserConstants();
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScreensService {
   _screensConstants = new _ScreensConstants();
-  constructor() {
-    /*     console.log(this._screensConstants.groupsScreen); */
+  constructor(private sw: SocketioService, private api: ApiFecthService) {
     console.log('Screens Servicio Cargado');
   }
 
   // Logica de la seleccion y despliegue de pantallas
   addScreen(screenSelected: Screen_) {
-    /*     const newListAvalaibles = this._screensConstants.avalaibles.filter(
+    const newListAvalaibles = this._screensConstants.avalaibles.filter(
       (screen) => screen != screenSelected
     );
     this._screensConstants.selected = this._screensConstants.selected.filter(
-      (screen) => screen.id !== screenSelected.id
+      (screen) => screen !== screenSelected
     );
     this._screensConstants.avalaibles = newListAvalaibles;
-    if (!this._screensConstants.currentGroup.screenList) {
+    if (
+      this._screensConstants.currentGroup &&
+      !this._screensConstants.currentGroup.screenList
+    ) {
       screenSelected.currentGroup = this._screensConstants.currentGroup.id;
       this._screensConstants.currentGroup.screenList = [screenSelected];
-      this.socket.emitEvento('screen', {
+      this.sw.emitEvento('screen', {
         newAvalaibles: newListAvalaibles,
         screen: screenSelected,
         group: this._screensConstants.currentGroup,
       });
     } else {
-      screenSelected.currentGroup = this._screensConstants.currentGroup.id;
-      this._screensConstants.currentGroup.screenList.push(screenSelected);
-      this.socket.emitEvento('screen', {
-        newAvalaibles: newListAvalaibles,
-        screen: screenSelected,
-        group: this._screensConstants.currentGroup,
-      });
+      if (
+        this._screensConstants.currentGroup &&
+        this._screensConstants.currentGroup.screenList
+      ) {
+        screenSelected.currentGroup = this._screensConstants.currentGroup.id;
+        this._screensConstants.currentGroup.screenList.push(screenSelected);
+        this.sw.emitEvento('screen', {
+          newAvalaibles: newListAvalaibles,
+          screen: screenSelected,
+          group: this._screensConstants.currentGroup,
+        });
+      }
     }
     console.log({
       PantallaAñadida: screenSelected,
       GrupoSeleccionado: this._screensConstants.currentGroup,
-    }); */
+    });
   }
 
   removeScreen(screenSelected: Screen_) {
-    /*     screenSelected.currentGroup = undefined;
+    screenSelected.currentGroup = undefined;
     if (this._screensConstants.avalaibles.length < 1) {
       this._screensConstants.avalaibles = [screenSelected];
     } else {
@@ -58,41 +70,55 @@ export class ScreensService {
     } else {
       this._screensConstants.selected.push(screenSelected);
     }
-    const newGroupScreenList =
-      this._screensConstants.currentGroup.screenList?.filter(
-        (screen: any) => screen != screenSelected
-      );
-    this._screensConstants.currentGroup.screenList = newGroupScreenList;
-    this.socket.emitEvento('screen', {
-      newAvalaibles: this._screensConstants.avalaibles,
-      screenDel: screenSelected,
-      group: this._screensConstants.currentGroup,
-    });
-    console.log({
-      PantallaRemovida: screenSelected,
-      GrupoSeleccionado: this._screensConstants.currentGroup,
-    }); */
+    if (
+      this._screensConstants.currentGroup &&
+      this._screensConstants.currentGroup.screenList
+    ) {
+      const newGroupScreenList =
+        this._screensConstants.currentGroup.screenList.filter(
+          (screen: any) => screen != screenSelected
+        );
+      this._screensConstants.currentGroup.screenList = newGroupScreenList;
+      this.sw.emitEvento('screen', {
+        newAvalaibles: this._screensConstants.avalaibles,
+        screenDel: screenSelected,
+        group: this._screensConstants.currentGroup,
+      });
+      console.log({
+        PantallaRemovida: screenSelected,
+        GrupoSeleccionado: this._screensConstants.currentGroup,
+      });
+    }
   }
 
   getScreen() {
-    /*     this.api.getScreen().subscribe({
+    this.api.getScreen().subscribe({
       next: (res) => {
         console.log(res.ipScreen);
         let screenMatch;
         if (
-          this._screensConstants.avalaibles?.find(
+          this._screensConstants.avalaibles &&
+          this._screensConstants.avalaibles.find(
             (screen) => screen.ip === res.ipScreen
           )
         ) {
-          screenMatch = this._screensConstants.avalaibles?.find(
+          screenMatch = this._screensConstants.avalaibles.find(
             (screen) => screen.ip === res.ipScreen
           );
         } else if (
-          this._screensConstants.screensDetectedQueue?.find(
+          this._screensConstants.screensDetectedQueue &&
+          this._screensConstants.screensDetectedQueue.find(
             (screen) => screen.ip === res.ipScreen
           )
         ) {
           screenMatch = this._screensConstants.screensDetectedQueue?.find(
+            (screen) => screen.ip === res.ipScreen
+          );
+        } else if (
+          this._screensConstants.currentGroup &&
+          this._screensConstants.currentGroup.screenList
+        ) {
+          screenMatch = this._screensConstants.currentGroup.screenList.find(
             (screen) => screen.ip === res.ipScreen
           );
         }
@@ -129,27 +155,29 @@ export class ScreensService {
           }
         }
       },
-    }); */
+    });
   }
 
   getScreenInQueue(screen: any) {
-    /*     console.log({ screen });
+    console.log({ screen });
     this._screensConstants.currentScreenInQueue = screen;
     screen.brand
       ? (this._screensConstants.screenDetectedForm = {
           brand: screen.brand,
           location: screen.location.id + 1,
+          department: screen.deparment,
         })
       : (this._screensConstants.screenDetectedForm = {
           brand: '',
           location: 0,
+          department: 0,
         });
     console.log(this._screensConstants.currentScreenInQueue);
-    this._screensConstants.isScreenInQueueSelected = true; */
+    this._screensConstants.isScreenInQueueSelected = true;
   }
 
   activateScreen(screen: Screen_) {
-    /*     console.log({ 'Pantalla activada': screen });
+    console.log({ 'Pantalla activada': screen });
     this._screensConstants.avalaibles
       ? this._screensConstants.avalaibles.push(screen)
       : (this._screensConstants.avalaibles = [screen]);
@@ -164,11 +192,11 @@ export class ScreensService {
         : {},
       newQueue: this._screensConstants.screensDetectedQueue,
       newAvalaibles: this._screensConstants.avalaibles,
-    }); */
+    });
   }
 
   desactivateScreen(screen: Screen_) {
-    /*     console.log({ 'Pantalla desactivada': screen });
+    console.log({ 'Pantalla desactivada': screen });
     this._screensConstants.screensDetectedQueue
       ? this._screensConstants.screensDetectedQueue.push(screen)
       : (this._screensConstants.screensDetectedQueue = [screen]);
@@ -183,11 +211,11 @@ export class ScreensService {
         : {},
       newQueue: this._screensConstants.screensDetectedQueue,
       newAvalaibles: this._screensConstants.avalaibles,
-    }); */
+    });
   }
 
   getForm(form: any, howAction: any, user: any) {
-    /*     let idTemp: any;
+    let idTemp: any;
     if (this._screensConstants.currentScreenInQueue) {
       idTemp = this._screensConstants.screensDetectedQueue.find(
         (screen) =>
@@ -250,78 +278,90 @@ export class ScreensService {
         console.log('marca valida');
         if (form.location !== 0) {
           console.log('lugar valido');
-          const locationTemp =
-            this._screensConstants.locations[
-              this._screensConstants.locations.findIndex(
-                (loc) => loc.id === form.location - 1
-              )
-            ];
-          const newScreenAvalaible: Screen_ = {
-            id: this._screensConstants.currentScreenInQueue.id,
-            ip: this._screensConstants.currentScreenInQueue.ip,
-            currentGroup: undefined,
-            brand: form.brand,
-            location: locationTemp,
-            department: user.department,
-            manager: user,
-          };
-          this.activateScreen(newScreenAvalaible);
-          console.log('Pantalla detectada Activada');
+          if (form.department !== 0) {
+            console.log('departamento valido');
+            const locationTemp =
+              this._screensConstants.locations[
+                this._screensConstants.locations.findIndex(
+                  (loc) => loc.id === form.location - 1
+                )
+              ];
+            const departmentTemp =
+              _userConstants.departmentList[
+                _userConstants.departmentList.findIndex(
+                  (department) => department.id === form.department - 1
+                )
+              ];
+            const newScreenAvalaible: Screen_ = {
+              id: this._screensConstants.currentScreenInQueue.id,
+              ip: this._screensConstants.currentScreenInQueue.ip,
+              currentGroup: undefined,
+              brand: form.brand,
+              location: locationTemp,
+              department: departmentTemp,
+              manager: user,
+            };
+            this.activateScreen(newScreenAvalaible);
+            console.log('Pantalla detectada Activada');
+          }
         }
       }
-    } */
+    }
   }
 
   closeScreenPanel() {
-    /*     this._screensConstants.isPanelScreenOpened = false;
+    this._screensConstants.isPanelScreenOpened = false;
     this._screensConstants.isScreenActivatedOpened = false;
     this._screensConstants.isScreenModifiedOpened = false;
-    this._screensConstants.isScreenDesactivatedOpened = false; */
+    this._screensConstants.isScreenDesactivatedOpened = false;
   }
 
   openScreenActivated() {
-    /*     console.log('Creador de usuarios abierto');
+    console.log('Creador de usuarios abierto');
     setTimeout(() => {
       this._screensConstants.isPanelScreenUsed = true;
       this._screensConstants.isScreenActivatedOpened = true;
       this._screensConstants.isScreenModifiedOpened = false;
       this._screensConstants.isScreenDesactivatedOpened = false;
-    }, 100); */
+    }, 100);
   }
 
   openScreenModified() {
-    /*     console.log('Actualizador de usuarios abierto');
+    console.log('Actualizador de usuarios abierto');
     setTimeout(() => {
       this._screensConstants.isPanelScreenUsed = true;
       this._screensConstants.isScreenActivatedOpened = false;
       this._screensConstants.isScreenModifiedOpened = true;
       this._screensConstants.isScreenDesactivatedOpened = false;
-    }, 100); */
+    }, 100);
   }
 
   openScreenDesactivated() {
-    /*     console.log('Eliminador de usuarios abierto');
+    console.log('Eliminador de usuarios abierto');
     setTimeout(() => {
       this._screensConstants.isPanelScreenUsed = true;
       this._screensConstants.isScreenActivatedOpened = false;
       this._screensConstants.isScreenModifiedOpened = false;
       this._screensConstants.isScreenDesactivatedOpened = true;
-    }, 100); */
+    }, 100);
   }
 
   getAvalaiblescreens(user: User_) {
-    /*     console.log(this._screensConstants.avalaibles);
-    console.log({ user, selected: this._screensConstants.selected });
+    console.log({
+      user,
+      selected: this._screensConstants.selected,
+      avalaibles: this._screensConstants.avalaibles,
+    });
     const newSelected = this._screensConstants.avalaibles?.filter(
       (screen) => user.department.id === screen.department.id
     );
     console.log({ newSelected, avalaibles: this._screensConstants.avalaibles });
     this._screensConstants.selected = newSelected;
-    console.log(this._screensConstants.selected); */
+    console.log(this._screensConstants.selected);
   }
 
   createGroup(user: User_) {
-    /*     console.log('Creador de usuarios abierto');
+    console.log('Creador de usuarios abierto');
     console.log(this._screensConstants.groupFormTemp);
     this._screensConstants.contGroups++;
     const newGroup: GroupScreen_ = {
@@ -341,11 +381,11 @@ export class ScreensService {
     this.sw.emitEvento('group', {
       groups: this._screensConstants.groupsScreen,
       cont: this._screensConstants.contGroups,
-    }); */
+    });
   }
 
   getScreenGroups(user: User_) {
-    /*     console.log('Obteniendo grupos de pantallas');
+    console.log('Obteniendo grupos de pantallas');
     if (this._screensConstants.groupsScreen) {
       console.log(
         this._screensConstants.groupsScreen.filter(
@@ -361,11 +401,11 @@ export class ScreensService {
         this._screensConstants.isActiveGroup = false;
         this._screensConstants.isCurrentGroup = false;
       }, 50);
-    } */
+    }
   }
 
   delGroup(group: GroupScreen_, user: User_) {
-    /*     console.log(group);
+    console.log(group);
     if (group.screenList) {
       for (let screenDel of group.screenList) {
         this._screensConstants.avalaibles.push(screenDel);
@@ -373,7 +413,7 @@ export class ScreensService {
         group.screenList = group.screenList?.filter(
           (screenTemp) => screenTemp.id !== screenDel.id
         );
-        this.socket.emitEvento('screen', {
+        this.sw.emitEvento('screen', {
           screen: screenDel,
           group: group,
           newAvalaibles: this._screensConstants.avalaibles,
@@ -391,6 +431,6 @@ export class ScreensService {
     this.getScreenGroups(user);
     this.sw.emitEvento('group', {
       groups: this._screensConstants.groupsScreen,
-    }); */
+    });
   }
 }

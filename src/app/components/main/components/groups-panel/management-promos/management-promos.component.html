@@ -24,7 +24,7 @@
       *ngIf="scrn._screensConstants.currentGroup; else notCurrentGroup"
     >
       <li
-        *ngFor="let screen of scrn._screensConstants.currentGroup.screenList"
+        *ngFor="let screen of scrn._screensConstants.currentGroup?.screenList"
         (click)="scrn.removeScreen(screen)"
         class="full-area flex-center"
       >

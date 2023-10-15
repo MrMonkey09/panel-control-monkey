@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<router-outlet
+  *ngIf="screenRes.height >= 580 && screenRes.width >= 1100"
+></router-outlet>
+<main
+  *ngIf="screenRes.height <= 580 || screenRes.width <= 1100"
+  class="flex-center full-area"
+  style="flex-direction: column"
+>
+  <h1 style="width: 80%">
+    Resolucion del Dispositivo no es compatible con la aplicacion, las
+    resoluciones minimas son: 1100px de ancho minimo y 580px de altura minima.
+    Si estas en un dispositivo movil, por favor, gire la pantalla.
+  </h1>
+  <h3 style="width: 70%">
+    Resolucion del dispositivo actual:
+    {{ screenRes.width + "px de ancho | " + screenRes.height + "px de alto" }}
+  </h3>
+</main>

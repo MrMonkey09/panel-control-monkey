@@ -2,7 +2,6 @@ import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject, timeout } from 'rxjs';
-import { Screen_ } from 'src/app/interfaces/screen';
 import { ApiFecthService } from 'src/app/services/api-fecth.service';
 import { ScreensService } from 'src/app/services/screens.service';
 import { SocketioService } from 'src/app/services/socketio.service';
@@ -36,7 +35,7 @@ export class ManagementPromosComponent implements OnInit {
     public userService: UserServiceService
   ) {}
   ngOnInit(): void {
-/*     this.id = this.cookieService.get('user-id');
+    this.id = this.cookieService.get('user-id');
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
       if (res.screen || res.screenDel) {
@@ -54,7 +53,7 @@ export class ManagementPromosComponent implements OnInit {
       } else if (res.cont) {
         console.log('nuevo grupo, cantidad actual: ' + res.cont);
       }
-    }); */
+    });
   }
 
   // Logica de la subida y despliegue de videos
@@ -63,17 +62,17 @@ export class ManagementPromosComponent implements OnInit {
   private resTemp!: any;
 
   getFile($event: any) {
-/*     console.log($event);
+    console.log($event);
     const [file] = $event.target.files;
     console.log(file);
     this.fileTemp = {
       fileRaw: file,
       fileName: file.name,
-    }; */
+    };
   }
 
   uploadFile() {
-/*     this.body.delete('myFile');
+    this.body.delete('myFile');
     this.body.append('myFile', this.fileTemp.fileRaw, this.fileTemp.fileName);
     console.log(this.body.get('myFile'));
     this.api.apiUpload(this.body).subscribe({
@@ -103,10 +102,21 @@ export class ManagementPromosComponent implements OnInit {
           },
           complete: () => {
             this.api._apiConstants.recharge = false;
-            this.scrn._screensConstants.currentGroup.currentVideo = this.vm._videoConstants.video;
-            this.scrn._screensConstants.groupsScreen[this.scrn._screensConstants.currentGroup.id - 1].currentVideo =
-              this.vm._videoConstants.video;
-            console.log(this.scrn._screensConstants.groupsScreen[this.scrn._screensConstants.currentGroup.id - 1]);
+            if (
+              this.scrn._screensConstants.currentGroup &&
+              this.scrn._screensConstants
+            ) {
+              this.scrn._screensConstants.currentGroup.currentVideo =
+                this.vm._videoConstants.video;
+              this.scrn._screensConstants.groupsScreen[
+                this.scrn._screensConstants.currentGroup.id - 1
+              ].currentVideo = this.vm._videoConstants.video;
+              console.log(
+                this.scrn._screensConstants.groupsScreen[
+                  this.scrn._screensConstants.currentGroup.id - 1
+                ]
+              );
+            }
             this.progress = {
               value: 0,
               inProgress: false,
@@ -117,7 +127,11 @@ export class ManagementPromosComponent implements OnInit {
               group: this.scrn._screensConstants.currentGroup,
             });
             console.log(this.vm._videoConstants.video);
-            console.log(this.scrn._screensConstants.currentGroup.currentVideo);
+            if (this.scrn._screensConstants.currentGroup) {
+              console.log(
+                this.scrn._screensConstants.currentGroup.currentVideo
+              );
+            }
             console.log('completado');
             setTimeout(() => {
               this.api._apiConstants.recharge = true;
@@ -130,10 +144,10 @@ export class ManagementPromosComponent implements OnInit {
           },
         });
       },
-    }); */
+    });
   }
 
   getVideo() {
-/*     this.api.getScreen().subscribe((res) => this.vm.$updateVideo(res)); */
+    this.api.getScreen().subscribe((res) => this.vm.$updateVideo(res));
   }
 }

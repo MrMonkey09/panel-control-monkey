@@ -1,7 +1,10 @@
 <app-navbar />
 <app-login *ngIf="!userService._userConstants.user" />
 
-<!-- <main class="flex-center" *ngIf="userService._userConstants.user">
+<main
+  class="flex-center"
+  *ngIf="userService._userConstants.user"
+>
   <app-screen-groups
     *ngIf="!userService._userConstants.isUserPanelOpened && !scrn._screensConstants.isPanelScreenOpened"
   />
@@ -15,4 +18,4 @@
   />
   <app-screen-panel *ngIf="scrn._screensConstants.isPanelScreenOpened" />
   <app-screen-management *ngIf="scrn._screensConstants.isPanelScreenOpened" />
-</main> -->
+</main>

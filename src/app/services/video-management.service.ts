@@ -3,6 +3,7 @@ import { ScreensService } from './screens.service';
 import { UserServiceService } from './user-service.service';
 import { _ApiFetchConstants } from '../constants/api-fetch.constants';
 import { _VideoConstants } from '../constants/video-management.constants';
+import { _ScreensConstants } from '../constants/screens.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class VideoManagementService {
   }
 
   public $updateVideo(res: any) {
-    /*     let indexGroup: number;
+    let indexGroup: number;
     if (this.scrn._screensConstants.groupsScreen) {
       indexGroup = this.scrn._screensConstants.groupsScreen.findIndex(
         (group) => group.id === res.group?.id
@@ -47,64 +48,90 @@ export class VideoManagementService {
       setTimeout(() => {
         this._videoConstants.recharge = true;
       }, 100);
-    } */
+    }
   }
 
   public $updateScreen(res: any) {
-    /*     this._videoConstants.recharge = false;
+    this._videoConstants.recharge = false;
     console.log('$updateScreen Gatillado: ', res);
     if (res.groups) {
       this.scrn._screensConstants.groupsScreen = res.groups;
     } else if (
       (res.screenDel && res.screenDel.department) ||
       (res.screen && res.screen.department)
-    ) { 
-       const screenTemp = res.screenDel ? res.screenDel : res.screen;
+    ) {
+      const screenTemp = res.screenDel ? res.screenDel : res.screen;
       const groupTemp = res.group;
-      const indexGroup = this.scrn._screensConstants.groupsScreen?.findIndex(
-        (group) => group.id === groupTemp.id
-      );
+      const indexGroup = this.scrn._screensConstants.groupsScreen.length
+        ? this.scrn._screensConstants.groupsScreen.findIndex(
+            (group) => group.id === groupTemp.id
+          )
+        : this.scrn._screensConstants.groupsScreen.length + 1;
       const indexScreen = this.scrn._screensConstants.avalaibles?.findIndex(
         (screen) => screen.id === screenTemp.id
-      ); 
-       Eliminar pantalla 
-       if (res.screenDel) {
-         Grupo abierto vista panel 
-         if (this.scrn._screensConstants.currentGroup?.id === res.group.id) {
-          this.scrn._screensConstants.currentGroup.screenList =
-            res.group.screenList; 
-        } Vista de pantalla else if (
-          this.scrn._screensConstants.currentScreen
-        ) { 
-          this.scrn._screensConstants.currentScreen = screenTemp;
-        }  Grupo cerrado vista panel  else {
-          this.scrn._screensConstants.groupsScreen[indexGroup].screenList =
-            res.group.screenList;
-        }
-        this.scrn._screensConstants.selected =
-          this.scrn._screensConstants.avalaibles.filter(
-            (screen) => screen.department.id === res.group.departament
-          );
-      } /* agregar pantalla  else if (res.newAvalaibles && !res.newQueue) {
-        console.log('agregando pantalla');
-        /* Grupo abierto vista panel 
-        if (this.scrn._screensConstants.currentGroup === res.group.id) {
-          console.log('agregando pantalla en current group');
+      );
+      console.log({ screenTemp, groupTemp, indexGroup, indexScreen });
+      /* Eliminar pantalla  */
+      if (res.screenDel) {
+        /* Grupo abierto vista panel  */
+        if (
+          this.scrn._screensConstants.currentGroup &&
+          this.scrn._screensConstants.currentGroup.id === res.group.id
+        ) {
           this.scrn._screensConstants.currentGroup.screenList =
             res.group.screenList;
-        } /* Vista de pantalla  else if (
+        } /* Vista de pantalla */ else if (
           this.scrn._screensConstants.currentScreen
         ) {
           this.scrn._screensConstants.currentScreen = screenTemp;
-        } /* Grupo cerrado vista panel  else {
+          this.scrn._screensConstants.currentGroup = undefined;
+        } /* Grupo cerrado vista panel */ else {
+          this.scrn._screensConstants.groupsScreen[indexGroup].screenList =
+            res.group.screenList;
+        }
+        this.scrn._screensConstants.selected = this.scrn._screensConstants
+          .avalaibles
+          ? this.scrn._screensConstants.avalaibles.filter(
+              (screen) => screen.department.id === res.group.departament
+            )
+          : [];
+      } /* agregar pantalla */ else if (res.newAvalaibles && !res.newQueue) {
+        console.log('agregando pantalla');
+        /* Grupo abierto vista panel  */
+        if (
+          this.scrn._screensConstants.currentGroup &&
+          this.scrn._screensConstants.currentGroup === res.group.id
+        ) {
+          console.log('Vista de Panel Grupo abierto detectado');
+          console.log('agregando pantalla en current group');
+          this.scrn._screensConstants.currentGroup.screenList =
+            res.group.screenList;
+        } /* Vista de pantalla */ else if (
+          this.scrn._screensConstants.currentScreen
+        ) {
+          console.log('Vista de Pantalla detectada');
+          this.scrn._screensConstants.currentScreen = screenTemp;
+          this.scrn._screensConstants.currentGroup =
+            this.scrn._screensConstants.groupsScreen[indexGroup];
+          console.log({
+            currentGroup: this.scrn._screensConstants.currentGroup,
+          });
+          this._videoConstants.recharge = false;
+          setTimeout(() => {
+            this._videoConstants.recharge = true;
+          }, 100);
+        } /* Grupo cerrado vista panel */ else {
+          console.log('Vista de Panel grupo cerrado detectado');
           console.log('agregando pantalla en grupo existente');
           this.scrn._screensConstants.groupsScreen[indexGroup].screenList =
             res.group.screenList;
         }
-        this.scrn._screensConstants.selected =
-          this.scrn._screensConstants.avalaibles.filter(
-            (screen) => screen.department.id === res.group.departament
-          );
+        this.scrn._screensConstants.selected = this.scrn._screensConstants
+          .avalaibles
+          ? this.scrn._screensConstants.avalaibles.filter(
+              (screen) => screen.department.id === res.group.departament
+            )
+          : [];
       } else {
         if (
           this.scrn._screensConstants.avalaibles?.find(
@@ -179,6 +206,7 @@ export class VideoManagementService {
         'Contador de pantallas detectadas':
           this.scrn._screensConstants.screenDetectedCount,
       });
-    }*/
+    }
+    console.log({ constants: this.scrn._screensConstants });
   }
 }

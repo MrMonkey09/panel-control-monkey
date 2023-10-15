@@ -1,7 +1,7 @@
-import { departments } from "../data/departments";
-import { users } from "../data/users";
-import { Department_ } from "../interfaces/department";
-import { User_ } from "../interfaces/user";
+import { departments } from '../data/departments';
+import { users } from '../data/users';
+import { Department_ } from '../interfaces/department';
+import { User_ } from '../interfaces/user';
 
 export class _UserConstants {
   public user?: User_ | undefined;

@@ -7,7 +7,7 @@ export class _ScreensConstants {
   avalaibles!: Array<Screen_>;
   screensDetectedQueue!: Array<any>;
   locations: Array<Location_> = locations;
-  currentGroup!: GroupScreen_;
+  currentGroup!: GroupScreen_ | undefined;
   contGroups: number = 0;
   selected: Array<Screen_> = [];
   currentScreen!: Screen_;
@@ -22,6 +22,7 @@ export class _ScreensConstants {
   screenDetectedForm = {
     brand: '',
     location: 0,
+    department: 0,
   };
   isCurrentGroup: boolean = false;
   isActiveGroup!: boolean;
