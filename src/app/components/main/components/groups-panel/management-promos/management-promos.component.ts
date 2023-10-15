@@ -103,11 +103,16 @@ export class ManagementPromosComponent implements OnInit {
           complete: () => {
             this.api._apiConstants.recharge = false;
             if (
+              this.scrn._screensConstants.groupsScreen &&
               this.scrn._screensConstants.currentGroup &&
               this.scrn._screensConstants
             ) {
               this.scrn._screensConstants.currentGroup.currentVideo =
                 this.vm._videoConstants.video;
+              console.log({
+                groupsScreen: this.scrn._screensConstants.groupsScreen,
+                currentGroup: this.scrn._screensConstants.currentGroup,
+              });
               this.scrn._screensConstants.groupsScreen[
                 this.scrn._screensConstants.currentGroup.id - 1
               ].currentVideo = this.vm._videoConstants.video;

@@ -62,7 +62,7 @@ export class VideoManagementService {
     ) {
       const screenTemp = res.screenDel ? res.screenDel : res.screen;
       const groupTemp = res.group;
-      const indexGroup = this.scrn._screensConstants.groupsScreen.length
+      const indexGroup = this.scrn._screensConstants.groupsScreen?.length
         ? this.scrn._screensConstants.groupsScreen.findIndex(
             (group) => group.id === groupTemp.id
           )
