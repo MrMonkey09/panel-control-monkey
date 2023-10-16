@@ -114,11 +114,19 @@ export class ManagementPromosComponent implements OnInit {
                 currentGroup: this.scrn._screensConstants.currentGroup,
               });
               this.scrn._screensConstants.groupsScreen[
-                this.scrn._screensConstants.currentGroup.id - 1
+                this.scrn._screensConstants.groupsScreen.findIndex(
+                  (group) =>
+                    this.scrn._screensConstants.currentGroup &&
+                    group.id === this.scrn._screensConstants.currentGroup.id
+                )
               ].currentVideo = this.vm._videoConstants.video;
               console.log(
                 this.scrn._screensConstants.groupsScreen[
-                  this.scrn._screensConstants.currentGroup.id - 1
+                  this.scrn._screensConstants.groupsScreen.findIndex(
+                    (group) =>
+                      this.scrn._screensConstants.currentGroup &&
+                      group.id === this.scrn._screensConstants.currentGroup.id
+                  )
                 ]
               );
             }
