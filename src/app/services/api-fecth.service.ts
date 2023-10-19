@@ -13,7 +13,7 @@ export class ApiFecthService {
   }
 
   getScreen(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi;
+    const urlTemp = this._apiConstants.urlApi + 'screen';
     return this.http.get(urlTemp);
   }
 
