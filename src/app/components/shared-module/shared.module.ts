@@ -4,14 +4,27 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
+import { ApiService } from './services/api/api.service';
+import { ScreensService } from './services/screens.service';
+import { SocketioService } from './services/socketio.service';
+import { UserServiceService } from './services/user-service.service';
+import { VideoManagementService } from './services/video-management.service';
 
 const ComponentsList = [LoginComponent, NavbarComponent];
 const ImportsList = [CommonModule, FormsModule];
+const ProvidersList = [
+  ApiService,
+  ScreensService,
+  SocketioService,
+  UserServiceService,
+  VideoManagementService,
+];
 
 @NgModule({
   declarations: ComponentsList,
   imports: ImportsList,
   exports: ComponentsList,
+  providers: ProvidersList,
 })
 export class SharedModule {}

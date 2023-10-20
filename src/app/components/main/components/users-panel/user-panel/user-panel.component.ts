@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserServiceService } from 'src/app/services/user-service.service';
+import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
 
 @Component({
   selector: 'app-user-panel',

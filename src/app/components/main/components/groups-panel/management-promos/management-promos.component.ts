@@ -2,11 +2,11 @@ import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject, timeout } from 'rxjs';
-import { ApiFecthService } from 'src/app/services/api-fecth.service';
-import { ScreensService } from 'src/app/services/screens.service';
-import { SocketioService } from 'src/app/services/socketio.service';
-import { UserServiceService } from 'src/app/services/user-service.service';
-import { VideoManagementService } from 'src/app/services/video-management.service';
+import { ApiService } from 'src/app/components/shared-module/services/api/api.service';
+import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
+import { SocketioService } from 'src/app/components/shared-module/services/socketio.service';
+import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
+import { VideoManagementService } from 'src/app/components/shared-module/services/video-management.service';
 
 @Component({
   selector: 'app-management-promos',
@@ -26,7 +26,7 @@ export class ManagementPromosComponent implements OnInit {
   });
 
   constructor(
-    public api: ApiFecthService,
+    public api: ApiService,
     private cookieService: CookieService,
     private sw: SocketioService,
     private http: HttpClient,
@@ -75,7 +75,7 @@ export class ManagementPromosComponent implements OnInit {
     this.body.delete('myFile');
     this.body.append('myFile', this.fileTemp.fileRaw, this.fileTemp.fileName);
     console.log(this.body.get('myFile'));
-    this.api.apiUpload(this.body).subscribe({
+    this.api.apiSharedApi.apiUpload(this.body).subscribe({
       next: (res) => {
         console.log(res);
         this.resTemp = res.body;
@@ -95,7 +95,7 @@ export class ManagementPromosComponent implements OnInit {
         }
       },
       complete: () => {
-        this.api.getScreen().subscribe({
+        this.api.apiScreen.matchScreen().subscribe({
           next: (res) => {
             console.log(this.resTemp.data);
             this.vm.$updateVideo(this.resTemp.data);
@@ -161,6 +161,8 @@ export class ManagementPromosComponent implements OnInit {
   }
 
   getVideo() {
-    this.api.getScreen().subscribe((res) => this.vm.$updateVideo(res));
+    this.api.apiScreen
+      .matchScreen()
+      .subscribe((res) => this.vm.$updateVideo(res));
   }
 }

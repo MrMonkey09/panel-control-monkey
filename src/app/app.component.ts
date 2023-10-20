@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   screenRes!: { width: number; height: number };
-  constructor() {}
+  env!: any;
+  constructor() {
+    this.env = environment;
+  }
   ngOnInit(): void {
     console.log('App Component Cargado');
     this.screenRes = { width: window.innerWidth, height: window.innerHeight };

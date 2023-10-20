@@ -23,6 +23,7 @@ const ModulesList = [
 })
 export class MainModule {
   constructor() {
+    
     console.log('Main Module cargado...');
   }
 }

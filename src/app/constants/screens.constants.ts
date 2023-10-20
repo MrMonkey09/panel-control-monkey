@@ -1,29 +1,18 @@
 import { GroupScreen_ } from '../interfaces/group-screen';
-import { locations } from '../data/locations';
 import { Location_ } from '../interfaces/location';
 import { Screen_ } from '../interfaces/screen';
 
 export class _ScreensConstants {
+  screenList!: Array<Screen_>;
   avalaibles!: Array<Screen_>;
+  selected!: Array<Screen_>;
   screensDetectedQueue!: Array<any>;
-  locations: Array<Location_> = locations;
-  currentGroup!: GroupScreen_ | undefined;
-  contGroups: number = 0;
-  selected: Array<Screen_> = [];
-  currentScreen!: Screen_;
-  currentScreenInQueue!: any;
+
   groupsScreen!: Array<GroupScreen_>;
   activeGroupScreens!: Array<GroupScreen_>;
-  screenList?: Array<Screen_>;
-  currentVideo!: string;
-  groupFormTemp = {
-    name: '',
-  };
-  screenDetectedForm = {
-    brand: '',
-    location: 0,
-    department: 0,
-  };
+  
+  locations!: Array<Location_>;
+
   isCurrentGroup: boolean = false;
   isActiveGroup!: boolean;
   isActive!: boolean;
@@ -34,5 +23,20 @@ export class _ScreensConstants {
   isScreenModifiedOpened: boolean = false;
   isScreenDesactivatedOpened: boolean = false;
   isScreenInQueueSelected: boolean = false;
+
+  currentGroup!: GroupScreen_ | undefined;
+  contGroups: number = 0;
+  currentScreen!: Screen_;
+  currentScreenInQueue!: any;
+  currentVideo!: string;
   screenDetectedCount: number = 0;
+
+  groupFormTemp = {
+    name: '',
+  };
+  screenDetectedForm = {
+    brand: '',
+    location: 0,
+    department: 0,
+  };
 }

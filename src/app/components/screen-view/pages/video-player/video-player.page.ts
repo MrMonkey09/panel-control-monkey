@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { _ScreensConstants } from 'src/app/constants/screens.constants';
 import { Screen_ } from 'src/app/interfaces/screen';
-import { ApiFecthService } from 'src/app/services/api-fecth.service';
-import { ScreensService } from 'src/app/services/screens.service';
-import { SocketioService } from 'src/app/services/socketio.service';
-import { VideoManagementService } from 'src/app/services/video-management.service';
+import { ApiService } from 'src/app/components/shared-module/services/api/api.service';
+import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
+import { SocketioService } from 'src/app/components/shared-module/services/socketio.service';
+import { VideoManagementService } from 'src/app/components/shared-module/services/video-management.service';
 
 @Component({
   selector: 'app-video-player',
@@ -16,7 +16,7 @@ export class VideoPlayerPage implements OnInit {
   public screenRes!: { width: number; height: number };
   constructor(
     public scrn: ScreensService,
-    public api: ApiFecthService,
+    public api: ApiService,
     public sw: SocketioService,
     public vm: VideoManagementService
   ) {

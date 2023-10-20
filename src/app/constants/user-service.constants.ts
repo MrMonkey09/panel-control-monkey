@@ -1,5 +1,3 @@
-import { departments } from '../data/departments';
-import { users } from '../data/users';
 import { Department_ } from '../interfaces/department';
 import { User_ } from '../interfaces/user';
 
@@ -13,10 +11,10 @@ export class _UserConstants {
   public isDeleteUserOpened: boolean = false;
   public isUpdateUserOpened: boolean = false;
   public isPanelUsed: boolean = false;
-  public usersList: Array<User_> = users;
+  public usersList!: Array<User_>;
   public contUsers: number = 1;
   public currentUser!: User_ | null;
-  public departmentList: Array<Department_> = departments;
+  public departmentList!: Array<Department_>;
   public userFormTemp = {
     name: '',
     rut: '',

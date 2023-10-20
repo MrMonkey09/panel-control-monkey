@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { User_ } from '../interfaces/user';
+import { User_ } from '../../../interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
-import { users } from '../data/users';
 import { ScreensService } from './screens.service';
-import { _UserConstants } from '../constants/user-service.constants';
+import { _UserConstants } from '../../../constants/user-service.constants';
+import { ApiService } from './api/api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +11,12 @@ import { _UserConstants } from '../constants/user-service.constants';
 export class UserServiceService {
   _userConstants = new _UserConstants();
   constructor(
-    private http: HttpClient,
     public cookieService: CookieService,
-    public scrn: ScreensService
+    public scrn: ScreensService,
+    public api: ApiService
   ) {
+    this.getAllUsers();
+    this.getAllDepartments();
     console.log('UserService Servicio Cargado');
   }
 
@@ -23,7 +24,7 @@ export class UserServiceService {
     console.log(user);
     this.cookieService.set('user-id', user.id.toString());
     setTimeout(() => {
-      this._userConstants.user = users.find(
+      this._userConstants.user = this._userConstants.usersList.find(
         (userTemp) => userTemp.id === user.id
       );
       this.scrn.getAvalaiblescreens(user);
@@ -51,6 +52,32 @@ export class UserServiceService {
       department: user.department.id + 1,
     };
     this._userConstants.isUserSelected = true;
+  }
+
+  getAllUsers() {
+    let resTemp: any;
+    this.api.apiUser.allUsers().subscribe({
+      next: (res) => {
+        resTemp = res;
+      },
+      complete: () => {
+        console.log({ users: resTemp.users });
+        this._userConstants.usersList = resTemp.users;
+      },
+    });
+  }
+  
+  getAllDepartments() {
+    let resTemp: any;
+    this.api.apiDepartment.allDeparments().subscribe({
+      next: (res) => {
+        resTemp = res;
+      },
+      complete: () => {
+        console.log({ deparments: resTemp.departments });
+        this._userConstants.departmentList = resTemp.departments;
+      },
+    });
   }
 
   updateUser(user: any) {
@@ -209,7 +236,7 @@ export class UserServiceService {
 
   loggIn(form: { email: string; pass: string }) {
     console.log('Loggeando...');
-    const findUser: any = users.filter(
+    const findUser: any = this._userConstants.usersList.filter(
       (user) => user.email.toLowerCase() === form.email.toLowerCase()
     );
     if (findUser.length > 0 && findUser.length < 2) {

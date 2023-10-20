@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { GroupScreen_ } from 'src/app/interfaces/group-screen';
 import { User_ } from 'src/app/interfaces/user';
-import { ApiFecthService } from 'src/app/services/api-fecth.service';
-import { ScreensService } from 'src/app/services/screens.service';
-import { SocketioService } from 'src/app/services/socketio.service';
-import { UserServiceService } from 'src/app/services/user-service.service';
+import { ApiService } from 'src/app/components/shared-module/services/api/api.service';
+import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
+import { SocketioService } from 'src/app/components/shared-module/services/socketio.service';
+import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
 
 @Component({
   selector: 'app-screen-groups',
@@ -16,7 +16,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class ScreenGroupsComponent implements OnInit {
   id?: any;
   constructor(
-    public api: ApiFecthService,
+    public api: ApiService,
     private cookieService: CookieService,
     private sw: SocketioService,
     private http: HttpClient,
@@ -35,7 +35,9 @@ export class ScreenGroupsComponent implements OnInit {
     if (userTemp) {
       this.takeScreenGroups(userTemp);
       this.scrn.getAvalaiblescreens(userTemp);
-      console.log(this.scrn._screensConstants.avalaibles);
+      console.log({
+        screensAvalaibles: this.scrn._screensConstants.avalaibles,
+      });
     }
   }
 

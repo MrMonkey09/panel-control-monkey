@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { users } from 'src/app/data/users';
-import { ScreensService } from 'src/app/services/screens.service';
-import { UserServiceService } from 'src/app/services/user-service.service';
+import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
+import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +19,14 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     console.log('Home Component Cargado');
     console.log({ constants: this.userService._userConstants });
+    setTimeout(() => {
+      this.isLogged();
+    }, 300);
+  }
+
+  isLogged() {
     if (this.cookieService.get('user-id')) {
-      const findUser: any = users.find(
+      const findUser: any = this.userService._userConstants.usersList.find(
         (user) => user.id.toString() === this.cookieService.get('user-id')
       );
       if (findUser) {
