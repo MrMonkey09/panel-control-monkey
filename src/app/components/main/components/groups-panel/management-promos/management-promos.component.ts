@@ -46,7 +46,7 @@ export class ManagementPromosComponent implements OnInit {
         console.log('update groups');
         setTimeout(() => {
           if (this.userService._userConstants.user) {
-            this.scrn._screensConstants.groupsScreen = res.groups;
+            this.scrn._constants.groupsScreen = res.groups;
             this.scrn.getScreenGroups(this.userService._userConstants.user);
           }
         }, 100);
@@ -103,29 +103,29 @@ export class ManagementPromosComponent implements OnInit {
           complete: () => {
             this.api._apiConstants.recharge = false;
             if (
-              this.scrn._screensConstants.groupsScreen &&
-              this.scrn._screensConstants.currentGroup &&
-              this.scrn._screensConstants
+              this.scrn._constants.groupsScreen &&
+              this.scrn._constants.currentGroup &&
+              this.scrn._constants
             ) {
-              this.scrn._screensConstants.currentGroup.currentVideo =
+              this.scrn._constants.currentGroup.currentVideo =
                 this.vm._videoConstants.video;
               console.log({
-                groupsScreen: this.scrn._screensConstants.groupsScreen,
-                currentGroup: this.scrn._screensConstants.currentGroup,
+                groupsScreen: this.scrn._constants.groupsScreen,
+                currentGroup: this.scrn._constants.currentGroup,
               });
-              this.scrn._screensConstants.groupsScreen[
-                this.scrn._screensConstants.groupsScreen.findIndex(
+              this.scrn._constants.groupsScreen[
+                this.scrn._constants.groupsScreen.findIndex(
                   (group) =>
-                    this.scrn._screensConstants.currentGroup &&
-                    group.id === this.scrn._screensConstants.currentGroup.id
+                    this.scrn._constants.currentGroup &&
+                    group.id === this.scrn._constants.currentGroup.id
                 )
               ].currentVideo = this.vm._videoConstants.video;
               console.log(
-                this.scrn._screensConstants.groupsScreen[
-                  this.scrn._screensConstants.groupsScreen.findIndex(
+                this.scrn._constants.groupsScreen[
+                  this.scrn._constants.groupsScreen.findIndex(
                     (group) =>
-                      this.scrn._screensConstants.currentGroup &&
-                      group.id === this.scrn._screensConstants.currentGroup.id
+                      this.scrn._constants.currentGroup &&
+                      group.id === this.scrn._constants.currentGroup.id
                   )
                 ]
               );
@@ -137,12 +137,12 @@ export class ManagementPromosComponent implements OnInit {
             };
             this.sw.emitEvento('video', {
               video: this.vm._videoConstants.video,
-              group: this.scrn._screensConstants.currentGroup,
+              group: this.scrn._constants.currentGroup,
             });
             console.log(this.vm._videoConstants.video);
-            if (this.scrn._screensConstants.currentGroup) {
+            if (this.scrn._constants.currentGroup) {
               console.log(
-                this.scrn._screensConstants.currentGroup.currentVideo
+                this.scrn._constants.currentGroup.currentVideo
               );
             }
             console.log('completado');

@@ -1,7 +1,7 @@
 <h1
-  *ngIf="this.scrn._screensConstants.currentScreen&&this.scrn._screensConstants.currentScreen.ip ===  '192.168.0.14'"
+  *ngIf="this.scrn._constants.currentScreen&&this.scrn._constants.currentScreen.ip ===  '192.168.0.14'"
 >
-  {{this.scrn._screensConstants.currentScreen | json}}
+  {{this.scrn._constants.currentScreen | json}}
 </h1>
 <video
   class="video-player"
@@ -12,8 +12,8 @@
   *ngIf="vm._videoConstants.recharge"
 >
   <source
-    *ngIf="this.scrn._screensConstants.groupsScreen[indexGroup]"
-    [src]="this.scrn._screensConstants.groupsScreen[indexGroup].currentVideo"
+    *ngIf="this.scrn._constants.groupsScreen[indexGroup]"
+    [src]="this.scrn._constants.groupsScreen[indexGroup].currentVideo"
     type="video/mp4"
   />
 </video>

@@ -31,28 +31,28 @@ export class ScreenGroupsComponent implements OnInit {
     );
     console.log('ID User_ Logged: ', this.id);
     console.log(userTemp);
-    this.scrn._screensConstants.isActiveGroup = false;
+    this.scrn._constants.isActiveGroup = false;
     if (userTemp) {
       this.takeScreenGroups(userTemp);
       this.scrn.getAvalaiblescreens(userTemp);
       console.log({
-        screensAvalaibles: this.scrn._screensConstants.avalaibles,
+        screensAvalaibles: this.scrn._constants.avalaibles,
       });
     }
   }
 
   takeScreens(group: GroupScreen_) {
     console.log('Cargando pantallas de: ' + group.name);
-    this.scrn._screensConstants.currentGroup = group;
-    this.scrn._screensConstants.isCurrentGroup = true;
-    this.scrn._screensConstants.isActiveGroup = true;
-    this.scrn._screensConstants.isCreateGroupOpened = false;
+    this.scrn._constants.currentGroup = group;
+    this.scrn._constants.isCurrentGroup = true;
+    this.scrn._constants.isActiveGroup = true;
+    this.scrn._constants.isCreateGroupOpened = false;
     console.log(
-      'Grupo actual: ' + this.scrn._screensConstants.currentGroup.name
+      'Grupo actual: ' + this.scrn._constants.currentGroup.name
     );
     console.log(
       'Video del grupo actual: ' +
-        this.scrn._screensConstants.currentGroup.currentVideo
+        this.scrn._constants.currentGroup.currentVideo
     );
     this.api._apiConstants.recharge = false;
     setTimeout(() => {
@@ -65,8 +65,8 @@ export class ScreenGroupsComponent implements OnInit {
   }
 
   addGroup() {
-    this.scrn._screensConstants.isCreateGroupOpened = true;
-    this.scrn._screensConstants.isActiveGroup = false;
+    this.scrn._constants.isCreateGroupOpened = true;
+    this.scrn._constants.isActiveGroup = false;
   }
 
   delGroup(group: GroupScreen_) {

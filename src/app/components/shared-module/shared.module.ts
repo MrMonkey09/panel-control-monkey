@@ -10,6 +10,7 @@ import { ScreensService } from './services/screens.service';
 import { SocketioService } from './services/socketio.service';
 import { UserServiceService } from './services/user-service.service';
 import { VideoManagementService } from './services/video-management.service';
+import { _ApiFetchConstants } from 'src/app/constants/api-fetch.constants';
 
 const ComponentsList = [LoginComponent, NavbarComponent];
 const ImportsList = [CommonModule, FormsModule];
@@ -19,6 +20,7 @@ const ProvidersList = [
   SocketioService,
   UserServiceService,
   VideoManagementService,
+  _ApiFetchConstants,
 ];
 
 @NgModule({

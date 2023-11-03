@@ -1,11 +1,11 @@
 <section
   class="flex-center border-box bg-primary"
-  *ngIf="scrn._screensConstants.isCurrentGroup && scrn._screensConstants.isActiveGroup"
+  *ngIf="scrn._constants.isCurrentGroup && scrn._constants.isActiveGroup"
 >
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
       <li
-        *ngFor="let screen of scrn._screensConstants.selected"
+        *ngFor="let screen of scrn._constants.selected"
         (click)="scrn.addScreen(screen)"
         class="full-area flex-center"
       >
@@ -21,10 +21,10 @@
     <ul
       class="flex-center"
       id="screenAdded"
-      *ngIf="scrn._screensConstants.currentGroup; else notCurrentGroup"
+      *ngIf="scrn._constants.currentGroup; else notCurrentGroup"
     >
       <li
-        *ngFor="let screen of scrn._screensConstants.currentGroup?.screenList"
+        *ngFor="let screen of scrn._constants.currentGroup?.screenList"
         (click)="scrn.removeScreen(screen)"
         class="full-area flex-center"
       >
@@ -48,11 +48,11 @@
         muted="true"
         autoplay
         loop
-        *ngIf="api._apiConstants.recharge && scrn._screensConstants.currentGroup"
+        *ngIf="api._apiConstants.recharge && scrn._constants.currentGroup"
       >
         <source
-          *ngIf="scrn._screensConstants.currentGroup.currentVideo"
-          [src]="scrn._screensConstants.currentGroup.currentVideo"
+          *ngIf="scrn._constants.currentGroup.currentVideo"
+          [src]="scrn._constants.currentGroup.currentVideo"
           type="video/mp4"
         />
       </video>

@@ -1,39 +1,39 @@
 <section
   class="flex-center border-box bg-primary"
-  *ngIf="scrn._screensConstants.isPanelScreenUsed"
+  *ngIf="scrn._constants.isPanelScreenUsed"
 >
   <ul
     id="screensDetectedQueue"
     *ngIf="
-      (scrn._screensConstants.isScreenModifiedOpened &&
-        scrn._screensConstants.avalaibles &&
-        scrn._screensConstants.avalaibles.length !== 0) ||
-      (scrn._screensConstants.isScreenActivatedOpened &&
-        scrn._screensConstants.screensDetectedQueue &&
-        scrn._screensConstants.screensDetectedQueue.length !== 0)
+      (scrn._constants.isScreenModifiedOpened &&
+        scrn._constants.avalaibles &&
+        scrn._constants.avalaibles.length !== 0) ||
+      (scrn._constants.isScreenActivatedOpened &&
+        scrn._constants.screensDetectedQueue &&
+        scrn._constants.screensDetectedQueue.length !== 0)
     "
   >
     <li
       class="flex-center"
       *ngFor="
-        let screen of scrn._screensConstants.isScreenActivatedOpened
-          ? scrn._screensConstants.screensDetectedQueue
-          : scrn._screensConstants.avalaibles
+        let screen of scrn._constants.isScreenActivatedOpened
+          ? scrn._constants.screensDetectedQueue
+          : scrn._constants.avalaibles
       "
       (click)="scrn.getScreenInQueue(screen)"
       [ngStyle]="
-        !scrn._screensConstants.currentScreenInQueue
+        !scrn._constants.currentScreenInQueue
           ? { cursor: 'pointer' }
-          : scrn._screensConstants.currentScreenInQueue.id === screen.id
+          : scrn._constants.currentScreenInQueue.id === screen.id
           ? { 'background-color': 'black' }
           : { cursor: 'pointer' }
       "
     >
       <span
         [ngStyle]="
-          !scrn._screensConstants.currentScreenInQueue
+          !scrn._constants.currentScreenInQueue
             ? { cursor: 'pointer' }
-            : scrn._screensConstants.currentScreenInQueue.id === screen.id
+            : scrn._constants.currentScreenInQueue.id === screen.id
             ? {}
             : { cursor: 'pointer' }
         "
@@ -44,9 +44,9 @@
   <form
     (ngSubmit)="
       scrn.getForm(
-        scrn._screensConstants.screenDetectedForm,
-        scrn._screensConstants.isScreenActivatedOpened &&
-          !scrn._screensConstants.isScreenModifiedOpened
+        scrn._constants.screenDetectedForm,
+        scrn._constants.isScreenActivatedOpened &&
+          !scrn._constants.isScreenModifiedOpened
           ? 'isActivate'
           : 'isModify',
         userService._userConstants.user
@@ -55,16 +55,16 @@
     class="flex-center"
     id="screenQueueInfo"
     *ngIf="
-      (scrn._screensConstants.isScreenModifiedOpened &&
-        scrn._screensConstants.avalaibles &&
-        scrn._screensConstants.avalaibles.length !== 0) ||
-      (scrn._screensConstants.isScreenActivatedOpened &&
-        scrn._screensConstants.screensDetectedQueue &&
-        scrn._screensConstants.screensDetectedQueue.length !== 0)
+      (scrn._constants.isScreenModifiedOpened &&
+        scrn._constants.avalaibles &&
+        scrn._constants.avalaibles.length !== 0) ||
+      (scrn._constants.isScreenActivatedOpened &&
+        scrn._constants.screensDetectedQueue &&
+        scrn._constants.screensDetectedQueue.length !== 0)
     "
     [ngStyle]="
-      scrn._screensConstants.isScreenActivatedOpened ||
-      scrn._screensConstants.isScreenModifiedOpened
+      scrn._constants.isScreenActivatedOpened ||
+      scrn._constants.isScreenModifiedOpened
         ? { width: '100%' }
         : {}
     "
@@ -72,7 +72,7 @@
     <div class="flex-center inputBlock">
       <label for="brand">Marca: </label>
       <input
-        [(ngModel)]="scrn._screensConstants.screenDetectedForm.brand"
+        [(ngModel)]="scrn._constants.screenDetectedForm.brand"
         type="text"
         name="brand"
         id="brand"
@@ -82,14 +82,14 @@
     <div class="flex-center inputBlock">
       <label for="location">Lugar:</label>
       <select
-        [(ngModel)]="scrn._screensConstants.screenDetectedForm.location"
+        [(ngModel)]="scrn._constants.screenDetectedForm.location"
         name="location"
         id="location"
         style="cursor: pointer"
       >
         <option value="0"></option>
         <option
-          *ngFor="let location of scrn._screensConstants.locations"
+          *ngFor="let location of scrn._constants.locations"
           [value]="location.id + 1"
         >
           {{ location.id + " | " + location.name }}
@@ -100,14 +100,14 @@
       <label for="department">Departamento: </label>
       <select
         [selectedIndex]="
-          scrn._screensConstants.screenDetectedForm
-            ? scrn._screensConstants.screenDetectedForm.department
+          scrn._constants.screenDetectedForm
+            ? scrn._constants.screenDetectedForm.department
             : null
         "
         name="deparment"
         id="department"
         style="cursor: pointer"
-        [(ngModel)]="scrn._screensConstants.screenDetectedForm.department"
+        [(ngModel)]="scrn._constants.screenDetectedForm.department"
       >
         <option value="0"></option>
         <option
@@ -121,8 +121,8 @@
     <div class="flex-center inputBlock">
       <button type="submit" style="cursor: pointer">
         {{
-          scrn._screensConstants.isScreenActivatedOpened &&
-          !scrn._screensConstants.isScreenModifiedOpened
+          scrn._constants.isScreenActivatedOpened &&
+          !scrn._constants.isScreenModifiedOpened
             ? "Activar"
             : "Guardar"
         }}
@@ -133,15 +133,15 @@
     class="flex-center"
     id="screensDetectedQueueDel"
     *ngIf="
-      scrn._screensConstants.isScreenDesactivatedOpened &&
-      scrn._screensConstants.avalaibles &&
-      scrn._screensConstants.avalaibles.length !== 0
+      scrn._constants.isScreenDesactivatedOpened &&
+      scrn._constants.avalaibles &&
+      scrn._constants.avalaibles.length !== 0
     "
   >
     <li
       class="flex-center"
       id="screenDetectedInfoDel"
-      *ngFor="let screen of scrn._screensConstants.avalaibles"
+      *ngFor="let screen of scrn._constants.avalaibles"
     >
       <div class="flex-center full-area">
         <span>ID:{{ " " + screen.id + " | " }}IP:{{ " " + screen.ip }}</span>
@@ -162,10 +162,10 @@
   </ul>
   <h1
     *ngIf="
-      (scrn._screensConstants.isScreenModifiedOpened ||
-        scrn._screensConstants.isScreenDesactivatedOpened) &&
-      (!scrn._screensConstants.avalaibles ||
-        scrn._screensConstants.avalaibles.length === 0)
+      (scrn._constants.isScreenModifiedOpened ||
+        scrn._constants.isScreenDesactivatedOpened) &&
+      (!scrn._constants.avalaibles ||
+        scrn._constants.avalaibles.length === 0)
     "
     style="color: aliceblue; text-shadow: 1px 1px 2px black"
   >
@@ -173,9 +173,9 @@
   </h1>
   <h1
     *ngIf="
-      scrn._screensConstants.isScreenActivatedOpened &&
-      (!scrn._screensConstants.screensDetectedQueue ||
-        scrn._screensConstants.screensDetectedQueue.length === 0)
+      scrn._constants.isScreenActivatedOpened &&
+      (!scrn._constants.screensDetectedQueue ||
+        scrn._constants.screensDetectedQueue.length === 0)
     "
     style="color: aliceblue; text-shadow: 1px 1px 2px black"
   >

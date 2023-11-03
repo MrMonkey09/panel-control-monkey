@@ -6,16 +6,16 @@
   *ngIf="userService._userConstants.user"
 >
   <app-screen-groups
-    *ngIf="!userService._userConstants.isUserPanelOpened && !scrn._screensConstants.isPanelScreenOpened"
+    *ngIf="!userService._userConstants.isUserPanelOpened && !scrn._constants.isPanelScreenOpened"
   />
   <app-management-promos
-    *ngIf="!scrn._screensConstants.isCreateGroupOpened && !userService._userConstants.isUserPanelOpened && !scrn._screensConstants.isPanelScreenOpened"
+    *ngIf="!scrn._constants.isCreateGroupOpened && !userService._userConstants.isUserPanelOpened && !scrn._constants.isPanelScreenOpened"
   />
   <app-user-panel *ngIf="userService._userConstants.isUserPanelOpened" />
   <app-user-management *ngIf="userService._userConstants.isUserPanelOpened" />
   <app-create-group
-    *ngIf="scrn._screensConstants.isCreateGroupOpened && !userService._userConstants.isUserPanelOpened"
+    *ngIf="scrn._constants.isCreateGroupOpened && !userService._userConstants.isUserPanelOpened"
   />
-  <app-screen-panel *ngIf="scrn._screensConstants.isPanelScreenOpened" />
-  <app-screen-management *ngIf="scrn._screensConstants.isPanelScreenOpened" />
+  <app-screen-panel *ngIf="scrn._constants.isPanelScreenOpened" />
+  <app-screen-management *ngIf="scrn._constants.isPanelScreenOpened" />
 </main>

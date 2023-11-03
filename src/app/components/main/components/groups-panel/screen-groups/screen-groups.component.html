@@ -1,20 +1,20 @@
 <aside class="full-area border-box bg-primary">
   <ul class="full-area">
     <li
-      *ngFor="let groupScreen of scrn._screensConstants.activeGroupScreens"
+      *ngFor="let groupScreen of scrn._constants.activeGroupScreens"
       (click)="takeScreens(groupScreen)"
       class="full-area flex-center border-box"
       [ngStyle]="{
         'background-color':
-          scrn._screensConstants.currentGroup &&
-          scrn._screensConstants.isActiveGroup &&
-          scrn._screensConstants.currentGroup.id === groupScreen.id
+          scrn._constants.currentGroup &&
+          scrn._constants.isActiveGroup &&
+          scrn._constants.currentGroup.id === groupScreen.id
             ? 'black'
             : 'transparent',
         'cursor':
-          scrn._screensConstants.currentGroup &&
-          scrn._screensConstants.isActiveGroup &&
-          scrn._screensConstants.currentGroup.id === groupScreen.id
+          scrn._constants.currentGroup &&
+          scrn._constants.isActiveGroup &&
+          scrn._constants.currentGroup.id === groupScreen.id
             ? 'default'
             : 'pointer',
         

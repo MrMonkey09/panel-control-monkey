@@ -21,50 +21,46 @@ export class VideoPlayerPage implements OnInit {
     public vm: VideoManagementService
   ) {
     console.log('VideoPlayer Page cargado');
-    console.log({ constants: scrn._screensConstants });
+    console.log({ constants: scrn._constants });
   }
 
   ngOnInit(): void {
     this.scrn.getScreen();
-    this.indexGroup = this.scrn._screensConstants.groupsScreen?.findIndex(
-      (group) =>
-        group.id === this.scrn._screensConstants.currentScreen.currentGroup
+    this.indexGroup = this.scrn._constants.groupsScreen?.findIndex(
+      (group) => group.id === this.scrn._constants.currentScreen.currentGroup
     );
     console.log(this.indexGroup);
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
       if (res.video) {
-        console.log(this.scrn._screensConstants.currentScreen);
-        if (
-          res.group.id ===
-          this.scrn._screensConstants.currentScreen.currentGroup
-        ) {
+        console.log(this.scrn._constants.currentScreen);
+        if (res.group.id === this.scrn._constants.currentScreen.currentGroup) {
           console.log(
             'grupo corresponde a pantalla actual ' +
-              this.scrn._screensConstants.currentScreen.ip
+              this.scrn._constants.currentScreen.ip
           );
-          this.indexGroup = this.scrn._screensConstants.groupsScreen?.findIndex(
+          this.indexGroup = this.scrn._constants.groupsScreen?.findIndex(
             (group) => group.id === res.group.id
           );
-          console.log(this.scrn._screensConstants.groupsScreen);
+          console.log(this.scrn._constants.groupsScreen);
           console.log(this.indexGroup);
           this.vm.$updateVideo(res);
         }
       } else if (res.screen || res.screenDel) {
         const screenTemp: Screen_ = res.screen ? res.screen : res.screenDel;
-        console.log({ screenTemp, constrants: this.scrn._screensConstants });
+        console.log({ screenTemp, constrants: this.scrn._constants });
         if (
-          this.scrn._screensConstants.currentScreen &&
-          screenTemp.ip === this.scrn._screensConstants.currentScreen.ip
+          this.scrn._constants.currentScreen &&
+          screenTemp.ip === this.scrn._constants.currentScreen.ip
         ) {
           console.log(
             'actualizacion corresponde a pantalla actual ' +
-              this.scrn._screensConstants.currentScreen.ip
+              this.scrn._constants.currentScreen.ip
           );
-          this.indexGroup = this.scrn._screensConstants.groupsScreen?.findIndex(
+          this.indexGroup = this.scrn._constants.groupsScreen?.findIndex(
             (group) => group.id === res.group.id
           );
-          console.log(this.scrn._screensConstants.groupsScreen);
+          console.log(this.scrn._constants.groupsScreen);
           console.log(this.indexGroup);
           this.vm.$updateScreen(res);
         } else {

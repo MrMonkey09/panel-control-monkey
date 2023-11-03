@@ -8,7 +8,10 @@ import { _ApiFetchConstants } from '../../../constants/api-fetch.constants';
 })
 export class SocketioService extends Socket {
   callback: EventEmitter<any> = new EventEmitter();
-  constructor(public cookieService: CookieService) {
+  constructor(
+    public cookieService: CookieService,
+    public _apiConstants: _ApiFetchConstants
+  ) {
     super({
       url: _apiConstants.urlApi,
       options: {
@@ -22,9 +25,9 @@ export class SocketioService extends Socket {
   }
 
   getConstants(apiConstants: _ApiFetchConstants) {
-    this._constants = apiConstants;
+    this._apiConstants = apiConstants;
     return console.log({
-      screenConstants: this._constants,
+      screenConstants: this._apiConstants,
     });
   }
 

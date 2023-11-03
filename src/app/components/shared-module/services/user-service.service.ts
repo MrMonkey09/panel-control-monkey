@@ -255,7 +255,7 @@ export class UserServiceService {
   loggOut() {
     this._userConstants.user = undefined;
     this.cookieService.delete('user-id');
-    this.scrn._screensConstants.isActiveGroup = false;
+    this.scrn._constants.isActiveGroup = false;
   }
 
   openUserPanel() {

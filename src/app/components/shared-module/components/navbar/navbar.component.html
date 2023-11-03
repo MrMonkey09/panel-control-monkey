@@ -15,7 +15,7 @@
         <---
       </li>
       <li
-        *ngIf="scrn._screensConstants.isPanelScreenOpened"
+        *ngIf="scrn._constants.isPanelScreenOpened"
         (click)="scrn.closeScreenPanel()"
         style="cursor: pointer"
       >
@@ -23,13 +23,13 @@
       </li>
       <li
         *ngIf="
-          (!scrn._screensConstants.isPanelScreenOpened ||
-            scrn._screensConstants.isPanelScreenOpened) &&
+          (!scrn._constants.isPanelScreenOpened ||
+            scrn._constants.isPanelScreenOpened) &&
           userService._userConstants.user.department.id === 0 &&
           !userService._userConstants.isUserPanelOpened
         "
         [ngStyle]="
-          !scrn._screensConstants.isPanelScreenOpened
+          !scrn._constants.isPanelScreenOpened
             ? { cursor: 'pointer' }
             : {}
         "
@@ -40,7 +40,7 @@
       <li
         *ngIf="
           userService._userConstants.user.department.id === 0 &&
-          !scrn._screensConstants.isPanelScreenOpened &&
+          !scrn._constants.isPanelScreenOpened &&
           (!userService._userConstants.isBackButtonEnabled ||
             userService._userConstants.isBackButtonEnabled)
         "
