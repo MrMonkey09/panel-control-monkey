@@ -1,39 +1,39 @@
 <section
   class="flex-center border-box bg-primary"
-  *ngIf="scrn._constants.isCurrentGroup && scrn._constants.isActiveGroup"
+  *ngIf="constants._scrnConstants.isCurrentGroup && constants._scrnConstants.isActiveGroup"
 >
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
       <li
-        *ngFor="let screen of scrn._constants.selected"
+        *ngFor="let screen of constants._scrnConstants.selected"
         (click)="scrn.addScreen(screen)"
         class="full-area flex-center"
       >
         {{
-          screen.id +
+          screen.ID +
             " | " +
-            screen.brand +
+            screen.Brand +
             " | Ubicación: " +
-            screen.location.name
+            screen.LocationID
         }}
       </li>
     </ul>
     <ul
       class="flex-center"
       id="screenAdded"
-      *ngIf="scrn._constants.currentGroup; else notCurrentGroup"
+      *ngIf="constants._scrnConstants.currentGroup; else notCurrentGroup"
     >
       <li
-        *ngFor="let screen of scrn._constants.currentGroup?.screenList"
+        *ngFor="let screen of screenList"
         (click)="scrn.removeScreen(screen)"
         class="full-area flex-center"
       >
         {{
-          screen.id +
+          screen.ID +
             " | " +
-            screen.brand +
+            screen.Brand +
             " | Ubicación: " +
-            screen.location.name
+            screen.LocationID
         }}
       </li>
     </ul>
@@ -48,11 +48,11 @@
         muted="true"
         autoplay
         loop
-        *ngIf="api._apiConstants.recharge && scrn._constants.currentGroup"
+        *ngIf="constants._apiConstants.recharge && constants._scrnConstants.currentGroup"
       >
         <source
-          *ngIf="scrn._constants.currentGroup.currentVideo"
-          [src]="scrn._constants.currentGroup.currentVideo"
+          *ngIf="constants._scrnConstants.currentGroup.CurrentVideo"
+          [src]="constants._scrnConstants.currentGroup.CurrentVideo"
           type="video/mp4"
         />
       </video>

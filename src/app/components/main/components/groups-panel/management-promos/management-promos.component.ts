@@ -1,12 +1,14 @@
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, OnInit, DoCheck, SimpleChanges } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, Subject, timeout } from 'rxjs';
-import { ApiService } from 'src/app/components/shared-module/services/api/api.service';
-import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
-import { SocketioService } from 'src/app/components/shared-module/services/socketio.service';
-import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
-import { VideoManagementService } from 'src/app/components/shared-module/services/video-management.service';
+import { Observable } from 'rxjs';
+import { Screen_ } from 'src/app/interfaces/screen';
+import { ApiService } from 'src/app/services/api/api.service';
+import { ConstantsService } from 'src/app/services/constants.service';
+import { ScreensService } from 'src/app/services/screens.service';
+import { SocketioService } from 'src/app/services/socketio.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
+import { VideoManagementService } from 'src/app/services/video-management.service';
 
 @Component({
   selector: 'app-management-promos',
@@ -20,6 +22,7 @@ export class ManagementPromosComponent implements OnInit {
     inProgress: false,
     message: '',
   };
+  screenList!: Array<Screen_>;
   progressManagement = new Observable((subscriber) => {
     subscriber.next(this.progress);
     subscriber.complete();
@@ -29,14 +32,20 @@ export class ManagementPromosComponent implements OnInit {
     public api: ApiService,
     private cookieService: CookieService,
     private sw: SocketioService,
-    private http: HttpClient,
     public scrn: ScreensService,
     public vm: VideoManagementService,
-    public userService: UserServiceService
+    public userService: UserServiceService,
+    public constants: ConstantsService
   ) {}
   ngOnInit(): void {
     this.id = this.cookieService.get('user-id');
-    this.sw.callback.subscribe((res) => {
+    this.api.apiScreen.allScreens().subscribe({
+      next: (res) => {
+        console.log({ res });
+      },
+      complete: () => {},
+    });
+    this.sw.callback.subscribe((res: any) => {
       console.log('Cambio detectado: ', res);
       if (res.screen || res.screenDel) {
         this.vm.$updateScreen(res);
@@ -45,9 +54,9 @@ export class ManagementPromosComponent implements OnInit {
       } else if (res.groups) {
         console.log('update groups');
         setTimeout(() => {
-          if (this.userService._userConstants.user) {
-            this.scrn._constants.groupsScreen = res.groups;
-            this.scrn.getScreenGroups(this.userService._userConstants.user);
+          if (this.constants._userConstants.user) {
+            this.constants._scrnConstants.groupsScreen = res.groups;
+            this.scrn.getScreenGroups(this.constants._userConstants.user);
           }
         }, 100);
       } else if (res.cont) {
@@ -101,31 +110,31 @@ export class ManagementPromosComponent implements OnInit {
             this.vm.$updateVideo(this.resTemp.data);
           },
           complete: () => {
-            this.api._apiConstants.recharge = false;
+            this.constants._apiConstants.recharge = false;
             if (
-              this.scrn._constants.groupsScreen &&
-              this.scrn._constants.currentGroup &&
-              this.scrn._constants
+              this.constants._scrnConstants.groupsScreen &&
+              this.constants._scrnConstants.currentGroup &&
+              this.constants._scrnConstants
             ) {
-              this.scrn._constants.currentGroup.currentVideo =
-                this.vm._videoConstants.video;
+              this.constants._scrnConstants.currentGroup.CurrentVideo =
+                this.constants._videoConstants.video;
               console.log({
-                groupsScreen: this.scrn._constants.groupsScreen,
-                currentGroup: this.scrn._constants.currentGroup,
+                groupsScreen: this.constants._scrnConstants.groupsScreen,
+                currentGroup: this.constants._scrnConstants.currentGroup,
               });
-              this.scrn._constants.groupsScreen[
-                this.scrn._constants.groupsScreen.findIndex(
+              this.constants._scrnConstants.groupsScreen[
+                this.constants._scrnConstants.groupsScreen.findIndex(
                   (group) =>
-                    this.scrn._constants.currentGroup &&
-                    group.id === this.scrn._constants.currentGroup.id
+                    this.constants._scrnConstants.currentGroup &&
+                    group.ID === this.constants._scrnConstants.currentGroup.ID
                 )
-              ].currentVideo = this.vm._videoConstants.video;
+              ].CurrentVideo = this.constants._videoConstants.video;
               console.log(
-                this.scrn._constants.groupsScreen[
-                  this.scrn._constants.groupsScreen.findIndex(
+                this.constants._scrnConstants.groupsScreen[
+                  this.constants._scrnConstants.groupsScreen.findIndex(
                     (group) =>
-                      this.scrn._constants.currentGroup &&
-                      group.id === this.scrn._constants.currentGroup.id
+                      this.constants._scrnConstants.currentGroup &&
+                      group.ID === this.constants._scrnConstants.currentGroup.ID
                   )
                 ]
               );
@@ -136,18 +145,18 @@ export class ManagementPromosComponent implements OnInit {
               message: 'Carga completada.',
             };
             this.sw.emitEvento('video', {
-              video: this.vm._videoConstants.video,
-              group: this.scrn._constants.currentGroup,
+              video: this.constants._videoConstants.video,
+              group: this.constants._scrnConstants.currentGroup,
             });
-            console.log(this.vm._videoConstants.video);
-            if (this.scrn._constants.currentGroup) {
+            console.log(this.constants._videoConstants.video);
+            if (this.constants._scrnConstants.currentGroup) {
               console.log(
-                this.scrn._constants.currentGroup.currentVideo
+                this.constants._scrnConstants.currentGroup.CurrentVideo
               );
             }
             console.log('completado');
             setTimeout(() => {
-              this.api._apiConstants.recharge = true;
+              this.constants._apiConstants.recharge = true;
               this.progress = {
                 value: 0,
                 inProgress: false,

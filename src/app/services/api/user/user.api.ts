@@ -1,13 +1,14 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { _apiFetchConstants } from 'src/app/constants/api-fetch.constants';
 
 export class apiUser {
-  constructor(private http: any, private _apiConstants: any) {
+  constructor(private http: any) {
     console.log('Api User seccion Cargada');
   }
 
   createUser(body: any): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'user/create';
+    const urlTemp = _apiFetchConstants.urlApi + 'user/create';
     const req = new HttpRequest('PUT', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -16,17 +17,17 @@ export class apiUser {
   }
 
   allUsers(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'user/all';
+    const urlTemp = _apiFetchConstants.urlApi + 'user/all';
     return this.http.get(urlTemp);
   }
 
   getUser(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'user/{id}';
+    const urlTemp = _apiFetchConstants.urlApi + 'user/{id}';
     return this.http.get(urlTemp);
   }
 
   updateUser(body: any): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'user/{id}/update';
+    const urlTemp = _apiFetchConstants.urlApi + 'user/{id}/update';
     const req = new HttpRequest('PATCH', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -35,7 +36,7 @@ export class apiUser {
   }
 
   deleteUser(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'user/{id}/delete';
+    const urlTemp = _apiFetchConstants.urlApi + 'user/{id}/delete';
     return this.http.delete(urlTemp);
   }
 }

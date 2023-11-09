@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
-import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
+import { ConstantsService } from 'src/app/services/constants.service';
+import { ScreensService } from 'src/app/services/screens.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-create-group',
@@ -10,13 +11,14 @@ import { UserServiceService } from 'src/app/components/shared-module/services/us
 export class CreateGroupComponent implements OnInit {
   constructor(
     public scrn: ScreensService,
-    public userService: UserServiceService
+    public userService: UserServiceService,
+    public constants: ConstantsService
   ) {}
   ngOnInit(): void {}
 
   addGroup() {
-    if (this.userService._userConstants.user) {
-      this.scrn.createGroup(this.userService._userConstants.user);
+    if (this.constants._userConstants.user) {
+      this.scrn.createGroup(this.constants._userConstants.user);
     }
   }
 }

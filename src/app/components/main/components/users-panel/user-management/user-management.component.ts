@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
+import { ConstantsService } from 'src/app/services/constants.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-user-management',
@@ -7,6 +8,6 @@ import { UserServiceService } from 'src/app/components/shared-module/services/us
   styleUrls: ['./user-management.component.css'],
 })
 export class UserManagementComponent implements OnInit {
-  constructor(public userService: UserServiceService) {}
+  constructor(public userService: UserServiceService, public constants: ConstantsService) {}
   ngOnInit(): void {}
 }

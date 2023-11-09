@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { HomePage } from './pages/home/home.page';
-import { SharedModule } from '../shared-module/shared.module';
 import { GroupsPanelModule } from './components/groups-panel/groups-panel.module';
 import { ScreensPanelModule } from './components/screens-panel/screens-panel.module';
 import { UsersPanelModule } from './components/users-panel/users-panel.module';
+import { SharedModule } from '../shared-module/shared.module';
 
 const ModulesList = [
   CommonModule,

@@ -1,10 +1,8 @@
-import { Department_ } from './department';
-
 export interface User_ {
-  id: number;
-  name: string;
-  password: string;
-  email: string;
-  department: Department_;
-  rut: string;
+  ID: number;
+  Name: string;
+  Password: string;
+  Email: string;
+  DepartmentID: number;
+  Rut: string;
 }

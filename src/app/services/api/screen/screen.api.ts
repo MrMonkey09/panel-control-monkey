@@ -1,13 +1,14 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { _apiFetchConstants } from 'src/app/constants/api-fetch.constants';
 
 export class apiScreen {
-  constructor(private http: any, private _apiConstants: any) {
+  constructor(private http: any) {
     console.log('Api Screen seccion Cargada');
   }
 
   createScreen(body: any): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'screen/create';
+    const urlTemp = _apiFetchConstants.urlApi + 'screen/create';
     const req = new HttpRequest('PUT', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -16,22 +17,22 @@ export class apiScreen {
   }
 
   allScreens(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'screen/all';
+    const urlTemp = _apiFetchConstants.urlApi + 'screen/all';
     return this.http.get(urlTemp);
   }
 
   getScreen(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'screen/{id}';
+    const urlTemp = _apiFetchConstants.urlApi + 'screen/{id}';
     return this.http.get(urlTemp);
   }
   
   matchScreen(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'screen';
+    const urlTemp = _apiFetchConstants.urlApi + 'screen';
     return this.http.get(urlTemp);
   }
 
   updateScreen(body: any): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'screen/{id}/update';
+    const urlTemp = _apiFetchConstants.urlApi + 'screen/{id}';
     const req = new HttpRequest('PATCH', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -40,7 +41,7 @@ export class apiScreen {
   }
 
   deleteScreen(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'screen/{id}/delete';
+    const urlTemp = _apiFetchConstants.urlApi + 'screen/{id}';
     return this.http.delete(urlTemp);
   }
 }

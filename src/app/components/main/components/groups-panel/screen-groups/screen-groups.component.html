@@ -1,28 +1,33 @@
 <aside class="full-area border-box bg-primary">
   <ul class="full-area">
     <li
-      *ngFor="let groupScreen of scrn._constants.activeGroupScreens"
+      *ngFor="let groupScreen of constants._scrnConstants.activeGroupScreens"
       (click)="takeScreens(groupScreen)"
       class="full-area flex-center border-box"
       [ngStyle]="{
         'background-color':
-          scrn._constants.currentGroup &&
-          scrn._constants.isActiveGroup &&
-          scrn._constants.currentGroup.id === groupScreen.id
+          constants._scrnConstants.currentGroup &&
+          constants._scrnConstants.isActiveGroup &&
+          constants._scrnConstants.currentGroup.ID === groupScreen.ID
             ? 'black'
             : 'transparent',
         'cursor':
-          scrn._constants.currentGroup &&
-          scrn._constants.isActiveGroup &&
-          scrn._constants.currentGroup.id === groupScreen.id
+          constants._scrnConstants.currentGroup &&
+          constants._scrnConstants.isActiveGroup &&
+          constants._scrnConstants.currentGroup.ID === groupScreen.ID
             ? 'default'
             : 'pointer',
         
       }"
     >
       <span
-        >{{ groupScreen.name + " " }}
-        <button type="button" (click)="delGroup(groupScreen)">-</button></span
+        >{{ groupScreen.Name + " " }}
+        <button
+          type="button"
+          (click)="delGroup(groupScreen, constants._userConstants.user)"
+        >
+          -
+        </button></span
       >
     </li>
     <button type="button" class="full-area border-box" (click)="addGroup()">

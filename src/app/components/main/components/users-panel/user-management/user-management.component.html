@@ -1,43 +1,43 @@
 <section
   class="flex-center border-box bg-primary"
-  *ngIf="userService._userConstants.isPanelUsed"
+  *ngIf="constants._userConstants.isPanelUsed"
 >
-  <ul id="usersList" *ngIf="userService._userConstants.isUpdateUserOpened">
+  <ul id="usersList" *ngIf="constants._userConstants.isUpdateUserOpened">
     <li
       class="flex-center"
-      *ngFor="let user of userService._userConstants.usersList"
+      *ngFor="let user of constants._userConstants.usersList"
       (click)="userService.getUser(user)"
       [ngStyle]="
-        !userService._userConstants.currentUser
+        !constants._userConstants.currentUser
           ? { cursor: 'pointer' }
-          : userService._userConstants.currentUser.id === user.id
+          : constants._userConstants.currentUser.ID === user.ID
           ? { 'background-color': 'black' }
           : { cursor: 'pointer' }
       "
     >
-      <span>{{ user.name }}</span
-      ><span>{{ user.rut }}</span
-      ><span>{{ user.department.name }}</span>
+      <span>{{ user.Name }}</span
+      ><span>{{ user.Rut }}</span
+      ><span>{{ user.DepartmentID }}</span>
     </li>
   </ul>
   <form
     (ngSubmit)="
       userService.getForm(
-        userService._userConstants.userFormTemp,
-        userService._userConstants.isCreateUserOpened && !userService._userConstants.isUpdateUserOpened
+        constants._userConstants.userFormTemp,
+        constants._userConstants.isCreateUserOpened && !constants._userConstants.isUpdateUserOpened
           ? 'isCreate'
           : 'isUpdate'
       )
     "
     class="flex-center"
     id="userInfo"
-    *ngIf="userService._userConstants.isCreateUserOpened || userService._userConstants.isUpdateUserOpened"
-    [ngStyle]="userService._userConstants.isCreateUserOpened ? { width: '100%' } : {}"
+    *ngIf="constants._userConstants.isCreateUserOpened || constants._userConstants.isUpdateUserOpened"
+    [ngStyle]="constants._userConstants.isCreateUserOpened ? { width: '100%' } : {}"
   >
     <div class="flex-center inputBlock">
       <label for="name">Nombre: </label>
       <input
-        [(ngModel)]="userService._userConstants.userFormTemp.name"
+        [(ngModel)]="constants._userConstants.userFormTemp.name"
         type="text"
         name="name"
         id="name"
@@ -47,21 +47,21 @@
     <div class="flex-center inputBlock">
       <label for="rut">Rut: </label>
       <input
-        [(ngModel)]="userService._userConstants.userFormTemp.rut"
+        [(ngModel)]="constants._userConstants.userFormTemp.rut"
         type="text"
         name="rut"
         id="rut"
         style="cursor: text"
       />
     </div>
-    <div class="flex-center inputBlock" *ngIf="!userService._userConstants.isCreateUserOpened">
+    <div class="flex-center inputBlock" *ngIf="!constants._userConstants.isCreateUserOpened">
       <label for="oldPass">Contraseña Actual: </label>
       <input
         type="password"
         name="oldPass"
         id="oldPass"
         style="cursor: text"
-        [(ngModel)]="userService._userConstants.userFormTemp.password"
+        [(ngModel)]="constants._userConstants.userFormTemp.password"
       />
     </div>
     <div class="flex-center inputBlock">
@@ -71,7 +71,7 @@
         name="newPass"
         id="newPass"
         style="cursor: text"
-        [(ngModel)]="userService._userConstants.userFormTemp.newPass"
+        [(ngModel)]="constants._userConstants.userFormTemp.newPass"
       />
     </div>
     <div class="flex-center inputBlock">
@@ -81,7 +81,7 @@
         name="newPassConfirm"
         id="newPassConfirm"
         style="cursor: text"
-        [(ngModel)]="userService._userConstants.userFormTemp.confirmPass"
+        [(ngModel)]="constants._userConstants.userFormTemp.confirmPass"
       />
     </div>
     <div class="flex-center inputBlock">
@@ -91,28 +91,28 @@
         name="email"
         id="email"
         style="cursor: text"
-        [(ngModel)]="userService._userConstants.userFormTemp.email"
+        [(ngModel)]="constants._userConstants.userFormTemp.email"
       />
     </div>
     <div class="flex-center inputBlock">
       <label for="department">Departamento: </label>
       <select
         [selectedIndex]="
-          userService._userConstants.currentUser && userService._userConstants.isUpdateUserOpened
-            ? userService._userConstants.currentUser.department.id + 1
+          constants._userConstants.currentUser && constants._userConstants.isUpdateUserOpened
+            ? constants._userConstants.currentUser.DepartmentID + 1
             : null
         "
         name="deparment"
         id="department"
         style="cursor: pointer"
-        [(ngModel)]="userService._userConstants.userFormTemp.department"
+        [(ngModel)]="constants._userConstants.userFormTemp.department"
       >
         <option value="0"></option>
         <option
-          *ngFor="let department of userService._userConstants.departmentList"
-          [value]="department.id + 1"
+          *ngFor="let department of constants._userConstants.departmentList"
+          [value]="department.ID + 1"
         >
-          {{ department.name }}
+          {{ department.Name }}
         </option>
       </select>
     </div>
@@ -123,20 +123,20 @@
   <ul
     class="flex-center"
     id="userListDel"
-    *ngIf="userService._userConstants.isDeleteUserOpened"
+    *ngIf="constants._userConstants.isDeleteUserOpened"
   >
     <li
       class="flex-center"
       id="userData"
-      *ngFor="let user of userService._userConstants.usersList"
+      *ngFor="let user of constants._userConstants.usersList"
     >
       <div class="flex-center full-area">
         <span
-          >Nombre:{{ " " + user.name + " | " }}Rut:{{ " " + user.rut }}</span
+          >Nombre:{{ " " + user.Name + " | " }}Rut:{{ " " + user.Rut }}</span
         >
         <span
-          >Email:{{ " " + user.email + " | " }}Area:{{
-            " " + user.department.name
+          >Email:{{ " " + user.Email + " | " }}Area:{{
+            " " + user.DepartmentID
           }}</span
         >
       </div>

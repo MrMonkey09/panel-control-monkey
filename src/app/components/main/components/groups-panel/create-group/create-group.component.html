@@ -1,6 +1,6 @@
 <section
   class="flex-center border-box bg-primary"
-  *ngIf="scrn._constants.isCreateGroupOpened && !scrn._constants.isActiveGroup"
+  *ngIf="constants._scrnConstants.isCreateGroupOpened && !constants._scrnConstants.isActiveGroup"
 >
   <form class="full-area flex-center inputBlock" (ngSubmit)="addGroup()">
     <label for="groupName">Ingrese el nombre del grupo:</label>
@@ -8,7 +8,7 @@
       id="groupName"
       name="groupName"
       type="text"
-      [(ngModel)]="scrn._constants.groupFormTemp.name"
+      [(ngModel)]="constants._scrnConstants.groupFormTemp.Name"
       style="cursor: text;"
     />
     <button type="submit" style="cursor: pointer;">Agregar</button>

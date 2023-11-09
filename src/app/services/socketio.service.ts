@@ -1,19 +1,16 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { CookieService } from 'ngx-cookie-service';
-import { _ApiFetchConstants } from '../../../constants/api-fetch.constants';
+import { _apiFetchConstants } from '../constants/api-fetch.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketioService extends Socket {
   callback: EventEmitter<any> = new EventEmitter();
-  constructor(
-    public cookieService: CookieService,
-    public _apiConstants: _ApiFetchConstants
-  ) {
+  constructor(public cookieService: CookieService) {
     super({
-      url: _apiConstants.urlApi,
+      url: _apiFetchConstants.urlApi,
       options: {
         query: {
           user: cookieService.get('user-id'),
@@ -22,13 +19,6 @@ export class SocketioService extends Socket {
     });
     this.listen();
     console.log('SocketIo Servicio Cargado');
-  }
-
-  getConstants(apiConstants: _ApiFetchConstants) {
-    this._apiConstants = apiConstants;
-    return console.log({
-      screenConstants: this._apiConstants,
-    });
   }
 
   listen = () => {

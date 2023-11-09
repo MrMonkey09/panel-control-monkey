@@ -1,8 +1,8 @@
 import { Department_ } from '../interfaces/department';
 import { User_ } from '../interfaces/user';
 
-export class _UserConstants {
-  public user?: User_ | undefined;
+class _UserConstants {
+  public user!: User_;
   public recharge: boolean = false;
   public isUserPanelOpened: boolean = false;
   public isBackButtonEnabled: boolean = false;
@@ -25,3 +25,5 @@ export class _UserConstants {
     department: 0,
   };
 }
+
+export let _userConstants = new _UserConstants()

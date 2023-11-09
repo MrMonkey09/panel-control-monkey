@@ -2,7 +2,7 @@ import { GroupScreen_ } from '../interfaces/group-screen';
 import { Location_ } from '../interfaces/location';
 import { Screen_ } from '../interfaces/screen';
 
-export class _ScreensConstants {
+class _ScreensConstants {
   screenList!: Array<Screen_>;
   avalaibles!: Array<Screen_>;
   selected!: Array<Screen_>;
@@ -10,7 +10,7 @@ export class _ScreensConstants {
 
   groupsScreen!: Array<GroupScreen_>;
   activeGroupScreens!: Array<GroupScreen_>;
-  
+
   locations!: Array<Location_>;
 
   isCurrentGroup: boolean = false;
@@ -25,18 +25,19 @@ export class _ScreensConstants {
   isScreenInQueueSelected: boolean = false;
 
   currentGroup!: GroupScreen_ | undefined;
-  contGroups: number = 0;
   currentScreen!: Screen_;
   currentScreenInQueue!: any;
   currentVideo!: string;
   screenDetectedCount: number = 0;
 
   groupFormTemp = {
-    name: '',
+    Name: '',
   };
   screenDetectedForm = {
-    brand: '',
-    location: 0,
-    department: 0,
+    Brand: '',
+    LocationID: 0,
+    DepartmentID: 0,
   };
-}
+};
+
+export let _scrnConstants = new _ScreensConstants();

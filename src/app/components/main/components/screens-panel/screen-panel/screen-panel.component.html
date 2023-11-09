@@ -4,7 +4,7 @@
       class="full-area flex-center"
       (click)="scrn.openScreenActivated()"
       [ngStyle]="
-        !scrn._constants.isScreenActivatedOpened
+        !constants._scrnConstants.isScreenActivatedOpened
           ? { cursor: 'pointer' }
           : { 'background-color': 'black' }
       "
@@ -15,7 +15,7 @@
       class="full-area flex-center"
       (click)="scrn.openScreenModified()"
       [ngStyle]="
-        !scrn._constants.isScreenModifiedOpened
+        !constants._scrnConstants.isScreenModifiedOpened
           ? { cursor: 'pointer' }
           : { 'background-color': 'black' }
       "
@@ -26,7 +26,7 @@
       class="full-area flex-center"
       (click)="scrn.openScreenDesactivated()"
       [ngStyle]="
-        !scrn._constants.isScreenDesactivatedOpened
+        !constants._scrnConstants.isScreenDesactivatedOpened
           ? { cursor: 'pointer' }
           : { 'background-color': 'black' }
       "

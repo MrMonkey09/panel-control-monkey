@@ -4,7 +4,7 @@
       class="full-area flex-center"
       (click)="userService.openCreateUser()"
       [ngStyle]="
-        !userService._userConstants.isCreateUserOpened
+        !constants._userConstants.isCreateUserOpened
           ? { cursor: 'pointer' }
           : { 'background-color': 'black' }
       "
@@ -15,7 +15,7 @@
       class="full-area flex-center"
       (click)="userService.openUpdateUser()"
       [ngStyle]="
-        !userService._userConstants.isUpdateUserOpened
+        !constants._userConstants.isUpdateUserOpened
           ? { cursor: 'pointer' }
           : { 'background-color': 'black' }
       "
@@ -26,7 +26,7 @@
       class="full-area flex-center"
       (click)="userService.openDeleteUser()"
       [ngStyle]="
-        !userService._userConstants.isDeleteUserOpened
+        !constants._userConstants.isDeleteUserOpened
           ? { cursor: 'pointer' }
           : { 'background-color': 'black' }
       "

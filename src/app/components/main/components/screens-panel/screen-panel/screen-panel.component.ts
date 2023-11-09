@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
-import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
+import { ConstantsService } from 'src/app/services/constants.service';
+import { ScreensService } from 'src/app/services/screens.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-screen-panel',
@@ -10,7 +11,8 @@ import { UserServiceService } from 'src/app/components/shared-module/services/us
 export class ScreenPanelComponent implements OnInit {
   constructor(
     public userService: UserServiceService,
-    public scrn: ScreensService
+    public scrn: ScreensService,
+    public constants: ConstantsService
   ) {}
 
   ngOnInit(): void {}

@@ -3,68 +3,68 @@
     <img src="../../../assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
-    <ul class="flex-center" *ngIf="!userService._userConstants.user">
+    <ul class="flex-center" *ngIf="!constants._userConstants.user || constants._userConstants.user.Email === '-'">
       <li>Iniciar sesion</li>
     </ul>
-    <ul class="flex-center" *ngIf="userService._userConstants.user">
+    <ul class="flex-center" *ngIf="constants._userConstants.user && constants._userConstants.user.Email !== '-'">
       <li
-        *ngIf="userService._userConstants.isBackButtonEnabled"
-        (click)="userService.closeUserPanel()"
+        *ngIf="constants._userConstants.isBackButtonEnabled"
+        (click)="closeUserPanel()"
         style="cursor: pointer"
       >
         <---
       </li>
       <li
-        *ngIf="scrn._constants.isPanelScreenOpened"
-        (click)="scrn.closeScreenPanel()"
+        *ngIf="constants._scrnConstants.isPanelScreenOpened"
+        (click)="closeScreenPanel()"
         style="cursor: pointer"
       >
         <---
       </li>
       <li
         *ngIf="
-          (!scrn._constants.isPanelScreenOpened ||
-            scrn._constants.isPanelScreenOpened) &&
-          userService._userConstants.user.department.id === 0 &&
-          !userService._userConstants.isUserPanelOpened
+          (!constants._scrnConstants.isPanelScreenOpened ||
+            constants._scrnConstants.isPanelScreenOpened) &&
+          constants._userConstants.user.DepartmentID === 1 &&
+          !constants._userConstants.isUserPanelOpened
         "
         [ngStyle]="
-          !scrn._constants.isPanelScreenOpened
-            ? { cursor: 'pointer' }
-            : {}
+          !constants._scrnConstants.isPanelScreenOpened ? { cursor: 'pointer' } : {}
         "
         (click)="openScreenPanel()"
       >
-        Panel de Pantallas
+        Pantallas
       </li>
       <li
         *ngIf="
-          userService._userConstants.user.department.id === 0 &&
-          !scrn._constants.isPanelScreenOpened &&
-          (!userService._userConstants.isBackButtonEnabled ||
-            userService._userConstants.isBackButtonEnabled)
+          constants._userConstants.user.DepartmentID === 1 &&
+          !constants._scrnConstants.isPanelScreenOpened &&
+          (!constants._userConstants.isBackButtonEnabled ||
+            constants._userConstants.isBackButtonEnabled)
         "
-        (click)="userService.openUserPanel()"
+        (click)="openUserPanel()"
         [ngStyle]="
-          !userService._userConstants.isUserPanelOpened
+          !constants._userConstants.isUserPanelOpened
             ? { cursor: 'pointer' }
             : {}
         "
       >
-        Panel de Usuarios
+        Usuarios
       </li>
-      <li>{{ userService._userConstants.user.name }}</li>
-      <li>{{ userService._userConstants.user.department.name }}</li>
-      <li>{{ userService._userConstants.user.rut }}</li>
+      <li>{{ constants._userConstants.user.Name }}</li>
+      <li>
+        {{ constants._userConstants.departmentList[0].Name}}
+      </li>
+      <li>{{ constants._userConstants.user.Rut }}</li>
     </ul>
   </div>
   <div
     class="navbar__search flex-center"
-    *ngIf="userService._userConstants.user"
+    *ngIf="constants._userConstants.user && constants._userConstants.user.Email !== '-'"
   >
     <i
-      *ngIf="userService._userConstants.user"
-      (click)="userService.loggOut()"
+      *ngIf="constants._userConstants.user && constants._userConstants.user.Email !== '-'"
+      (click)="loggOut()"
       style="cursor: pointer"
       >Cerrar sesion</i
     >

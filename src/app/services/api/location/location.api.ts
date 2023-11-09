@@ -1,13 +1,14 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { _apiFetchConstants } from 'src/app/constants/api-fetch.constants';
 
 export class apiLocation {
-  constructor(private http: any, private _apiConstants: any) {
+  constructor(private http: any) {
     console.log('Api Location seccion Cargada');
   }
 
   createScreen(body: any): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'location/create';
+    const urlTemp = _apiFetchConstants.urlApi + 'location/create';
     const req = new HttpRequest('PUT', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -16,17 +17,17 @@ export class apiLocation {
   }
 
   allLocations(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'location/all';
+    const urlTemp = _apiFetchConstants.urlApi + 'location/all';
     return this.http.get(urlTemp);
   }
 
   getLocation(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'location/{id}';
+    const urlTemp = _apiFetchConstants.urlApi + 'location/{id}';
     return this.http.get(urlTemp);
   }
 
   updateLocation(body: any): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'location/{id}/update';
+    const urlTemp = _apiFetchConstants.urlApi + 'location/{id}/update';
     const req = new HttpRequest('PATCH', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -35,7 +36,7 @@ export class apiLocation {
   }
 
   deleteLocation(): Observable<any> {
-    const urlTemp = this._apiConstants.urlApi + 'location/{id}/delete';
+    const urlTemp = _apiFetchConstants.urlApi + 'location/{id}/delete';
     return this.http.delete(urlTemp);
   }
 }

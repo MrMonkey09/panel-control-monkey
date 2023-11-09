@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { _ScreensConstants } from 'src/app/constants/screens.constants';
+import { _scrnConstants } from 'src/app/constants/screens.constants';
 import { Screen_ } from 'src/app/interfaces/screen';
-import { ApiService } from 'src/app/components/shared-module/services/api/api.service';
-import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
-import { SocketioService } from 'src/app/components/shared-module/services/socketio.service';
-import { VideoManagementService } from 'src/app/components/shared-module/services/video-management.service';
+import { ApiService } from '../../../../services/api/api.service';
+import { ScreensService } from '../../../../services/screens.service';
+import { SocketioService } from '../../../../services/socketio.service';
+import { VideoManagementService } from '../../../../services/video-management.service';
 
 @Component({
   selector: 'app-video-player',
@@ -21,46 +21,46 @@ export class VideoPlayerPage implements OnInit {
     public vm: VideoManagementService
   ) {
     console.log('VideoPlayer Page cargado');
-    console.log({ constants: scrn._constants });
+    console.log({ constants: _scrnConstants });
   }
 
   ngOnInit(): void {
     this.scrn.getScreen();
-    this.indexGroup = this.scrn._constants.groupsScreen?.findIndex(
-      (group) => group.id === this.scrn._constants.currentScreen.currentGroup
+/*     this.indexGroup = _scrnConstants.groupsScreen?.findIndex(
+      (group) => group.ID === _scrnConstants.currentScreen.CurrentGroup
     );
     console.log(this.indexGroup);
     this.sw.callback.subscribe((res) => {
       console.log('Cambio detectado: ', res);
       if (res.video) {
-        console.log(this.scrn._constants.currentScreen);
-        if (res.group.id === this.scrn._constants.currentScreen.currentGroup) {
+        console.log(_scrnConstants.currentScreen);
+        if (res.group.id === _scrnConstants.currentScreen.CurrentGroup) {
           console.log(
             'grupo corresponde a pantalla actual ' +
-              this.scrn._constants.currentScreen.ip
+              _scrnConstants.currentScreen.IP
           );
-          this.indexGroup = this.scrn._constants.groupsScreen?.findIndex(
-            (group) => group.id === res.group.id
+          this.indexGroup = _scrnConstants.groupsScreen?.findIndex(
+            (group) => group.ID === res.group.id
           );
-          console.log(this.scrn._constants.groupsScreen);
+          console.log(_scrnConstants.groupsScreen);
           console.log(this.indexGroup);
           this.vm.$updateVideo(res);
         }
       } else if (res.screen || res.screenDel) {
         const screenTemp: Screen_ = res.screen ? res.screen : res.screenDel;
-        console.log({ screenTemp, constrants: this.scrn._constants });
+        console.log({ screenTemp, constrants: _scrnConstants });
         if (
-          this.scrn._constants.currentScreen &&
-          screenTemp.ip === this.scrn._constants.currentScreen.ip
+          _scrnConstants.currentScreen &&
+          screenTemp.IP === _scrnConstants.currentScreen.IP
         ) {
           console.log(
             'actualizacion corresponde a pantalla actual ' +
-              this.scrn._constants.currentScreen.ip
+              _scrnConstants.currentScreen.IP
           );
-          this.indexGroup = this.scrn._constants.groupsScreen?.findIndex(
-            (group) => group.id === res.group.id
+          this.indexGroup = _scrnConstants.groupsScreen?.findIndex(
+            (group) => group.ID === res.group.id
           );
-          console.log(this.scrn._constants.groupsScreen);
+          console.log(_scrnConstants.groupsScreen);
           console.log(this.indexGroup);
           this.vm.$updateScreen(res);
         } else {
@@ -70,6 +70,6 @@ export class VideoPlayerPage implements OnInit {
         console.log({ groups: res.groups });
         this.vm.$updateScreen(res);
       }
-    });
+    }); */
   }
 }

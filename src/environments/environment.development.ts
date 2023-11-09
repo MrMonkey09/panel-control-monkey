@@ -1,4 +1,4 @@
 export const environment = {
   PORT: '9595',
-  HOST: '192.168.1.179',
+  HOST: '192.168.0.24',
 };

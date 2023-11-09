@@ -1,38 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { ScreensService } from 'src/app/components/shared-module/services/screens.service';
-import { UserServiceService } from 'src/app/components/shared-module/services/user-service.service';
+import { ApiService } from 'src/app/services/api/api.service';
+import { ConstantsService } from 'src/app/services/constants.service';
+import { ScreensService } from 'src/app/services/screens.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.css'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, AfterViewInit {
   screenRes!: { width: number; height: number };
-  constructor(
-    public userService: UserServiceService,
-    public cookieService: CookieService,
-    public scrn: ScreensService
-  ) {}
+  constructor(public cookieService: CookieService, public constants: ConstantsService, public scrnService: ScreensService, public api: ApiService) {}
 
   ngOnInit(): void {
     console.log('Home Component Cargado');
-    console.log({ constants: this.userService._userConstants });
-    setTimeout(() => {
-      this.isLogged();
-    }, 300);
   }
 
-  isLogged() {
-    if (this.cookieService.get('user-id')) {
-      const findUser: any = this.userService._userConstants.usersList.find(
-        (user) => user.id.toString() === this.cookieService.get('user-id')
-      );
-      if (findUser) {
-        this.userService.setUserCookie(findUser);
-        this.scrn.getAvalaiblescreens(findUser);
-      }
-    }
+  ngAfterViewInit(): void {
+    
   }
 }

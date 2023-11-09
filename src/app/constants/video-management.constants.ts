@@ -1,4 +1,4 @@
-export class _VideoConstants {
-  recharge: boolean = false;
-  video: any = '';
-}
+export let _videoConstants = {
+  recharge: false,
+  video: '',
+};
