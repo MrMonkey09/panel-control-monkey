@@ -8,6 +8,7 @@ export class apiSharedApi {
   }
 
   apiUpload(body: FormData): Observable<any> {
+    console.log({ body });
     const req = new HttpRequest(
       'POST',
       _apiFetchConstants.urlApi + 'subir-archivo',
@@ -17,6 +18,7 @@ export class apiSharedApi {
         responseType: 'json',
       }
     );
+    console.log({ req });
     return this.http.request(req);
   }
 }

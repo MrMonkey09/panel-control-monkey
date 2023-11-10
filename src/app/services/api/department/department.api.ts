@@ -8,8 +8,8 @@ export class apiDepartment {
   }
 
   createScreen(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'department/create';
-    const req = new HttpRequest('PUT', urlTemp, body, {
+    const urlTemp = _apiFetchConstants.urlApi + 'department';
+    const req = new HttpRequest('POST', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
     });
@@ -21,22 +21,22 @@ export class apiDepartment {
     return this.http.get(urlTemp);
   }
 
-  getDeparment(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'department/{id}';
+  getDeparment(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `department/${id}`;
     return this.http.get(urlTemp);
   }
 
-  updateDeparment(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'department/update';
-    const req = new HttpRequest('PUT', urlTemp, body, {
+  updateDeparment(body: any, id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `department/${id}`;
+    const req = new HttpRequest('POST', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
     });
     return this.http.request(req);
   }
 
-  deleteDeparment(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'department/{id}/delete';
+  deleteDeparment(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `department/${id}`;
     return this.http.get(urlTemp);
   }
 }

@@ -8,8 +8,8 @@ export class apiUser {
   }
 
   createUser(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'user/create';
-    const req = new HttpRequest('PUT', urlTemp, body, {
+    const urlTemp = _apiFetchConstants.urlApi + 'user';
+    const req = new HttpRequest('POST', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
     });
@@ -21,13 +21,13 @@ export class apiUser {
     return this.http.get(urlTemp);
   }
 
-  getUser(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'user/{id}';
+  getUser(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `user/${id}`;
     return this.http.get(urlTemp);
   }
 
-  updateUser(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'user/{id}/update';
+  updateUser(body: any, id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `user/${id}`;
     const req = new HttpRequest('PATCH', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -35,8 +35,8 @@ export class apiUser {
     return this.http.request(req);
   }
 
-  deleteUser(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'user/{id}/delete';
+  deleteUser(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `user/${id}`;
     return this.http.delete(urlTemp);
   }
 }

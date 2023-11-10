@@ -24,7 +24,7 @@ class _ScreensConstants {
   isScreenDesactivatedOpened: boolean = false;
   isScreenInQueueSelected: boolean = false;
 
-  currentGroup!: GroupScreen_ | undefined;
+  currentGroup!: GroupScreen_;
   currentScreen!: Screen_;
   currentScreenInQueue!: any;
   currentVideo!: string;

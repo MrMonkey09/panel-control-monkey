@@ -8,8 +8,8 @@ export class apiScreen {
   }
 
   createScreen(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'screen/create';
-    const req = new HttpRequest('PUT', urlTemp, body, {
+    const urlTemp = _apiFetchConstants.urlApi + 'screen';
+    const req = new HttpRequest('POST', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
     });
@@ -21,18 +21,18 @@ export class apiScreen {
     return this.http.get(urlTemp);
   }
 
-  getScreen(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'screen/{id}';
+  getScreen(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `screen/${id}`;
     return this.http.get(urlTemp);
   }
-  
+
   matchScreen(): Observable<any> {
     const urlTemp = _apiFetchConstants.urlApi + 'screen';
     return this.http.get(urlTemp);
   }
 
-  updateScreen(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'screen/{id}';
+  updateScreen(body: any, id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `screen/${id}`;
     const req = new HttpRequest('PATCH', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -40,8 +40,27 @@ export class apiScreen {
     return this.http.request(req);
   }
 
-  deleteScreen(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'screen/{id}';
+  deleteScreen(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `screen/${id}`;
+    return this.http.delete(urlTemp);
+  }
+
+  addScreenToList(body: any, id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `screen/${id}/to-list`;
+    const req = new HttpRequest('POST', urlTemp, body, {
+      reportProgress: true,
+      responseType: 'json',
+    });
+    return this.http.request(req);
+  }
+
+  removeScreenOfList(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `screen/${id}/out-list`;
+    return this.http.delete(urlTemp);
+  }
+
+  deleteScreenList(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `screen/${id}/delete-list`;
     return this.http.delete(urlTemp);
   }
 }

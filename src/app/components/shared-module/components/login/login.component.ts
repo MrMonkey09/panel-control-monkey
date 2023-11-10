@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { User_ } from 'src/app/interfaces/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { ScreensService } from 'src/app/services/screens.service';
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     public userService: UserServiceService,
     public constants: ConstantsService,
     public scrnService: ScreensService,
-    public api: ApiService
+    public api: ApiService,
+    public cookieService: CookieService
   ) {}
 
   ngOnInit(): void {
@@ -72,10 +75,29 @@ export class LoginComponent implements OnInit, AfterViewInit {
           complete: () => {
             this.constants._userConstants.usersList = this.resTemp;
             console.log({ users: this.resTemp });
-            this.userService.isLogged();
+            this.isLogged();
           },
         });
       },
     });
+  }
+  isLogged() {
+    console.log('Verificando sesion iniciada...');
+    if (this.cookieService.get('user-id')) {
+      const findUser: any = this.constants._userConstants.usersList.find(
+        (user: User_) =>
+          (user.ID ? user.ID.toString() : null) ===
+          this.cookieService.get('user-id')
+      );
+      console.log({
+        findUser,
+        list: this.constants._userConstants.usersList,
+      });
+      if (findUser) {
+        this.constants._userConstants.user = findUser;
+      }
+    } else {
+      console.log('Ninguna sesion iniciada');
+    }
   }
 }

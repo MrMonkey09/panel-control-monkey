@@ -10,7 +10,7 @@ export class apiGroupScreen {
   createGroupScreen(body: any): Observable<any> {
     console.log({ body });
     const urlTemp = _apiFetchConstants.urlApi + 'group-screen';
-    const req = new HttpRequest('PUT', urlTemp, body, {
+    const req = new HttpRequest('POST', urlTemp, body, {
       reportProgress: false,
       responseType: 'json',
     });
@@ -22,13 +22,13 @@ export class apiGroupScreen {
     return this.http.get(urlTemp);
   }
 
-  getGroupScreen(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'group-screen/{id}';
+  getGroupScreen(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `group-screen/${id}`;
     return this.http.get(urlTemp);
   }
 
-  updateGroupScreen(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'group-screen/{id}/update';
+  updateGroupScreen(body: any, id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `group-screen/${id}`;
     const req = new HttpRequest('PATCH', urlTemp, body, {
       reportProgress: false,
       responseType: 'json',
@@ -36,8 +36,8 @@ export class apiGroupScreen {
     return this.http.request(req);
   }
 
-  deleteGroupScreen(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'group-screen/{id}/delete';
+  deleteGroupScreen(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `group-screen/${id}`;
     return this.http.delete(urlTemp);
   }
 }

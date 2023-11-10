@@ -1,6 +1,9 @@
 <section
   class="flex-center border-box bg-primary"
-  *ngIf="constants._scrnConstants.isCurrentGroup && constants._scrnConstants.isActiveGroup"
+  *ngIf="
+    constants._scrnConstants.isCurrentGroup &&
+    constants._scrnConstants.isActiveGroup
+  "
 >
   <div class="flex-center" id="screens">
     <ul class="flex-center" id="addScreen">
@@ -48,7 +51,10 @@
         muted="true"
         autoplay
         loop
-        *ngIf="constants._apiConstants.recharge && constants._scrnConstants.currentGroup"
+        *ngIf="
+          constants._apiConstants.recharge &&
+          constants._scrnConstants.currentGroup
+        "
       >
         <source
           *ngIf="constants._scrnConstants.currentGroup.CurrentVideo"
@@ -82,6 +88,12 @@
         <span *ngIf="progress.message !== ''">{{ progress.message }}</span>
       </div>
       <button type="submit">Guardar</button>
+      <button
+        type="button"
+        (click)="delGroup(constants._scrnConstants.currentGroup, constants._userConstants.user)"
+      >
+        -
+      </button>
     </form>
   </div>
 </section>

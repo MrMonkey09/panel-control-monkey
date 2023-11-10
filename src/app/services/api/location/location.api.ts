@@ -8,8 +8,8 @@ export class apiLocation {
   }
 
   createScreen(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'location/create';
-    const req = new HttpRequest('PUT', urlTemp, body, {
+    const urlTemp = _apiFetchConstants.urlApi + 'location';
+    const req = new HttpRequest('POST', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
     });
@@ -21,13 +21,13 @@ export class apiLocation {
     return this.http.get(urlTemp);
   }
 
-  getLocation(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'location/{id}';
+  getLocation(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `location/${id}`;
     return this.http.get(urlTemp);
   }
 
-  updateLocation(body: any): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'location/{id}/update';
+  updateLocation(body: any, id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `location/${id}`;
     const req = new HttpRequest('PATCH', urlTemp, body, {
       reportProgress: true,
       responseType: 'json',
@@ -35,8 +35,8 @@ export class apiLocation {
     return this.http.request(req);
   }
 
-  deleteLocation(): Observable<any> {
-    const urlTemp = _apiFetchConstants.urlApi + 'location/{id}/delete';
+  deleteLocation(id: number): Observable<any> {
+    const urlTemp = _apiFetchConstants.urlApi + `location/${id}`;
     return this.http.delete(urlTemp);
   }
 }

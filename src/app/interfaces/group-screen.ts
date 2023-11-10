@@ -1,7 +1,9 @@
+import { Screen_ } from "./screen";
+
 export interface GroupScreen_ {
   ID?: number;
   Name: string;
-  ScreenListID?: number;
+  ScreenList?: Array<Screen_>;
   CurrentVideo: string;
   DepartmentID: number;
 }

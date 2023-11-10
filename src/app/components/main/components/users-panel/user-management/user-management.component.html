@@ -6,7 +6,7 @@
     <li
       class="flex-center"
       *ngFor="let user of constants._userConstants.usersList"
-      (click)="userService.getUser(user)"
+      (click)="getUser(user)"
       [ngStyle]="
         !constants._userConstants.currentUser
           ? { cursor: 'pointer' }
@@ -24,15 +24,21 @@
     (ngSubmit)="
       userService.getForm(
         constants._userConstants.userFormTemp,
-        constants._userConstants.isCreateUserOpened && !constants._userConstants.isUpdateUserOpened
+        constants._userConstants.isCreateUserOpened &&
+          !constants._userConstants.isUpdateUserOpened
           ? 'isCreate'
           : 'isUpdate'
       )
     "
     class="flex-center"
     id="userInfo"
-    *ngIf="constants._userConstants.isCreateUserOpened || constants._userConstants.isUpdateUserOpened"
-    [ngStyle]="constants._userConstants.isCreateUserOpened ? { width: '100%' } : {}"
+    *ngIf="
+      constants._userConstants.isCreateUserOpened ||
+      constants._userConstants.isUpdateUserOpened
+    "
+    [ngStyle]="
+      constants._userConstants.isCreateUserOpened ? { width: '100%' } : {}
+    "
   >
     <div class="flex-center inputBlock">
       <label for="name">Nombre: </label>
@@ -54,7 +60,10 @@
         style="cursor: text"
       />
     </div>
-    <div class="flex-center inputBlock" *ngIf="!constants._userConstants.isCreateUserOpened">
+    <div
+      class="flex-center inputBlock"
+      *ngIf="!constants._userConstants.isCreateUserOpened"
+    >
       <label for="oldPass">Contraseña Actual: </label>
       <input
         type="password"
@@ -98,7 +107,8 @@
       <label for="department">Departamento: </label>
       <select
         [selectedIndex]="
-          constants._userConstants.currentUser && constants._userConstants.isUpdateUserOpened
+          constants._userConstants.currentUser &&
+          constants._userConstants.isUpdateUserOpened
             ? constants._userConstants.currentUser.DepartmentID + 1
             : null
         "
@@ -142,7 +152,7 @@
       </div>
       <button
         type="button"
-        (click)="userService.deleteUser(user)"
+        (click)="deleteUser(user)"
         style="cursor: pointer"
       >
         Eliminar

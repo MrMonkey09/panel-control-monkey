@@ -2,7 +2,7 @@
   <ul class="full-area">
     <li
       class="full-area flex-center"
-      (click)="userService.openCreateUser()"
+      (click)="openCreateUser()"
       [ngStyle]="
         !constants._userConstants.isCreateUserOpened
           ? { cursor: 'pointer' }
@@ -13,7 +13,7 @@
     </li>
     <li
       class="full-area flex-center"
-      (click)="userService.openUpdateUser()"
+      (click)="openUpdateUser()"
       [ngStyle]="
         !constants._userConstants.isUpdateUserOpened
           ? { cursor: 'pointer' }
@@ -24,7 +24,7 @@
     </li>
     <li
       class="full-area flex-center"
-      (click)="userService.openDeleteUser()"
+      (click)="openDeleteUser()"
       [ngStyle]="
         !constants._userConstants.isDeleteUserOpened
           ? { cursor: 'pointer' }

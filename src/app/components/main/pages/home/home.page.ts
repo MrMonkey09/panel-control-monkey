@@ -11,13 +11,16 @@ import { ScreensService } from 'src/app/services/screens.service';
 })
 export class HomePage implements OnInit, AfterViewInit {
   screenRes!: { width: number; height: number };
-  constructor(public cookieService: CookieService, public constants: ConstantsService, public scrnService: ScreensService, public api: ApiService) {}
+  constructor(
+    public cookieService: CookieService,
+    public constants: ConstantsService,
+    public scrnService: ScreensService,
+    public api: ApiService
+  ) {}
 
   ngOnInit(): void {
     console.log('Home Component Cargado');
   }
 
-  ngAfterViewInit(): void {
-    
-  }
+  ngAfterViewInit(): void {}
 }

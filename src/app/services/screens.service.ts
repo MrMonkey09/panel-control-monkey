@@ -466,9 +466,10 @@ export class ScreensService {
       newGroup,
       groupsScreen: this.constants._scrnConstants.groupsScreen,
     });
-    if (this.constants._scrnConstants.groupsScreen) {
-      this.constants._scrnConstants.groupsScreen.push(newGroup);
-      this.constants._scrnConstants.activeGroupScreens.push(newGroup);
+    if (
+      this.constants._scrnConstants.groupsScreen &&
+      this.constants._scrnConstants.groupsScreen.length !== 0
+    ) {
       this.api.apiGroupScreen
         .createGroupScreen({
           table: 'groups_screen',
@@ -477,17 +478,20 @@ export class ScreensService {
         })
         .subscribe({
           next: (result) => {
-            console.log({ result });
+            if (result.body) {
+              console.log({ result, resBody: result.body[0] });
+              newGroup.ID = result.body[0].insertId;
+            }
           },
           complete: () => {
+            this.constants._scrnConstants.groupsScreen.push(newGroup);
+            this.constants._scrnConstants.activeGroupScreens.push(newGroup);
             this.sw.emitEvento('group', {
               groups: this.constants._scrnConstants.groupsScreen,
             });
           },
         });
     } else {
-      this.constants._scrnConstants.groupsScreen = [newGroup];
-      this.constants._scrnConstants.activeGroupScreens = [newGroup];
       this.api.apiGroupScreen
         .createGroupScreen({
           table: 'groups_screen',
@@ -496,9 +500,14 @@ export class ScreensService {
         })
         .subscribe({
           next: (result) => {
-            console.log({ result });
+            if (result.body) {
+              console.log({ result, resBody: result.body[0] });
+              newGroup.ID = result.body[0].insertId;
+            }
           },
           complete: () => {
+            this.constants._scrnConstants.groupsScreen = [newGroup];
+            this.constants._scrnConstants.activeGroupScreens = [newGroup];
             this.sw.emitEvento('group', {
               groups: this.constants._scrnConstants.groupsScreen,
             });
@@ -530,6 +539,14 @@ export class ScreensService {
       this.constants._scrnConstants.isActiveGroup = false;
       this.constants._scrnConstants.isCurrentGroup = false;
     } else {
+      this.constants._scrnConstants.activeGroupScreens = [];
+      this.constants._scrnConstants.currentGroup = {
+        Name: '',
+        DepartmentID: -1,
+        CurrentVideo: '',
+      };
+      this.constants._scrnConstants.isCurrentGroup = false;
+      this.constants._scrnConstants.isActiveGroup = false;
       console.log('Ningun Grupo de Pantallas en lista...');
     }
   }

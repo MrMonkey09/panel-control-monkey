@@ -10,14 +10,14 @@
   <app-screen-groups
     *ngIf="!constants._userConstants.isUserPanelOpened && !constants._scrnConstants.isPanelScreenOpened"
   />
-  <!-- <app-management-promos
+  <app-management-promos
     *ngIf="!constants._scrnConstants.isCreateGroupOpened && !constants._userConstants.isUserPanelOpened && !constants._scrnConstants.isPanelScreenOpened"
-  /> -->
-  <!--   <app-user-panel *ngIf="constants._userConstants.isUserPanelOpened" /> -->
-  <!--   <app-user-management *ngIf="constants._userConstants.isUserPanelOpened" /> -->
+  />
+  <app-user-panel *ngIf="constants._userConstants.isUserPanelOpened" />
+  <app-screen-panel *ngIf="constants._scrnConstants.isPanelScreenOpened" />
+  <app-screen-management *ngIf="constants._scrnConstants.isPanelScreenOpened" />
+  <app-user-management *ngIf="constants._userConstants.isUserPanelOpened" />
   <app-create-group
     *ngIf="constants._scrnConstants.isCreateGroupOpened && !constants._userConstants.isUserPanelOpened"
   />
-  <!-- <app-screen-panel *ngIf="constants._scrnConstants.isPanelScreenOpened" /> -->
-  <!-- <app-screen-management *ngIf="constants._scrnConstants.isPanelScreenOpened" /> -->
 </main>

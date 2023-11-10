@@ -20,17 +20,24 @@
         
       }"
     >
-      <span
-        >{{ groupScreen.Name + " " }}
-        <button
-          type="button"
-          (click)="delGroup(groupScreen, constants._userConstants.user)"
-        >
-          -
-        </button></span
-      >
+      <span>{{ groupScreen.Name + " " }}</span>
     </li>
-    <button type="button" class="full-area border-box" (click)="addGroup()">
+    <button
+      type="button"
+      class="full-area border-box"
+      [ngStyle]="{
+      'background-color':
+        constants._scrnConstants.isCreateGroupOpened 
+          ? 'black'
+          : 'transparent',
+      'cursor':
+        constants._scrnConstants.isCreateGroupOpened
+          ? 'default'
+          : 'pointer',
+      
+    }"
+      (click)="addGroup()"
+    >
       Agregar Grupo
     </button>
   </ul>
