@@ -38,6 +38,6 @@ class _ScreensConstants {
     LocationID: 0,
     DepartmentID: 0,
   };
-};
+}
 
 export let _scrnConstants = new _ScreensConstants();

@@ -2,6 +2,7 @@
   class="flex-center border-box bg-primary"
   *ngIf="constants._scrnConstants.isPanelScreenUsed"
 >
+  <!-- Menu de activacion o modificacion de pantallas  -->
   <ul
     id="screensDetectedQueue"
     *ngIf="
@@ -42,6 +43,14 @@
     </li>
   </ul>
   <form
+    *ngIf="
+      (constants._scrnConstants.isScreenModifiedOpened &&
+        constants._scrnConstants.avalaibles &&
+        constants._scrnConstants.avalaibles.length !== 0) ||
+      (constants._scrnConstants.isScreenActivatedOpened &&
+        constants._scrnConstants.screensDetectedQueue &&
+        constants._scrnConstants.screensDetectedQueue.length !== 0)
+    "
     (ngSubmit)="
       scrn.getForm(
         constants._scrnConstants.screenDetectedForm,
@@ -54,14 +63,6 @@
     "
     class="flex-center"
     id="screenQueueInfo"
-    *ngIf="
-      (constants._scrnConstants.isScreenModifiedOpened &&
-        constants._scrnConstants.avalaibles &&
-        constants._scrnConstants.avalaibles.length !== 0) ||
-      (constants._scrnConstants.isScreenActivatedOpened &&
-        constants._scrnConstants.screensDetectedQueue &&
-        constants._scrnConstants.screensDetectedQueue.length !== 0)
-    "
     [ngStyle]="
       constants._scrnConstants.isScreenActivatedOpened ||
       constants._scrnConstants.isScreenModifiedOpened
@@ -129,6 +130,7 @@
       </button>
     </div>
   </form>
+  <!-- Menu de desactivacion de pantallas -->
   <ul
     class="flex-center"
     id="screensDetectedQueueDel"
@@ -160,6 +162,7 @@
       </button>
     </li>
   </ul>
+  <!-- Mensaje en caso de no haber disponibles -->
   <h1
     *ngIf="
       (constants._scrnConstants.isScreenModifiedOpened ||
@@ -171,6 +174,7 @@
   >
     No se encontraron pantallas disponibles :(
   </h1>
+  <!-- Mensaje en caso de no haber en cola -->
   <h1
     *ngIf="
       constants._scrnConstants.isScreenActivatedOpened &&

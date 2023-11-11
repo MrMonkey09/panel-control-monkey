@@ -16,4 +16,31 @@ export class ScreenPanelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  openScreenActivated() {
+    console.log('Abriendo panel de activacion de pantallas...');
+    this.constants._scrnConstants.isPanelScreenUsed = true;
+    this.constants._scrnConstants.isScreenActivatedOpened = true;
+    this.constants._scrnConstants.isScreenModifiedOpened = false;
+    this.constants._scrnConstants.isScreenDesactivatedOpened = false;
+    console.log({ queue: this.constants._scrnConstants.screensDetectedQueue });
+  }
+
+  openScreenModified() {
+    console.log('Abriendo panel de modificacion de pantallas...');
+    this.constants._scrnConstants.isPanelScreenUsed = true;
+    this.constants._scrnConstants.isScreenActivatedOpened = false;
+    this.constants._scrnConstants.isScreenModifiedOpened = true;
+    this.constants._scrnConstants.isScreenDesactivatedOpened = false;
+    console.log({ avalaibles: this.constants._scrnConstants.avalaibles });
+  }
+
+  openScreenDesactivated() {
+    console.log('Abriendo panel de desactivador de pantallas...');
+    this.constants._scrnConstants.isPanelScreenUsed = true;
+    this.constants._scrnConstants.isScreenActivatedOpened = false;
+    this.constants._scrnConstants.isScreenModifiedOpened = false;
+    this.constants._scrnConstants.isScreenDesactivatedOpened = true;
+    console.log({ avalaibles: this.constants._scrnConstants.avalaibles });
+  }
 }

@@ -36,7 +36,7 @@ export class ScreensService {
     ) {
       screenSelected.CurrentGroup =
         this.constants._scrnConstants.currentGroup.ID;
-      this.constants._scrnConstants.currentGroup.screenList = [screenSelected];
+      this.constants._scrnConstants.currentGroup [screenSelected];
       this.sw.emitEvento('screen', {
         newAvalaibles: newListAvalaibles,
         screen: screenSelected,
@@ -86,7 +86,7 @@ export class ScreensService {
         this.constants._scrnConstants.currentGroup.screenList.filter(
           (screen: any) => screen != screenSelected
         );
-      this.constants._scrnConstants.currentGroup.screenList =
+      this.constants._scrnConstants.currentGroup
         newGroupScreenList;
       this.sw.emitEvento('screen', {
         newAvalaibles: this.constants._scrnConstants.avalaibles,
@@ -189,7 +189,7 @@ export class ScreensService {
         },
         complete: () => {
           console.log({ screens: resTemp });
-          this.constants._scrnConstants.screenList = resTemp;
+          this.constants._scrnConstants = resTemp;
         },
       });
     }
@@ -209,8 +209,8 @@ export class ScreensService {
     });
   }
 
-  getScreenInQueue(screen: any) {
-    console.log('Obteniendo pantallas en cola...');
+  getScreenInQueue(screen: any) { 
+    console.log('Obteniendo pantalla en cola seleccionada...');
     /*    console.log({ screen });
     this.constants._scrnConstants.currentScreenInQueue = screen;
     screen.brand
@@ -393,39 +393,6 @@ export class ScreensService {
     } */
   }
 
-  openScreenActivated() {
-    console.log('Abriendo panel de activacion de pantallas...');
-    /*     console.log('Creador de usuarios abierto');
-    setTimeout(() => {
-      this.constants._scrnConstants.isPanelScreenUsed = true;
-      this.constants._scrnConstants.isScreenActivatedOpened = true;
-      this.constants._scrnConstants.isScreenModifiedOpened = false;
-      this.constants._scrnConstants.isScreenDesactivatedOpened = false;
-    }, 100); */
-  }
-
-  openScreenModified() {
-    console.log('Abriendo panel de modificacion de pantallas...');
-    /*     console.log('Actualizador de usuarios abierto');
-    setTimeout(() => {
-      this.constants._scrnConstants.isPanelScreenUsed = true;
-      this.constants._scrnConstants.isScreenActivatedOpened = false;
-      this.constants._scrnConstants.isScreenModifiedOpened = true;
-      this.constants._scrnConstants.isScreenDesactivatedOpened = false;
-    }, 100); */
-  }
-
-  openScreenDesactivated() {
-    console.log('Abriendo panel de desactivador de pantallas...');
-    /*     console.log('Eliminador de usuarios abierto');
-    setTimeout(() => {
-      this.constants._scrnConstants.isPanelScreenUsed = true;
-      this.constants._scrnConstants.isScreenActivatedOpened = false;
-      this.constants._scrnConstants.isScreenModifiedOpened = false;
-      this.constants._scrnConstants.isScreenDesactivatedOpened = true;
-    }, 100); */
-  }
-
   getAvalaiblescreens(user: User_) {
     console.log('Obteniendo todas las pantallas disponibles por usuario...');
     var newSelected: any;
@@ -461,6 +428,7 @@ export class ScreensService {
       Name: this.constants._scrnConstants.groupFormTemp.Name,
       DepartmentID: user.DepartmentID,
       CurrentVideo: '',
+      ScreenList: [],
     };
     console.log({
       newGroup,
@@ -544,6 +512,7 @@ export class ScreensService {
         Name: '',
         DepartmentID: -1,
         CurrentVideo: '',
+        ScreenList: [],
       };
       this.constants._scrnConstants.isCurrentGroup = false;
       this.constants._scrnConstants.isActiveGroup = false;

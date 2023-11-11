@@ -10,6 +10,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  depIndex!: number;
   constructor(
     public userService: UserServiceService,
     public scrn: ScreensService,

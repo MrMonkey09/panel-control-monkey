@@ -30,7 +30,6 @@ export class ScreenGroupsComponent implements OnInit, AfterViewInit {
 
   takeScreens(group: GroupScreen_) {
     console.log('Cargando el grupo de pantallas: ' + group.Name);
-    
     this.constants._scrnConstants.currentGroup = group;
     this.constants._scrnConstants.isCurrentGroup = true;
     this.constants._scrnConstants.isActiveGroup = true;

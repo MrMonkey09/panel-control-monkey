@@ -179,7 +179,7 @@ export class ManagementPromosComponent implements OnInit {
   delGroup(group: GroupScreen_, user: User_) {
     console.log('Eliminando grupo de pantallas...');
     console.log({ group });
-    if (group.ScreenList) {
+    if (group.ScreenList.length !== 0) {
       for (let screenDel of group.ScreenList) {
         this.constants._scrnConstants.avalaibles.push(screenDel);
         screenDel.CurrentGroupID = undefined;
