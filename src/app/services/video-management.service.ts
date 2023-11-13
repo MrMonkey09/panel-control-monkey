@@ -32,7 +32,7 @@ export class VideoManagementService {
     } else {
       this.constants._scrnConstants.groupsScreen = [res.group];
       indexGroup = this.constants._scrnConstants.groupsScreen.findIndex(
-        (group) => group.ID === res.group?.id
+        (group) => group.ID === res.group.ID
       );
     }
     console.log('$updateVideo 1 Gatillado: ', res);

@@ -27,6 +27,10 @@ export class UserServiceService {
     );
     if (userFound) {
       this.constants._userConstants.user = userFound;
+      this.constants._userConstants.depIndex =
+        this.constants._userConstants.departmentList.findIndex(
+          (dep) => dep.ID === userFound.DepartmentID
+        );
     }
   }
 

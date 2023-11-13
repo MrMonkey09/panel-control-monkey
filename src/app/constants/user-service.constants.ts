@@ -24,6 +24,7 @@ class _UserConstants {
     confirmPass: '',
     department: 0,
   };
+  public depIndex!: number;
 }
 
-export let _userConstants = new _UserConstants()
+export let _userConstants = new _UserConstants();

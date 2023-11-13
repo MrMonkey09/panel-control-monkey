@@ -41,12 +41,6 @@ export class ManagementPromosComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.id = this.cookieService.get('user-id');
-    this.api.apiScreen.allScreens().subscribe({
-      next: (res) => {
-        console.log({ res });
-      },
-      complete: () => {},
-    });
     this.sw.callback.subscribe((res: any) => {
       console.log('Cambio detectado: ', res);
       if (res.screen || res.screenDel) {
@@ -179,51 +173,101 @@ export class ManagementPromosComponent implements OnInit {
   delGroup(group: GroupScreen_, user: User_) {
     console.log('Eliminando grupo de pantallas...');
     console.log({ group });
-    if (group.ScreenList.length !== 0) {
+    const indexGroup = this.constants._scrnConstants.groupsScreen.findIndex(
+      (groupTemp) => groupTemp.ID === group.ID
+    );
+    let resTemp;
+    if (group.ScreenList && group.ScreenList.length !== 0) {
       for (let screenDel of group.ScreenList) {
-        this.constants._scrnConstants.avalaibles.push(screenDel);
-        screenDel.CurrentGroupID = undefined;
-        group.ScreenList = group.ScreenList.filter(
-          (screenTemp) => screenTemp.ID !== screenDel.ID
-        );
-        this.sw.emitEvento('screen', {
+        this.api.apiScreen.removeScreenOfList(screenDel.ID).subscribe({
+          next: (res) => {
+            console.log({ resDelList: res });
+            resTemp = res;
+          },
+          complete: () => {
+            screenDel.CurrentGroupID = undefined;
+            const columns = Object.keys(screenDel);
+            const data = Object.values(screenDel);
+            const columnsData = `${columns[1]} = '${data[1]}', ${columns[2]} = '${data[2]}', ${columns[3]} = Null, ${columns[4]} = ${data[4]}, ${columns[5]} = ${data[5]}`;
+            const body = {
+              columnsData: columnsData,
+              criterion: `WHERE ID = ${screenDel.ID}`,
+            };
+            console.log({ bodyDel: body });
+            this.api.apiScreen.updateScreen(body, screenDel.ID).subscribe({
+              next: (res) => {
+                console.log({ res });
+              },
+              complete: () => {
+                const indexScreen =
+                  this.constants._scrnConstants.screenList.findIndex(
+                    (screenTemp) => screenTemp.ID === screenDel.ID
+                  );
+                if (
+                  this.constants._scrnConstants.screenList[indexScreen] &&
+                  this.constants._scrnConstants.screenList[indexScreen]
+                    .CurrentGroupID
+                ) {
+                  this.constants._scrnConstants.screenList[
+                    indexScreen
+                  ].CurrentGroupID = undefined;
+                }
+                this.constants._scrnConstants.avalaibles.push(screenDel);
+                this.constants._scrnConstants.selected.push(screenDel);
+                group.ScreenList = group.ScreenList.filter(
+                  (screenTemp) => screenTemp.ID !== screenDel.ID
+                );
+                this.constants._scrnConstants.groupsScreen[
+                  indexGroup
+                ].ScreenList = group.ScreenList.filter(
+                  (screenTemp) => screenTemp.ID !== screenDel.ID
+                );
+                const indexCurrentScreen =
+                  this.constants._scrnConstants.screenList.findIndex(
+                    (screenTemp) => screenTemp.ID === screenDel.ID
+                  );
+                if (indexCurrentScreen < group.ScreenList.length) {
+                  console.log('Ultima pantalla en lista del grupo');
+
+                  this.api.apiGroupScreen
+                    .deleteGroupScreen(group.ID ? group.ID : -1)
+                    .subscribe({
+                      next: (res) => {
+                        this.resTemp = res;
+                      },
+                      complete: () => {
+                        console.log({ resTemp: this.resTemp });
+                        this.constants._scrnConstants.groupsScreen =
+                          this.constants._scrnConstants.groupsScreen.filter(
+                            (groupTemp) => groupTemp.ID !== group.ID
+                          );
+                        if (group.ScreenList) {
+                          this.api.apiScreen
+                            .deleteScreenList(group.ID ? group.ID : -1)
+                            .subscribe({
+                              next: (res) => {
+                                console.log({ res });
+                              },
+                              complete: () => {},
+                            });
+                        }
+                        this.scrn.getScreenGroups(user);
+                        this.sw.emitEvento('group', {
+                          groups: this.constants._scrnConstants.groupsScreen,
+                        });
+                      },
+                    });
+                }
+              },
+            });
+            /* this.sw.emitEvento('screen', {
           screen: screenDel,
           group: group,
           newAvalaibles: this.constants._scrnConstants.avalaibles,
+        }); */
+          },
         });
       }
-      this.constants._scrnConstants.selected =
-        this.constants._scrnConstants.avalaibles.filter(
-          (screen) => screen.DepartmentID === group.DepartmentID
-        );
     }
-    this.api.apiGroupScreen
-      .deleteGroupScreen(group.ID ? group.ID : -1)
-      .subscribe({
-        next: (res) => {
-          this.resTemp = res;
-        },
-        complete: () => {
-          console.log({ resTemp: this.resTemp });
-          this.constants._scrnConstants.groupsScreen =
-            this.constants._scrnConstants.groupsScreen.filter(
-              (groupTemp) => groupTemp.ID !== group.ID
-            );
-          if (group.ScreenList) {
-            this.api.apiScreen
-              .deleteScreenList(group.ID ? group.ID : -1)
-              .subscribe({
-                next: (res) => {
-                  console.log({ res });
-                },
-                complete: () => {},
-              });
-          }
-          this.scrn.getScreenGroups(user);
-          this.sw.emitEvento('group', {
-            groups: this.constants._scrnConstants.groupsScreen,
-          });
-        },
-      });
   }
 }

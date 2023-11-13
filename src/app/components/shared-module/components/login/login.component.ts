@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (findUser.Password === form.pass) {
           console.log(`Usuario ${findUser.Email} encontrado...`);
           this.userService.setUserCookie(findUser);
+          
         } else {
           console.log('Contraseña incorrecta');
         }
@@ -95,6 +96,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
       });
       if (findUser) {
         this.constants._userConstants.user = findUser;
+        this.constants._userConstants.depIndex =
+          this.constants._userConstants.departmentList.findIndex(
+            (dep) => dep.ID === findUser.DepartmentID
+          );
       }
     } else {
       console.log('Ninguna sesion iniciada');

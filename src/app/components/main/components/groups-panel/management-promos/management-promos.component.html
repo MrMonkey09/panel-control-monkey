@@ -27,7 +27,7 @@
       *ngIf="constants._scrnConstants.currentGroup; else notCurrentGroup"
     >
       <li
-        *ngFor="let screen of screenList"
+        *ngFor="let screen of constants._scrnConstants.currentGroup.ScreenList"
         (click)="scrn.removeScreen(screen)"
         class="full-area flex-center"
       >
@@ -90,7 +90,12 @@
       <button type="submit">Guardar</button>
       <button
         type="button"
-        (click)="delGroup(constants._scrnConstants.currentGroup, constants._userConstants.user)"
+        (click)="
+          delGroup(
+            constants._scrnConstants.currentGroup,
+            constants._userConstants.user
+          )
+        "
       >
         -
       </button>

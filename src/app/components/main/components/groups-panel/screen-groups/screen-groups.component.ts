@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { GroupScreen_ } from 'src/app/interfaces/group-screen';
+import { Screen_ } from 'src/app/interfaces/screen';
 import { User_ } from 'src/app/interfaces/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { ConstantsService } from 'src/app/services/constants.service';
@@ -61,32 +62,56 @@ export class ScreenGroupsComponent implements OnInit, AfterViewInit {
         const userTemp = this.constants._userConstants.user;
         console.log({ userTemp });
         if (userTemp) {
-          console.log('Obteniendo todos los grupos de pantallas...');
-          this.api.apiGroupScreen.allGroupsScreen().subscribe({
+          console.log('Obteniendo todas las pantallas...');
+          this.api.apiScreen.allScreens().subscribe({
             next: (res) => {
               this.resTemp = res;
             },
             complete: () => {
-              this.constants._scrnConstants.groupsScreen = this.resTemp;
+              this.constants._scrnConstants.screenList = this.resTemp;
               console.log({
-                newGroupsList: this.constants._scrnConstants.groupsScreen,
+                newScreenList: this.constants._scrnConstants.screenList,
               });
-              this.scrn.getScreenGroups(userTemp);
-              console.log('Obteniendo todas las pantallas...');
-              this.api.apiScreen.allScreens().subscribe({
+              this.scrn.getSelectedScreens(userTemp);
+              console.log('Obteniendo todos los grupos de pantallas...');
+              this.api.apiGroupScreen.allGroupsScreen().subscribe({
                 next: (res) => {
                   this.resTemp = res;
                 },
                 complete: () => {
-                  this.constants._scrnConstants.screenList = this.resTemp;
+                  const newGroupList = this.resTemp;
+                  for (let group of newGroupList) {
+                    const indexGroup = newGroupList.findIndex(
+                      (groupTemp: any) => groupTemp.ID === group.ID
+                    );
+                    this.api.apiScreen.getGroupScreenList(group.ID).subscribe({
+                      next: (res) => {
+                        this.resTemp = res;
+                      },
+                      complete: () => {
+                        console.log({ resGroup: this.resTemp });
+                        let newScreenListGroup: Array<any> = [];
+                        for (let screen of this.resTemp) {
+                          const newScreen =
+                            this.constants._scrnConstants.screenList.find(
+                              (screenTemp) => screenTemp.ID === screen.ScreenID
+                            );
+                          newScreenListGroup.push(newScreen);
+                        }
+                        group.ScreenList = newScreenListGroup;
+                        console.log({
+                          groupScreenList: group.ScreenList,
+                          newScreenListGroup,
+                        });
+                        newGroupList[indexGroup] = group;
+                      },
+                    });
+                  }
+                  this.constants._scrnConstants.groupsScreen = newGroupList;
                   console.log({
-                    newScreenList: this.constants._scrnConstants.screenList,
+                    newGroupsList: this.constants._scrnConstants.groupsScreen,
                   });
-                  this.scrn.getAvalaiblescreens(userTemp);
-                  console.log({
-                    newScreensAvalaibles:
-                      this.constants._scrnConstants.avalaibles,
-                  });
+                  this.scrn.getScreenGroups(userTemp);
                 },
               });
             },

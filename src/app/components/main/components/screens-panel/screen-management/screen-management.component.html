@@ -19,13 +19,13 @@
       *ngFor="
         let screen of constants._scrnConstants.isScreenActivatedOpened
           ? constants._scrnConstants.screensDetectedQueue
-          : constants._scrnConstants.avalaibles
+          : constants._scrnConstants.selected
       "
       (click)="scrn.getScreenInQueue(screen)"
       [ngStyle]="
         !constants._scrnConstants.currentScreenInQueue
           ? { cursor: 'pointer' }
-          : constants._scrnConstants.currentScreenInQueue.id === screen.id
+          : constants._scrnConstants.currentScreenInQueue.ID === screen.ID
           ? { 'background-color': 'black' }
           : { cursor: 'pointer' }
       "
@@ -34,11 +34,11 @@
         [ngStyle]="
           !constants._scrnConstants.currentScreenInQueue
             ? { cursor: 'pointer' }
-            : constants._scrnConstants.currentScreenInQueue.id === screen.id
+            : constants._scrnConstants.currentScreenInQueue.ID === screen.ID
             ? {}
             : { cursor: 'pointer' }
         "
-        >ID:{{ " " + screen.id + " | " }}IP:{{ " " + screen.ip }}</span
+        >ID:{{ " " + screen.ID + " | " }}IP:{{ " " + screen.IP }}</span
       >
     </li>
   </ul>

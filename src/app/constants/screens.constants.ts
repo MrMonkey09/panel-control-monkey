@@ -6,7 +6,7 @@ class _ScreensConstants {
   screenList!: Array<Screen_>;
   avalaibles!: Array<Screen_>;
   selected!: Array<Screen_>;
-  screensDetectedQueue!: Array<any>;
+  screensDetectedQueue: Array<any> = [{ ID: 1, IP: '172.28.21.20' }];
 
   groupsScreen!: Array<GroupScreen_>;
   activeGroupScreens!: Array<GroupScreen_>;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { ScreensService } from 'src/app/services/screens.service';

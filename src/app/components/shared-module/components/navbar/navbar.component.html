@@ -3,10 +3,22 @@
     <img src="../../../assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
-    <ul class="flex-center" *ngIf="!constants._userConstants.user || constants._userConstants.user.Email === '-'">
+    <ul
+      class="flex-center"
+      *ngIf="
+        !constants._userConstants.user ||
+        constants._userConstants.user.Email === '-'
+      "
+    >
       <li>Iniciar sesion</li>
     </ul>
-    <ul class="flex-center" *ngIf="constants._userConstants.user && constants._userConstants.user.Email !== '-'">
+    <ul
+      class="flex-center"
+      *ngIf="
+        constants._userConstants.user &&
+        constants._userConstants.user.Email !== '-'
+      "
+    >
       <li
         *ngIf="constants._userConstants.isBackButtonEnabled"
         (click)="closeUserPanel()"
@@ -29,7 +41,9 @@
           !constants._userConstants.isUserPanelOpened
         "
         [ngStyle]="
-          !constants._scrnConstants.isPanelScreenOpened ? { cursor: 'pointer' } : {}
+          !constants._scrnConstants.isPanelScreenOpened
+            ? { cursor: 'pointer' }
+            : {}
         "
         (click)="openScreenPanel()"
       >
@@ -53,17 +67,23 @@
       </li>
       <li>{{ constants._userConstants.user.Name }}</li>
       <li>
-        {{ constants._userConstants.departmentList[depIndex].Name}}
+        {{ constants._userConstants.departmentList[constants._userConstants.depIndex].Name }}
       </li>
       <li>{{ constants._userConstants.user.Rut }}</li>
     </ul>
   </div>
   <div
     class="navbar__search flex-center"
-    *ngIf="constants._userConstants.user && constants._userConstants.user.Email !== '-'"
+    *ngIf="
+      constants._userConstants.user &&
+      constants._userConstants.user.Email !== '-'
+    "
   >
     <i
-      *ngIf="constants._userConstants.user && constants._userConstants.user.Email !== '-'"
+      *ngIf="
+        constants._userConstants.user &&
+        constants._userConstants.user.Email !== '-'
+      "
       (click)="loggOut()"
       style="cursor: pointer"
       >Cerrar sesion</i

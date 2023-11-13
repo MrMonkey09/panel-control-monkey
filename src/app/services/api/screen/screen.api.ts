@@ -63,4 +63,10 @@ export class apiScreen {
     const urlTemp = _apiFetchConstants.urlApi + `screen/${id}/delete-list`;
     return this.http.delete(urlTemp);
   }
+
+  getGroupScreenList(id: number): Observable<any> {
+    const urlTemp =
+      _apiFetchConstants.urlApi + `screen/${id}/group-screen-list`;
+    return this.http.get(urlTemp);
+  }
 }
