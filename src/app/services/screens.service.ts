@@ -186,77 +186,43 @@ export class ScreensService {
 
   getScreen() {
     console.log('Obteniendo pantalla...');
-    /*     this.api.apiScreen.matchScreen().subscribe({
+    let currentIP: string;
+    this.api.apiScreen.matchScreen().subscribe({
       next: (res) => {
-        console.log({resIp: res});
-        let screenMatch;
-        if (
-          this.constants._scrnConstants.avalaibles &&
-          this.constants._scrnConstants.avalaibles.find(
-            (screen) => screen.IP === res
-          )
-        ) {
-          screenMatch = this.constants._scrnConstants.avalaibles.find(
-            (screen) => screen.IP === res
-          );
-        } else if (
-          this.constants._scrnConstants.screensDetectedQueue &&
-          this.constants._scrnConstants.screensDetectedQueue.find(
-            (screen) => screen.ip === res
-          )
-        ) {
-          screenMatch =
-            this.constants._scrnConstants.screensDetectedQueue.find(
-              (screen) => screen.ip === res
-            );
-        } else if (
-          this.constants._scrnConstants.currentGroup &&
-          this.constants._scrnConstants.currentGroup.ScreenListID
-        ) {
-          screenMatch =
-            this.constants._scrnConstants.currentGroup.screenList.find(
-              (screen) => screen.IP === res
-            );
-        }
-        console.log({screenMatch});
-        if (screenMatch) {
-          this.constants._scrnConstants.currentScreen = screenMatch;
-        } else {
-          const screenDetected = {
-            id: this.constants._scrnConstants.screenDetectedCount + 1,
-            ip: res,
-          };
-          console.log({screenDetected});
-          if (this.constants._scrnConstants.screensDetectedQueue) {
-            this.constants._scrnConstants.screensDetectedQueue.push(
-              screenDetected
-            );
-          } else {
-            this.constants._scrnConstants.screensDetectedQueue = [
-              screenDetected,
-            ];
-          }
-          this.sw.emitEvento('screen', {
-            screen: screenDetected,
-            group: this.constants._scrnConstants.currentGroup
-              ? this.constants._scrnConstants.currentGroup
-              : {},
-          });
-        }
+        currentIP = res;
+        console.log({ resIp: currentIP });
       },
       complete: () => {
-        if (this.constants._scrnConstants.currentScreen) {
-          if (this.constants._scrnConstants.currentScreen.CurrentGroup) {
-            const screenGroup = this.constants._scrnConstants.groupsScreen.find(
-              (group) =>
-                group.ID ===
-                this.constants._scrnConstants.currentScreen.CurrentGroup
-            );
-            this.constants._scrnConstants.currentGroup = screenGroup;
+        console.log({ currentIP });
+        if (currentIP) {
+          const currentScreen = this.constants._scrnConstants.screenList.find(
+            (screen) => screen.IP === currentIP
+          );
+          if (currentScreen) {
+            console.log('Pantalla detectada');
+            this.constants._scrnConstants.currentScreen = currentScreen;
+            console.log({
+              currentScreen: this.constants._scrnConstants.currentScreen,
+            });
+            if (currentScreen.CurrentGroupID) {
+              const currentGroup =
+                this.constants._scrnConstants.groupsScreen.find(
+                  (group) => group.ID === currentScreen.CurrentGroupID
+                );
+              if (currentGroup) {
+                console.log('Grupo detectado');
+                this.constants._scrnConstants.currentGroup = currentGroup;
+                console.log({ constants: this.constants._scrnConstants });
+              }
+            }
+          } else {
+            console.error('Pantalla no detectatada');
           }
+        } else {
+          console.error('IP no disponible, intentalo nuevamente');
         }
       },
-    }); */
+    });
   }
 
   getAllScreens() {
