@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { _apiFetchConstants } from '../constants/api-fetch.constants';
-import { _userConstants } from '../constants/user-service.constants';
-import { _scrnConstants } from '../constants/screens.constants';
-import { _videoConstants } from '../constants/video-management.constants';
-import { _generalConstants } from '../constants/general.constants';
+import { _apiFetchConstants } from 'src/app/constants/api-fetch.constants';
+import { _userConstants } from 'src/app/constants/user-service.constants';
+import { _scrnConstants } from 'src/app/constants/screens.constants';
+import { _videoConstants } from 'src/app/constants/video-management.constants';
+import { _generalConstants } from 'src/app/constants/general.constants';
 
 @Injectable({
   providedIn: 'root'

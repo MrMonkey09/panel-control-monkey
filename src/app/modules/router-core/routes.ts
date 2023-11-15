@@ -4,14 +4,14 @@ const routesConfig: Routes = [
   {
     path: 'view-promo',
     loadChildren: () =>
-      import('../../components/screen-view/screen-view.module').then(
+      import('src/app/components/screen-view/screen-view.module').then(
         (m) => m.ScreenViewModule
       ),
   },
   {
     path: '',
     loadChildren: () =>
-      import('../../components/main/main.module').then((m) => m.MainModule),
+      import('src/app/components/main/main.module').then((m) => m.MainModule),
   },
 ];
 

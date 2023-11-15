@@ -1,40 +1,14 @@
-import { GroupScreen_ } from '../interfaces/group-screen';
-import { Location_ } from '../interfaces/location';
-import { Screen_ } from '../interfaces/screen';
+import { GroupScreen_ } from 'src/app/interfaces/group-screen';
+import { Location_ } from 'src/app/interfaces/location';
+import { Screen_ } from 'src/app/interfaces/screen';
 
 class _ScreensConstants {
-  screenList: Array<Screen_> = [
-    {
-      ID: 1,
-      IP: '192.168.0.24',
-      Brand: 'LG',
-      LocationID: 1,
-      DepartmentID: 1,
-      CurrentGroupID: 1,
-    },
-  ];
+  screenList!: Array<Screen_>;
   avalaibles!: Array<Screen_>;
   selected!: Array<Screen_>;
-  screensDetectedQueue: Array<any> = [{ ID: 1, IP: '172.28.21.20' }];
+  screensDetectedQueue!: Array<any>;
 
-  groupsScreen: Array<GroupScreen_> = [
-    {
-      ID: 1,
-      Name: 'asdasd',
-      ScreenList: [
-        {
-          ID: 1,
-          IP: '192.168.0.24',
-          Brand: 'LG',
-          LocationID: 1,
-          DepartmentID: 1,
-          CurrentGroupID: 1,
-        },
-      ],
-      CurrentVideo: 'http://192.168.0.24:3001/1695587065346-promo-china.mp4',
-      DepartmentID: 1,
-    },
-  ];
+  groupsScreen!: Array<GroupScreen_>;
   activeGroupScreens!: Array<GroupScreen_>;
 
   locations!: Array<Location_>;

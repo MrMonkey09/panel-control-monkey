@@ -20,7 +20,7 @@ export class VideoManagementService {
   public $updateVideo(res: any) {
     console.log('Cambio en video detectado...');
     console.log({ resUpdateVideo: res });
-    let indexGroup: number;
+    /* let indexGroup: number;
     if (this.constants._scrnConstants.groupsScreen) {
       console.log({ resGroup: res });
       indexGroup = this.constants._scrnConstants.groupsScreen.findIndex(
@@ -80,11 +80,12 @@ export class VideoManagementService {
       setTimeout(() => {
         this.constants._videoConstants.recharge = true;
       }, 100);
-    }
+    } */
   }
 
   public $updateScreen(res: any) {
     console.log('Cambio en pantalla detectado...');
+    console.log({ resUpdateScreen: res });
     /* this.constants._videoConstants.recharge = false;
     console.log('$updateScreen Gatillado: ', res);
     if (res.groups) {

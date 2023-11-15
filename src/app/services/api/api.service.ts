@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { _apiFetchConstants } from '../../constants/api-fetch.constants';
+import { _apiFetchConstants } from 'src/app/constants/api-fetch.constants';
 import { apiDepartment } from './department/department.api';
 import { apiGroupScreen } from './group-screen/group-screen.api';
 import { apiLocation } from './location/location.api';
 import { apiScreen } from './screen/screen.api';
 import { apiUser } from './user/user.api';
 import { apiSharedApi } from './shared-api/shared-api.api';
-import { ConstantsService } from '../constants.service';
+import { ConstantsService } from 'src/app/services/constants.service';
 
 @Injectable({
   providedIn: 'root',

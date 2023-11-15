@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api/api.service';
 import { SocketioService } from './socketio.service';
-import { Screen_ } from '../interfaces/screen';
-import { GroupScreen_ } from '../interfaces/group-screen';
-import { User_ } from '../interfaces/user';
+import { Screen_ } from 'src/app/interfaces/screen';
+import { GroupScreen_ } from 'src/app/interfaces/group-screen';
+import { User_ } from 'src/app/interfaces/user';
 import { ConstantsService } from './constants.service';
 
 @Injectable({
@@ -97,13 +97,14 @@ export class ScreensService {
             console.log({
               activeGroups: this.constants._scrnConstants.activeGroupScreens,
             });
+            this.sw.emitEvento('screen', {
+              screen: screenSelected,
+            });
+            this.sw.emitEvento('group', {
+              group: this.constants._scrnConstants.currentGroup,
+            });
           },
         });
-        /* this.sw.emitEvento('screen', {
-            newAvalaibles: newListAvalaibles,
-            screen: screenSelected,
-            group: this.constants._scrnConstants.currentGroup,
-          }); */
       },
     });
   }
@@ -168,14 +169,15 @@ export class ScreensService {
               this.constants._scrnConstants.groupsScreen[
                 currentIndexGroup
               ].ScreenList = newList;
-              /* this.sw.emitEvento('screen', {
-            newAvalaibles: this.constants._scrnConstants.avalaibles,
-            screenDel: screenSelected,
-            group: this.constants._scrnConstants.currentGroup,
-          }); */
               console.log({
                 PantallaRemovida: screenSelected,
                 GrupoSeleccionado: this.constants._scrnConstants.currentGroup,
+              });
+              this.sw.emitEvento('screen', {
+                screen: screenSelected,
+              });
+              this.sw.emitEvento('group', {
+                group: this.constants._scrnConstants.currentGroup,
               });
             }
           },
@@ -215,8 +217,12 @@ export class ScreensService {
                 console.log({ constants: this.constants._scrnConstants });
               }
             }
+            this.sw.emitEvento('screen', {
+              screenActiveDetected: currentScreen,
+            });
           } else {
-            console.error('Pantalla no detectatada');
+            console.error('Pantalla no activada');
+            this.sw.emitEvento('screen', { screenDetected: currentIP });
           }
         } else {
           console.error('IP no disponible, intentalo nuevamente');
@@ -325,16 +331,11 @@ export class ScreensService {
             (screenTemp) => screenTemp.IP !== screen.IP
           );
         this.getSelectedScreens(this.constants._userConstants.user);
+        this.sw.emitEvento('screen', {
+          screen: screen,
+        });
       },
     });
-    /*this.sw.emitEvento('screen', {
-      screen: screen,
-      group: this.constants._scrnConstants.currentGroup
-        ? this.constants._scrnConstants.currentGroup
-        : {},
-      newQueue: this.constants._scrnConstants.screensDetectedQueue,
-      newAvalaibles: this.constants._scrnConstants.avalaibles,
-    }); */
   }
 
   desactivateScreen(screen: Screen_) {
@@ -354,16 +355,43 @@ export class ScreensService {
             (screenTemp) => screenTemp.IP !== screen.IP
           );
         this.getSelectedScreens(this.constants._userConstants.user);
+        this.sw.emitEvento('screen', {
+          screen: screen,
+        });
       },
     });
-    /* this.sw.emitEvento('screen', {
-      screen: screen,
-      group: this.constants._scrnConstants.currentGroup
-        ? this.constants._scrnConstants.currentGroup
-        : {},
-      newQueue: this.constants._scrnConstants.screensDetectedQueue,
-      newAvalaibles: this.constants._scrnConstants.avalaibles,
-    }); */
+  }
+
+  updateScreen(newScreenInfo: Screen_) {
+    const columns = Object.keys(newScreenInfo);
+    const data = Object.values(newScreenInfo);
+    const columnsData = `${columns[1]} = '${data[1]}', ${columns[2]} = ${data[2]}, ${columns[3]} = '${data[3]}', ${columns[4]} = ${data[4]}, ${columns[5]} = ${data[5]}`;
+    const body = {
+      columnsData: columnsData,
+      criterion: `WHERE ID = ${newScreenInfo.ID}`,
+    };
+    console.log({ body });
+    this.api.apiScreen.updateScreen(body, newScreenInfo.ID).subscribe({
+      next: (res) => {
+        console.log({ res });
+      },
+      complete: () => {
+        this.constants._scrnConstants.screenList[
+          this.constants._scrnConstants.screenList.findIndex(
+            (screen) =>
+              screen.ID ===
+              this.constants._scrnConstants.currentScreenInQueue.ID
+          )
+        ] = newScreenInfo;
+        console.log({
+          newScreenList: this.constants._scrnConstants.screenList,
+        });
+        this.getSelectedScreens(this.constants._userConstants.user);
+        this.sw.emitEvento('screen', {
+          screen: newScreenInfo,
+        });
+      },
+    });
   }
 
   getForm(form: any, howAction: any, user: User_) {
@@ -402,49 +430,6 @@ export class ScreensService {
                 LocationID: locationTemp ? locationTemp.ID : -1,
                 DepartmentID: departmentTemp ? departmentTemp.ID : -1,
               };
-              const columns = Object.keys(newScreenInfo);
-              const data = Object.values(newScreenInfo);
-              const columnsData = `${columns[1]} = '${data[1]}', ${columns[2]} = ${data[2]}, ${columns[3]} = '${data[3]}', ${columns[4]} = ${data[4]}, ${columns[5]} = ${data[5]}`;
-              const body = {
-                columnsData: columnsData,
-                criterion: `WHERE ID = ${newScreenInfo.ID}`,
-              };
-              console.log({ body });
-              this.api.apiScreen
-                .updateScreen(body, newScreenInfo.ID)
-                .subscribe({
-                  next: (res) => {
-                    console.log({ res });
-                  },
-                  complete: () => {
-                    this.constants._scrnConstants.screenList[
-                      this.constants._scrnConstants.screenList.findIndex(
-                        (screen) =>
-                          screen.ID ===
-                          this.constants._scrnConstants.currentScreenInQueue.ID
-                      )
-                    ] = newScreenInfo;
-                    console.log({
-                      newScreenList: this.constants._scrnConstants.screenList,
-                    });
-                    this.getSelectedScreens(this.constants._userConstants.user);
-                  },
-                });
-              /* this.sw.emitEvento('screen', {
-                screen:
-                  this.constants._scrnConstants.avalaibles[
-                    this.constants._scrnConstants.avalaibles.findIndex(
-                      (screen) =>
-                        screen.ID ===
-                        this.constants._scrnConstants.currentScreenInQueue.id
-                    )
-                  ],
-                group: this.constants._scrnConstants.currentGroup
-                  ? this.constants._scrnConstants.currentGroup
-                  : {},
-                newQueue: this.constants._scrnConstants.screensDetectedQueue,
-                newAvalaibles: this.constants._scrnConstants.avalaibles,
-              }); */
             }
           }
         }
@@ -539,54 +524,35 @@ export class ScreensService {
       newGroup,
       groupsScreen: this.constants._scrnConstants.groupsScreen,
     });
-    if (
-      this.constants._scrnConstants.groupsScreen &&
-      this.constants._scrnConstants.groupsScreen.length !== 0
-    ) {
-      this.api.apiGroupScreen
-        .createGroupScreen({
-          table: 'groups_screen',
-          columns: 'Name, DepartmentID',
-          data: `'${newGroup.Name}', ${newGroup.DepartmentID}`,
-        })
-        .subscribe({
-          next: (result) => {
-            if (result.body) {
-              console.log({ result, resBody: result.body[0] });
-              newGroup.ID = result.body[0].insertId;
-            }
-          },
-          complete: () => {
+    this.api.apiGroupScreen
+      .createGroupScreen({
+        table: 'groups_screen',
+        columns: 'Name, DepartmentID',
+        data: `'${newGroup.Name}', ${newGroup.DepartmentID}`,
+      })
+      .subscribe({
+        next: (result) => {
+          if (result.body) {
+            console.log({ result, resBody: result.body[0] });
+            newGroup.ID = result.body[0].insertId;
+          }
+        },
+        complete: () => {
+          if (
+            this.constants._scrnConstants.groupsScreen &&
+            this.constants._scrnConstants.groupsScreen.length !== 0
+          ) {
             this.constants._scrnConstants.groupsScreen.push(newGroup);
             this.constants._scrnConstants.activeGroupScreens.push(newGroup);
-            this.sw.emitEvento('group', {
-              groups: this.constants._scrnConstants.groupsScreen,
-            });
-          },
-        });
-    } else {
-      this.api.apiGroupScreen
-        .createGroupScreen({
-          table: 'groups_screen',
-          columns: 'Name, DepartmentID',
-          data: `'${newGroup.Name}', ${newGroup.DepartmentID}`,
-        })
-        .subscribe({
-          next: (result) => {
-            if (result.body) {
-              console.log({ result, resBody: result.body[0] });
-              newGroup.ID = result.body[0].insertId;
-            }
-          },
-          complete: () => {
+          } else {
             this.constants._scrnConstants.groupsScreen = [newGroup];
             this.constants._scrnConstants.activeGroupScreens = [newGroup];
-            this.sw.emitEvento('group', {
-              groups: this.constants._scrnConstants.groupsScreen,
-            });
-          },
-        });
-    }
+          }
+          this.sw.emitEvento('group', {
+            groups: this.constants._scrnConstants.groupsScreen,
+          });
+        },
+      });
   }
 
   getScreenGroups(user: User_) {

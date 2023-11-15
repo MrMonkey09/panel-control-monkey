@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { CookieService } from 'ngx-cookie-service';
-import { _apiFetchConstants } from '../constants/api-fetch.constants';
+import { _apiFetchConstants } from 'src/app/constants/api-fetch.constants';
 
 @Injectable({
   providedIn: 'root',

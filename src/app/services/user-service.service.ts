@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User_ } from '../interfaces/user';
+import { User_ } from 'src/app/interfaces/user';
 import { CookieService } from 'ngx-cookie-service';
 import { ScreensService } from './screens.service';
 import { ApiService } from './api/api.service';

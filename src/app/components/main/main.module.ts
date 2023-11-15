@@ -6,7 +6,7 @@ import { HomePage } from './pages/home/home.page';
 import { GroupsPanelModule } from './components/groups-panel/groups-panel.module';
 import { ScreensPanelModule } from './components/screens-panel/screens-panel.module';
 import { UsersPanelModule } from './components/users-panel/users-panel.module';
-import { SharedModule } from '../shared-module/shared.module';
+import { SharedModule } from 'src/app/components/shared-module/shared.module';
 
 const ModulesList = [
   CommonModule,

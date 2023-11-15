@@ -41,24 +41,6 @@ export class ManagementPromosComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.id = this.cookieService.get('user-id');
-    this.sw.callback.subscribe((res: any) => {
-      console.log('Cambio detectado: ', res);
-      if (res.screen || res.screenDel) {
-        this.vm.$updateScreen(res);
-      } else if (res.video) {
-        this.vm.$updateVideo(res);
-      } else if (res.groups) {
-        console.log('update groups');
-        setTimeout(() => {
-          if (this.constants._userConstants.user) {
-            this.constants._scrnConstants.groupsScreen = res.groups;
-            this.scrn.getScreenGroups(this.constants._userConstants.user);
-          }
-        }, 100);
-      } else if (res.cont) {
-        console.log('nuevo grupo, cantidad actual: ' + res.cont);
-      }
-    });
   }
 
   // Logica de la subida y despliegue de videos
@@ -106,68 +88,55 @@ export class ManagementPromosComponent implements OnInit {
         },
         complete: () => {
           console.log('carga completada');
-          this.api.apiScreen.matchScreen().subscribe({
-            next: (res) => {
-              console.log({ resData: this.resTemp.data });
-              this.vm.$updateVideo(this.resTemp.data);
-            },
-            complete: () => {
-              this.constants._apiConstants.recharge = false;
-              if (
-                this.constants._scrnConstants.groupsScreen &&
-                this.constants._scrnConstants.currentGroup
-              ) {
-                this.constants._scrnConstants.currentGroup.CurrentVideo =
-                  this.constants._videoConstants.video;
-                console.log({
-                  groupsScreen: this.constants._scrnConstants.groupsScreen,
-                  currentGroup: this.constants._scrnConstants.currentGroup,
-                });
-                this.constants._scrnConstants.groupsScreen[
-                  this.constants._scrnConstants.groupsScreen.findIndex(
-                    (group) =>
-                      this.constants._scrnConstants.currentGroup &&
-                      group.ID === this.constants._scrnConstants.currentGroup.ID
-                  )
-                ].CurrentVideo = this.constants._videoConstants.video;
-                console.log(
-                  this.constants._scrnConstants.groupsScreen[
-                    this.constants._scrnConstants.groupsScreen.findIndex(
-                      (group) =>
-                        this.constants._scrnConstants.currentGroup &&
-                        group.ID ===
-                          this.constants._scrnConstants.currentGroup.ID
-                    )
-                  ]
-                );
-              }
-              this.progress = {
-                value: 0,
-                inProgress: false,
-                message: 'Carga completada.',
-              };
-              console.log('completado');
-              setTimeout(() => {
-                this.constants._apiConstants.recharge = true;
-                this.progress = {
-                  value: 0,
-                  inProgress: false,
-                  message: '',
-                };
-              }, 2000);
-            },
-          });
+          console.log({ resData: this.resTemp.data });
+          this.vm.$updateVideo(this.resTemp.data);
+          this.constants._apiConstants.recharge = false;
+          if (
+            this.constants._scrnConstants.groupsScreen &&
+            this.constants._scrnConstants.currentGroup
+          ) {
+            this.constants._scrnConstants.currentGroup.CurrentVideo =
+              this.constants._videoConstants.video;
+            console.log({
+              groupsScreen: this.constants._scrnConstants.groupsScreen,
+              currentGroup: this.constants._scrnConstants.currentGroup,
+            });
+            this.constants._scrnConstants.groupsScreen[
+              this.constants._scrnConstants.groupsScreen.findIndex(
+                (group) =>
+                  this.constants._scrnConstants.currentGroup &&
+                  group.ID === this.constants._scrnConstants.currentGroup.ID
+              )
+            ].CurrentVideo = this.constants._videoConstants.video;
+            console.log(
+              this.constants._scrnConstants.groupsScreen[
+                this.constants._scrnConstants.groupsScreen.findIndex(
+                  (group) =>
+                    this.constants._scrnConstants.currentGroup &&
+                    group.ID === this.constants._scrnConstants.currentGroup.ID
+                )
+              ]
+            );
+          }
+          this.progress = {
+            value: 0,
+            inProgress: false,
+            message: 'Carga completada.',
+          };
+          console.log('completado');
+          setTimeout(() => {
+            this.constants._apiConstants.recharge = true;
+            this.progress = {
+              value: 0,
+              inProgress: false,
+              message: '',
+            };
+          }, 2000);
         },
       });
     } else {
       console.error('Por favor ingresar un archivo para guardar video');
     }
-  }
-
-  getVideo() {
-    this.api.apiScreen
-      .matchScreen()
-      .subscribe((res) => this.vm.$updateVideo(res));
   }
 
   delGroup(group: GroupScreen_, user: User_) {
@@ -226,9 +195,9 @@ export class ManagementPromosComponent implements OnInit {
                   this.constants._scrnConstants.screenList.findIndex(
                     (screenTemp) => screenTemp.ID === screenDel.ID
                   );
+                this.sw.emitEvento('screen', { screen: screenDel });
                 if (indexCurrentScreen < group.ScreenList.length) {
                   console.log('Ultima pantalla en lista del grupo');
-
                   this.api.apiGroupScreen
                     .deleteGroupScreen(group.ID ? group.ID : -1)
                     .subscribe({
@@ -260,11 +229,6 @@ export class ManagementPromosComponent implements OnInit {
                 }
               },
             });
-            /* this.sw.emitEvento('screen', {
-          screen: screenDel,
-          group: group,
-          newAvalaibles: this.constants._scrnConstants.avalaibles,
-        }); */
           },
         });
       }

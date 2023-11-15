@@ -1,6 +1,6 @@
 <nav class="navbar flex-center">
   <div class="navbar__logo flex-center">
-    <img src="../../../assets/images/logo_2.png" alt="logo" />
+    <img src="assets/images/logo_2.png" alt="logo" />
   </div>
   <div class="navbar__links">
     <ul
@@ -67,7 +67,11 @@
       </li>
       <li>{{ constants._userConstants.user.Name }}</li>
       <li>
-        {{ constants._userConstants.departmentList[constants._userConstants.depIndex].Name }}
+        {{
+          constants._userConstants.departmentList[
+            constants._userConstants.depIndex
+          ].Name
+        }}
       </li>
       <li>{{ constants._userConstants.user.Rut }}</li>
     </ul>
