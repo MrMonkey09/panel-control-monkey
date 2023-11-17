@@ -16,6 +16,7 @@ export class VideoPlayerPage implements OnInit {
   public indexGroup!: number;
   public screenRes!: { width: number; height: number };
   private resTemp!: any;
+  public videoPlayer!: any;
 
   constructor(
     public scrn: ScreensService,
@@ -32,7 +33,9 @@ export class VideoPlayerPage implements OnInit {
         if (
           !res.isOutListGroup &&
           screenDetected &&
-          screenDetected.IP === this.constants._scrnConstants.currentScreen.IP
+          (screenDetected.IP ===
+            this.constants._scrnConstants.currentScreen.IP ||
+            screenDetected.IP === this.constants._scrnConstants.currentScreen)
         ) {
           console.log('cambio en la pantalla actual');
           this.constants._scrnConstants.currentScreen = screenDetected;
@@ -106,33 +109,46 @@ export class VideoPlayerPage implements OnInit {
               screenDetected: this.constants._scrnConstants.currentScreen,
             });
             if (this.resTemp.length !== 0) {
-              this.constants._scrnConstants.currentScreen = this.resTemp.find(
+              const screenFound = this.resTemp.find(
                 (screen: any) =>
                   screen.IP === this.constants._scrnConstants.currentScreen
               );
-              console.log('Pantalla Activa encontrada');
-              this.resTemp = undefined;
-              if (this.constants._scrnConstants.currentScreen.CurrentGroupID) {
-                this.api.apiGroupScreen
-                  .getGroupScreen(
-                    this.constants._scrnConstants.currentScreen.CurrentGroupID
-                  )
-                  .subscribe({
-                    next: ([res]) => {
-                      if (res) {
-                        this.constants._scrnConstants.currentGroup = res;
-                      }
-                    },
-                    complete: () => {
-                      if (this.constants._scrnConstants.currentGroup) {
-                        console.log({
-                          currentGroup:
-                            this.constants._scrnConstants.currentGroup,
-                        });
-                        this.constants._videoConstants.recharge = true;
-                      }
-                    },
-                  });
+              if (screenFound && screenFound.DepartmentID) {
+                console.log('Pantalla Activa encontrada');
+                this.constants._scrnConstants.currentScreen = screenFound;
+                this.resTemp = undefined;
+                if (
+                  this.constants._scrnConstants.currentScreen.CurrentGroupID
+                ) {
+                  this.api.apiGroupScreen
+                    .getGroupScreen(
+                      this.constants._scrnConstants.currentScreen.CurrentGroupID
+                    )
+                    .subscribe({
+                      next: ([res]) => {
+                        if (res) {
+                          this.constants._scrnConstants.currentGroup = res;
+                        }
+                      },
+                      complete: () => {
+                        if (this.constants._scrnConstants.currentGroup) {
+                          console.log({
+                            currentGroup:
+                              this.constants._scrnConstants.currentGroup,
+                          });
+                          this.constants._videoConstants.recharge = true;
+                          console.log({ videoPlayer: this.videoPlayer });
+                        }
+                      },
+                    });
+                }
+              } else {
+                console.log('Pantalla no activada');
+                this.sw.emitEvento('screen', {
+                  screenDetected: this.constants._scrnConstants.currentScreen,
+                  isActive: false,
+                });
+                this.resTemp = undefined;
               }
             } else {
               console.log('Pantalla no activada');
