@@ -1,5 +1,6 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { group } from 'console';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { GroupScreen_ } from 'src/app/interfaces/group-screen';
@@ -69,7 +70,7 @@ export class ManagementPromosComponent implements OnInit {
       console.log(this.body.get('myFile'));
       this.api.apiSharedApi.apiUpload(this.body).subscribe({
         next: (res) => {
-          console.log(res);
+          console.log({ res });
           this.resTemp = res.body;
           if (res.type === HttpEventType.UploadProgress) {
             this.progressManagement
@@ -89,14 +90,13 @@ export class ManagementPromosComponent implements OnInit {
         complete: () => {
           console.log('carga completada');
           console.log({ resData: this.resTemp.data });
-          this.vm.$updateVideo(this.resTemp.data);
           this.constants._apiConstants.recharge = false;
           if (
             this.constants._scrnConstants.groupsScreen &&
             this.constants._scrnConstants.currentGroup
           ) {
             this.constants._scrnConstants.currentGroup.CurrentVideo =
-              this.constants._videoConstants.video;
+              this.constants._apiConstants.urlApi + this.resTemp.data.filename;
             console.log({
               groupsScreen: this.constants._scrnConstants.groupsScreen,
               currentGroup: this.constants._scrnConstants.currentGroup,
@@ -107,7 +107,8 @@ export class ManagementPromosComponent implements OnInit {
                   this.constants._scrnConstants.currentGroup &&
                   group.ID === this.constants._scrnConstants.currentGroup.ID
               )
-            ].CurrentVideo = this.constants._videoConstants.video;
+            ].CurrentVideo =
+              this.constants._apiConstants.urlApi + this.resTemp.data.filename;
             console.log(
               this.constants._scrnConstants.groupsScreen[
                 this.constants._scrnConstants.groupsScreen.findIndex(
@@ -124,14 +125,37 @@ export class ManagementPromosComponent implements OnInit {
             message: 'Carga completada.',
           };
           console.log('completado');
-          setTimeout(() => {
-            this.constants._apiConstants.recharge = true;
-            this.progress = {
-              value: 0,
-              inProgress: false,
-              message: '',
-            };
-          }, 2000);
+          const body = {
+            columnsData: `CurrentVideo = '${this.constants._apiConstants.urlApi}${this.resTemp.data.filename}'`,
+            criterion: `WHERE ID = ${this.constants._scrnConstants.currentGroup.ID}`,
+          };
+          if (this.constants._scrnConstants.currentGroup.ID) {
+            this.api.apiGroupScreen
+              .updateGroupScreen(
+                body,
+                this.constants._scrnConstants.currentGroup.ID
+              )
+              .subscribe({
+                next: (res) => {
+                  console.log({ res });
+                },
+                complete: () => {
+                  setTimeout(() => {
+                    this.constants._apiConstants.recharge = true;
+                    this.progress = {
+                      value: 0,
+                      inProgress: false,
+                      message: '',
+                    };
+                    this.sw.emitEvento('group', {
+                      groupDetected: this.constants._scrnConstants.currentGroup,
+                      isGroupActive: true,
+                      isUploadVideo: true,
+                    });
+                  }, 100);
+                },
+              });
+          }
         },
       });
     } else {
@@ -181,8 +205,22 @@ export class ManagementPromosComponent implements OnInit {
                     indexScreen
                   ].CurrentGroupID = undefined;
                 }
-                this.constants._scrnConstants.avalaibles.push(screenDel);
-                this.constants._scrnConstants.selected.push(screenDel);
+                if (
+                  this.constants._scrnConstants.avalaibles &&
+                  this.constants._scrnConstants.avalaibles.length !== 0
+                ) {
+                  this.constants._scrnConstants.avalaibles.push(screenDel);
+                } else {
+                  this.constants._scrnConstants.avalaibles = [screenDel];
+                }
+                if (
+                  this.constants._scrnConstants.selected &&
+                  this.constants._scrnConstants.selected.length !== 0
+                ) {
+                  this.constants._scrnConstants.selected.push(screenDel);
+                } else {
+                  this.constants._scrnConstants.selected = [screenDel];
+                }
                 group.ScreenList = group.ScreenList.filter(
                   (screenTemp) => screenTemp.ID !== screenDel.ID
                 );
@@ -195,7 +233,17 @@ export class ManagementPromosComponent implements OnInit {
                   this.constants._scrnConstants.screenList.findIndex(
                     (screenTemp) => screenTemp.ID === screenDel.ID
                   );
-                this.sw.emitEvento('screen', { screen: screenDel });
+                console.log({ indexCurrentScreen });
+                this.sw.emitEvento('screen', {
+                  screenDetected: screenDel,
+                  isActive: true,
+                  isOutListGroup: true,
+                });
+                this.sw.emitEvento('group', {
+                  groupDetected: group,
+                  isGroupActive: true,
+                  isOutListGroup: true,
+                });
                 if (indexCurrentScreen < group.ScreenList.length) {
                   console.log('Ultima pantalla en lista del grupo');
                   this.api.apiGroupScreen
@@ -217,13 +265,12 @@ export class ManagementPromosComponent implements OnInit {
                               next: (res) => {
                                 console.log({ res });
                               },
-                              complete: () => {},
                             });
                         }
-                        this.scrn.getScreenGroups(user);
                         this.sw.emitEvento('group', {
-                          groups: this.constants._scrnConstants.groupsScreen,
+                          groupDetectedDel: group,
                         });
+                        this.scrn.getScreenGroups(user);
                       },
                     });
                 }
@@ -232,6 +279,25 @@ export class ManagementPromosComponent implements OnInit {
           },
         });
       }
+    } else {
+      this.api.apiGroupScreen
+        .deleteGroupScreen(group.ID ? group.ID : -1)
+        .subscribe({
+          next: (res) => {
+            this.resTemp = res;
+          },
+          complete: () => {
+            console.log({ resTemp: this.resTemp });
+            this.constants._scrnConstants.groupsScreen =
+              this.constants._scrnConstants.groupsScreen.filter(
+                (groupTemp) => groupTemp.ID !== group.ID
+              );
+            this.sw.emitEvento('group', {
+              groupDetectedDel: group,
+            });
+            this.scrn.getScreenGroups(user);
+          },
+        });
     }
   }
 }

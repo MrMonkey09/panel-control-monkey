@@ -98,10 +98,13 @@ export class ScreensService {
               activeGroups: this.constants._scrnConstants.activeGroupScreens,
             });
             this.sw.emitEvento('screen', {
-              screen: screenSelected,
+              screenDetected: screenSelected,
+              isActive: true,
+              isAddListGroup: true,
             });
             this.sw.emitEvento('group', {
-              group: this.constants._scrnConstants.currentGroup,
+              groupDetected: this.constants._scrnConstants.currentGroup,
+              isGroupActive: true,
             });
           },
         });
@@ -149,17 +152,17 @@ export class ScreensService {
               this.constants._scrnConstants.avalaibles &&
               this.constants._scrnConstants.avalaibles.length !== 0
             ) {
-              this.constants._scrnConstants.avalaibles = [screenSelected];
-            } else {
               this.constants._scrnConstants.avalaibles.push(screenSelected);
+            } else {
+              this.constants._scrnConstants.avalaibles = [screenSelected];
             }
             if (
               this.constants._scrnConstants.selected &&
               this.constants._scrnConstants.selected.length !== 0
             ) {
-              this.constants._scrnConstants.selected = [screenSelected];
-            } else {
               this.constants._scrnConstants.selected.push(screenSelected);
+            } else {
+              this.constants._scrnConstants.selected = [screenSelected];
             }
             if (
               this.constants._scrnConstants.currentGroup &&
@@ -174,10 +177,14 @@ export class ScreensService {
                 GrupoSeleccionado: this.constants._scrnConstants.currentGroup,
               });
               this.sw.emitEvento('screen', {
-                screen: screenSelected,
+                screenDetected: screenSelected,
+                isActive: true,
+                isOutListGroup: true,
               });
               this.sw.emitEvento('group', {
-                group: this.constants._scrnConstants.currentGroup,
+                groupDetected: this.constants._scrnConstants.currentGroup,
+                isGroupActive: true,
+                isOutListGroup: true,
               });
             }
           },
@@ -332,8 +339,11 @@ export class ScreensService {
           );
         this.getSelectedScreens(this.constants._userConstants.user);
         this.sw.emitEvento('screen', {
-          screen: screen,
+          screenDetected: screen,
+          isActive: true,
+          isActivated: true,
         });
+        console.log('Pantalla detectada Activada');
       },
     });
   }
@@ -341,22 +351,26 @@ export class ScreensService {
   desactivateScreen(screen: Screen_) {
     console.log('Desactivando pantalla...');
     console.log({ 'Pantalla desactivada': screen });
+    const departmentIDTemp = screen.DepartmentID;
     this.api.apiScreen.deleteScreen(screen.ID).subscribe({
       next: (res) => {
         console.log({ res });
       },
       complete: () => {
+        const screenDel = { ID: screen.ID, IP: screen.IP };
         this.constants._scrnConstants.screensDetectedQueue &&
         this.constants._scrnConstants.screensDetectedQueue.length !== 0
-          ? this.constants._scrnConstants.screensDetectedQueue.push(screen)
-          : (this.constants._scrnConstants.screensDetectedQueue = [screen]);
+          ? this.constants._scrnConstants.screensDetectedQueue.push(screenDel)
+          : (this.constants._scrnConstants.screensDetectedQueue = [screenDel]);
         this.constants._scrnConstants.screenList =
           this.constants._scrnConstants.screenList.filter(
             (screenTemp) => screenTemp.IP !== screen.IP
           );
         this.getSelectedScreens(this.constants._userConstants.user);
         this.sw.emitEvento('screen', {
-          screen: screen,
+          screenDetected: screenDel,
+          isActive: false,
+          departmentID: departmentIDTemp,
         });
       },
     });
@@ -388,7 +402,8 @@ export class ScreensService {
         });
         this.getSelectedScreens(this.constants._userConstants.user);
         this.sw.emitEvento('screen', {
-          screen: newScreenInfo,
+          screenDetected: newScreenInfo,
+          isActive: true,
         });
       },
     });
@@ -430,6 +445,7 @@ export class ScreensService {
                 LocationID: locationTemp ? locationTemp.ID : -1,
                 DepartmentID: departmentTemp ? departmentTemp.ID : -1,
               };
+              this.updateScreen(newScreenInfo);
             }
           }
         }
@@ -458,7 +474,6 @@ export class ScreensService {
               };
               console.log({ newScreenAvalaible });
               this.activateScreen(newScreenAvalaible);
-              console.log('Pantalla detectada Activada');
             } else {
               console.error('Ingrese un departamento valido por favor');
             }
@@ -549,7 +564,7 @@ export class ScreensService {
             this.constants._scrnConstants.activeGroupScreens = [newGroup];
           }
           this.sw.emitEvento('group', {
-            groups: this.constants._scrnConstants.groupsScreen,
+            newGroupDetected: newGroup,
           });
         },
       });

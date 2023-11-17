@@ -17,75 +17,41 @@ export class VideoManagementService {
     console.log('VideoManagement Servicio Cargado');
   }
 
-  public $updateVideo(res: any) {
-    console.log('Cambio en video detectado...');
-    console.log({ resUpdateVideo: res });
-    /* let indexGroup: number;
-    if (this.constants._scrnConstants.groupsScreen) {
-      console.log({ resGroup: res });
-      indexGroup = this.constants._scrnConstants.groupsScreen.findIndex(
-        (group) =>
-          group.ID === res.group
-            ? res.group.ID
-            : this.constants._scrnConstants.currentGroup.ID
-      );
-    } else {
-      this.constants._scrnConstants.groupsScreen = [res.group];
-      indexGroup = this.constants._scrnConstants.groupsScreen.findIndex(
-        (group) => group.ID === res.group.ID
-      );
-    }
-    console.log('$updateVideo 1 Gatillado: ', res);
-    if (res.filename) {
-      console.log({ resFileName: res.filename });
-      const body = {
-        columnsData: `CurrentVideo = '${this.constants._apiConstants.urlApi}${res.filename}'`,
-        criterion: `WHERE ID = ${this.constants._scrnConstants.currentGroup.ID}`,
-      };
-      this.apiService.apiGroupScreen
-        .updateGroupScreen(
-          body,
-          this.constants._scrnConstants.currentGroup.ID
-            ? this.constants._scrnConstants.currentGroup.ID
-            : -1
-        )
-        .subscribe({
-          next: (res) => {
-            console.log({ resUpdate: res });
-          },
-          complete: () => {
-            this.constants._videoConstants.recharge = false;
-            this.constants._videoConstants.video =
-              this.constants._apiConstants.urlApi + res.filename;
-            this.constants._scrnConstants.currentGroup.CurrentVideo =
-              this.constants._apiConstants.urlApi + res.filename;
-            this.constants._scrnConstants.groupsScreen[
-              indexGroup
-            ].CurrentVideo = this.constants._apiConstants.urlApi + res.filename;
-            this.sw.emitEvento('video', {
-              video: this.constants._videoConstants.video,
-              group: this.constants._scrnConstants.currentGroup,
-            });
-            setTimeout(() => {
-              this.constants._videoConstants.recharge = true;
-            }, 100);
-          },
-        });
-    } else if (res.video) {
-      console.log({ resVideo: res.video });
-      this.constants._scrnConstants.groupsScreen[indexGroup].CurrentVideo =
-        res.video;
-      console.log(this.constants._scrnConstants.groupsScreen[indexGroup]);
-      this.constants._videoConstants.recharge = false;
-      setTimeout(() => {
-        this.constants._videoConstants.recharge = true;
-      }, 100);
-    } */
-  }
-
   public $updateScreen(res: any) {
+    let screen = res;
     console.log('Cambio en pantalla detectado...');
-    console.log({ resUpdateScreen: res });
+    console.log({ screenUpdate: screen });
+    if (this.constants._userConstants.user) {
+      console.log('Vista de usuario');
+      if (screen.isActive) {
+        console.log('Pantalla activa detectada');
+      } else {
+        console.log('Pantalla desactivada detectada');
+        screen = {
+          ID: this.constants._scrnConstants.screenDetectedCount++,
+          IP: res.screenDetected,
+        };
+        console.log({ screen });
+        const isInQueue =
+          this.constants._scrnConstants.screensDetectedQueue?.find(
+            (screenTemp) => screenTemp.IP === screen.IP
+          );
+        if (!isInQueue) {
+          if (
+            this.constants._scrnConstants.screensDetectedQueue &&
+            this.constants._scrnConstants.screensDetectedQueue.length !== 0
+          ) {
+            console.log('Cola detectada');
+            this.constants._scrnConstants.screensDetectedQueue.push(screen);
+          } else {
+            console.log('Cola vacia');
+            this.constants._scrnConstants.screensDetectedQueue = [screen];
+          }
+        }
+      }
+    } else if (this.constants._scrnConstants.currentScreen) {
+      console.log('Vista de pantalla');
+    }
     /* this.constants._videoConstants.recharge = false;
     console.log('$updateScreen Gatillado: ', res);
     if (res.groups) {

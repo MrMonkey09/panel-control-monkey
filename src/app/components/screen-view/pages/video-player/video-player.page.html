@@ -4,10 +4,10 @@
   defaultMuted
   autoplay
   loop
-  *ngIf="constants._scrnConstants.currentGroup"
+  *ngIf="constants._videoConstants.recharge"
 >
   <source
-    *ngIf="constants._scrnConstants.currentGroup.CurrentVideo"
+    *ngIf="constants._scrnConstants.currentGroup && constants._scrnConstants.currentGroup.CurrentVideo !== ''"
     [src]="constants._scrnConstants.currentGroup.CurrentVideo"
     type="video/mp4"
   />
